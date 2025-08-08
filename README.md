@@ -107,3 +107,4 @@ Organize your custom types and enums in dedicated files located in the `@types/`
 
 - Single spa
 - add esling.config.js
+- migrate to joi-ui
