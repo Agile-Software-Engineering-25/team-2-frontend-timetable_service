@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/joy";
 import LanguageSelectorComponent from "@components/LanguageSelectorComponent/LanguageSelectorComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { Button } from "@agile-software/shared-components";
+import { Button } from "@mui/joy";
 
 const Home = () => {
   const { t } = useTranslation();
