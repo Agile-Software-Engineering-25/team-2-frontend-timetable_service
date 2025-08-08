@@ -24,10 +24,15 @@ const customTheme = createCustomTheme({
   },
 });
 
-function App() {
+type AppProps = {
+  basename?: string;
+};
+
+function App({ basename }: AppProps) {
   return (
+    // @ts-expect-error External shared theme type is compatible at runtime
     <CssVarsProvider theme={customTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <RoutingComponent />
       </BrowserRouter>
     </CssVarsProvider>

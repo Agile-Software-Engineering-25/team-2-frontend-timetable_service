@@ -111,6 +111,51 @@ It is a git submodule located at the root of the project.
 
 You can use the library as any other npm package. If you want to change anything on the library see the Contribution Documentation: [here will be a link to docusaurus](someLink)
 
+## Single-spa microfrontend
+
+This template builds as a microfrontend that can run standalone for local development or be mounted by a single-spa host.
+
+- Build output: ES module library at dist/index.js exporting bootstrap, mount, unmount
+- Shared deps are externalized: react, react-dom, react-router, single-spa, single-spa-react
+- Local dev: index.html loads src/standalone.tsx to render the app without a host
+
+### Local development
+
+```bash
+npm i
+npm run dev # serves standalone at http://localhost:5173
+```
+
+### Build for host consumption
+
+```bash
+npm run build
+```
+
+Host integrates via import maps and registerApplication:
+
+```js
+// import map
+{
+  "imports": {
+    "@org/frontend-template": "https://cdn.example.com/frontend-template/index.js",
+    "react": "https://cdn.skypack.dev/react",
+    "react-dom": "https://cdn.skypack.dev/react-dom"
+  }
+}
+
+// host code
+registerApplication({
+  name: "@org/frontend-template",
+  app: () => import("@org/frontend-template"),
+  activeWhen: (loc) => loc.pathname.startsWith("/weather"),
+  customProps: {
+  // optional: basename, leave undefined if your internal routes include '/weather'
+  initialLocale: "en"
+  }
+});
+```
+
 # Todo
 
 - finish README
@@ -118,7 +163,5 @@ You can use the library as any other npm package. If you want to change anything
   - explain how to setup the application locally
 - add submodule
 - add shared components project
-
-- Single spa
-- add esling.config.js
-- migrate to joi-ui
+- add eslint.config.js
+- migrate to joy-ui

@@ -17,4 +17,31 @@ export default defineConfig({
       "@stores": path.resolve(__dirname, "./src/stores"),
     },
   },
+  build: {
+    sourcemap: true,
+    lib: {
+      entry: path.resolve(__dirname, "src/single-spa.tsx"),
+      name: "frontend-template",
+      formats: ["es"],
+      fileName: () => "index.js",
+    },
+    rollupOptions: {
+      external: [
+        "react",
+        "react-dom",
+        "react-router",
+        "react-router-dom",
+        "single-spa",
+        "single-spa-react",
+        "@agile-software/shared-components",
+      ],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+  },
+  base: "",
 });
