@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 const LanguageSelectorComponent = () => {

@@ -1,5 +1,5 @@
 {
-  "name": "bifrost-frontend",
+  "name": "frontend-template",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,12 +9,15 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "init": "sh ./scripts/prepare.sh",
+    "updateSharedComponents": "sh ./scripts/updateSharedComponents.sh"
   },
   "dependencies": {
+    "@agile-software/shared-components": "file:./shared-components",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.2.0",
+    "@mui/joy": "^5.0.0-beta.52",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
     "i18next": "^25.3.2",

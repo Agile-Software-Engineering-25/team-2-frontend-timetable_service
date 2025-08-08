@@ -4,7 +4,15 @@ This project contains example use cases for all technologies listed below. (It i
 
 # Setup
 
-- `npm i` - to setup the application for the first time
+Execute the following commands when you clone the project for the first time:
+
+```bash
+npm run init
+npm i
+```
+
+# Commands
+
 - `npm run dev` - to run a local dev server with hot reload
 - `npm run build` - package the application
 - `npm run cy:open` - open the UI of Cypress for testing
@@ -95,7 +103,13 @@ API docs: https://axios-http.com/docs/api_intro
 
 Organize your custom types and enums in dedicated files located in the `@types/` directory. In the `@types/` directory, you can put your `customTypes.ts` files and import them into your application.
 
-# Submodules / shared-components
+# shared-components
+
+This project uses a custom component library. $\to$ shared-components.
+
+It is a git submodule located at the root of the project.
+
+You can use the library as any other npm package. If you want to change anything on the library see the Contribution Documentation: [here will be a link to docusaurus](someLink)
 
 # Todo
 

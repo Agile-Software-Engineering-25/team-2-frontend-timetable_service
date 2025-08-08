@@ -1,7 +1,8 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/joy";
 import LanguageSelectorComponent from "@components/LanguageSelectorComponent/LanguageSelectorComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { Button } from "@agile-software/shared-components";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -9,14 +10,10 @@ const Home = () => {
 
   return (
     <Box sx={{ padding: 2, maxWidth: 700, mx: "auto" }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
-        {t("pages.home.title")}
-      </Typography>
-      <Typography align="center" variant="body1" marginBottom={2}>
-        <Button onClick={() => navigate("/weather")}>
-          {t("pages.home.weatherButton")}{" "}
-        </Button>
-      </Typography>
+      <Typography>{t("pages.home.title")}</Typography>
+      <Button color="neutral" onClick={() => navigate("/weather")}>
+        {t("pages.home.weatherButton")}
+      </Button>
       <LanguageSelectorComponent />
     </Box>
   );
