@@ -1,9 +1,10 @@
 import { BrowserRouter } from "react-router";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
 import { createCustomTheme } from "@agile-software/shared-components";
-import { CssVarsProvider } from "@mui/joy";
+import { THEME_ID as MATERIAL_THEME_ID, ThemeProvider } from "@mui/material";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy";
 
-const customTheme = createCustomTheme({
+const theme = createCustomTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -13,24 +14,18 @@ const customTheme = createCustomTheme({
       },
     },
   },
-  components: {
-    JoyButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "8px",
-        },
-      },
-    },
-  },
+  components: {},
 });
 
 function App() {
   return (
-    <CssVarsProvider theme={customTheme}>
-      <BrowserRouter>
-        <RoutingComponent />
-      </BrowserRouter>
-    </CssVarsProvider>
+    <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
+      <JoyCssVarsProvider>
+        <BrowserRouter>
+          <RoutingComponent />
+        </BrowserRouter>
+      </JoyCssVarsProvider>
+    </ThemeProvider>
   );
 }
 
