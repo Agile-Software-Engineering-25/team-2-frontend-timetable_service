@@ -113,12 +113,5 @@ You can use the library as any other npm package. If you want to change anything
 
 # Todo
 
-- finish README
-  - add explanation of what we are doing with submodules + how to setup and interact with them
-  - explain how to setup the application locally
-- add submodule
-- add shared components project
-
 - Single spa
 - add esling.config.js
-- migrate to joi-ui
