@@ -110,7 +110,7 @@ This project uses a custom component library. $\to$ shared-components.
 
 It is a git submodule located at the root of the project.
 
-You can use the library as any other npm package. If you want to change anything on the library see the Contribution Documentation: [here will be a link to docusaurus](someLink)
+You can use the library as any other npm package. If you want to change anything on the library see the Contribution Documentation: [Contribute to shared-components](https://agile-software-engineering-25.github.io/documentation/docs/Frontend/shared-components/developing)
 
 # Todo
 
