@@ -17,6 +17,7 @@ npm i
 - `npm run build` - package the application
 - `npm run cy:open` - open the UI of Cypress for testing
 - `npm run cy:run` - run all tests with a headless browser
+- `npm run updateSharedComponents` - update the shared-components library to the newest version
 
 # Technologies
 
