@@ -1,10 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import vitePluginSingleSpa from "vite-plugin-single-spa";
+import vitePluginReactHMR from "vite-plugin-react-single-spa-hmr";
+
+const PORT = parseInt(process.env.PORT ?? "5173");
+const BASE_URL_DEPLOYMENT = `http://localhost:${PORT}/`;
+
+const ENTRY_POINT = "src/singleSpa.tsx";
+
+const NPM_EXTERNALS: string[] = ["react", "react-dom"];
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ command }) => ({
+  base: command === "serve" ? "/" : BASE_URL_DEPLOYMENT,
+  plugins: [
+    react(),
+    command === "serve" && vitePluginReactHMR(ENTRY_POINT),
+    vitePluginSingleSpa({
+      type: "mife",
+      serverPort: PORT,
+      spaEntryPoints: ENTRY_POINT,
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -18,30 +36,8 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true,
-    lib: {
-      entry: path.resolve(__dirname, "src/single-spa.tsx"),
-      name: "frontend-template",
-      formats: ["es"],
-      fileName: () => "index.js",
-    },
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "react-router",
-        "react-router-dom",
-        "single-spa",
-        "single-spa-react",
-        "@agile-software/shared-components",
-      ],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
+      external: [...NPM_EXTERNALS],
     },
   },
-  base: "",
-});
+}));
