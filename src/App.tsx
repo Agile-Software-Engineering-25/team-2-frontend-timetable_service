@@ -33,6 +33,7 @@ type AppProps = {
 };
 
 function App({ basename }: AppProps) {
+  const unusedVar = 'test';
   return (
     <Provider store={store}>
       <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
