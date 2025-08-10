@@ -14,14 +14,26 @@ const theme = createCustomTheme({
       },
     },
   },
-  components: {},
+  components: {
+    JoyButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+        },
+      },
+    },
+  },
 });
 
-function App() {
+type AppProps = {
+  basename?: string;
+};
+
+function App({ basename }: AppProps) {
   return (
     <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
       <JoyCssVarsProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <RoutingComponent />
         </BrowserRouter>
       </JoyCssVarsProvider>
