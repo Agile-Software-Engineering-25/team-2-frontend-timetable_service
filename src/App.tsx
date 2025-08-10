@@ -1,9 +1,10 @@
 import { BrowserRouter } from "react-router";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
 import { createCustomTheme } from "@agile-software/shared-components";
-import { CssVarsProvider } from "@mui/joy";
+import { THEME_ID as MATERIAL_THEME_ID, ThemeProvider } from "@mui/material";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy";
 
-const customTheme = createCustomTheme({
+const theme = createCustomTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -30,12 +31,13 @@ type AppProps = {
 
 function App({ basename }: AppProps) {
   return (
-    // @ts-expect-error External shared theme type is compatible at runtime
-    <CssVarsProvider theme={customTheme}>
-      <BrowserRouter basename={basename}>
-        <RoutingComponent />
-      </BrowserRouter>
-    </CssVarsProvider>
+    <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
+      <JoyCssVarsProvider>
+        <BrowserRouter basename={basename}>
+          <RoutingComponent />
+        </BrowserRouter>
+      </JoyCssVarsProvider>
+    </ThemeProvider>
   );
 }
 

@@ -158,10 +158,5 @@ registerApplication({
 
 # Todo
 
-- finish README
-  - add explanation of what we are doing with submodules + how to setup and interact with them
-  - explain how to setup the application locally
-- add submodule
-- add shared components project
-- add eslint.config.js
-- migrate to joy-ui
+- Single spa
+- add esling.config.js
