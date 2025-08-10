@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { SliceState } from "..";
-import type { WeatherData } from "@custom-types/weather";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { SliceState } from '..';
+import type { WeatherData } from '@custom-types/weather';
 
 const weatherSlice = createSlice({
-  name: "weatherSlice",
+  name: 'weatherSlice',
   initialState: {
     data: {
       temperature: 20,
     },
-    state: "idle",
+    state: 'idle',
     error: null,
   } as SliceState<WeatherData>,
   reducers: {

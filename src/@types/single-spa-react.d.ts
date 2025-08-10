@@ -1,6 +1,6 @@
-declare module "single-spa-react" {
-  import type * as React from "react";
-  import type * as ReactDOMClient from "react-dom/client";
+declare module 'single-spa-react' {
+  import type * as React from 'react';
+  import type * as ReactDOMClient from 'react-dom/client';
 
   export default function singleSpaReact<P = Record<string, unknown>>(config: {
     React: typeof React;

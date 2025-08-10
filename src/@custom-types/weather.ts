@@ -3,6 +3,6 @@ export interface WeatherData {
 }
 
 export enum Units {
-  SI = "si",
-  DWD = "dwd",
+  SI = 'si',
+  DWD = 'dwd',
 }

@@ -1,23 +1,23 @@
-import {Units} from "@custom-types/weather";
-import {useTypedSelector} from "@stores/rootReducer";
-import {setTemperature} from "@stores/slices/weatherSlice";
-import useApi from "@hooks/useApi";
-import {Box, Button, Typography} from "@mui/joy";
-import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
-import LanguageSelectorComponent from "@components/LanguageSelectorComponent/LanguageSelectorComponent.tsx";
+import { Units } from '@custom-types/weather';
+import { useTypedSelector } from '@stores/rootReducer';
+import { setTemperature } from '@stores/slices/weatherSlice';
+import useApi from '@hooks/useApi';
+import { Box, Button, Typography } from '@mui/joy';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import LanguageSelectorComponent from '@components/LanguageSelectorComponent/LanguageSelectorComponent.tsx';
 
 const Weather = () => {
-  const {t} = useTranslation();
-  const {getCurrentWeather} = useApi();
+  const { t } = useTranslation();
+  const { getCurrentWeather } = useApi();
   const weather = useTypedSelector((state) => state.weather.data);
   const dispatch = useDispatch();
 
   return (
-    <Box sx={{padding: 2, maxWidth: 700, mx: "auto"}}>
-      <Typography>{t("pages.weather.title")}</Typography>
-      <Typography>{t("pages.weather.description")}</Typography>
-      <Box sx={{display: "flex", justifyContent: "center", marginTop: 2}}>
+    <Box sx={{ padding: 2, maxWidth: 700, mx: 'auto' }}>
+      <Typography>{t('pages.weather.title')}</Typography>
+      <Typography>{t('pages.weather.description')}</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
         <Button
           color="neutral"
           onClick={async () => {
@@ -29,14 +29,14 @@ const Weather = () => {
             dispatch(setTemperature(currentWeather.weather.temperature));
           }}
         >
-          {t("pages.weather.getWeatherButton")}
+          {t('pages.weather.getWeatherButton')}
         </Button>
       </Box>
-      <Typography>{t("pages.weather.weatherHeader")}:</Typography>
+      <Typography>{t('pages.weather.weatherHeader')}:</Typography>
       <Typography>
-        {t("pages.weather.temperature")}: {weather.temperature} °C
+        {t('pages.weather.temperature')}: {weather.temperature} °C
       </Typography>
-      <LanguageSelectorComponent/>
+      <LanguageSelectorComponent />
     </Box>
   );
 };

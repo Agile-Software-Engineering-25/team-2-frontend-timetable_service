@@ -1,6 +1,6 @@
-import Weather from "@pages/Weather/Weather";
-import Home from "@pages/Home/Home";
-import { Route, Routes } from "react-router";
+import Weather from '@pages/Weather/Weather';
+import Home from '@pages/Home/Home';
+import { Route, Routes } from 'react-router';
 
 const RoutingComponent = () => {
   return (
