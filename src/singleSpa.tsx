@@ -19,7 +19,9 @@ const lc = singleSpaReact({
 });
 // IMPORTANT:  Because the file is named spa.tsx, the string 'spa'
 // must be passed to the call to cssLifecycleFactory.
-const cssLc = cssLifecycleFactory("spa" /* optional factory options */);
+// IMPORTANT:  Because the file is named singleSpa.tsx, the string 'singleSpa'
+// must be passed to the call to cssLifecycleFactory.
+const cssLc = cssLifecycleFactory("singleSpa" /* optional factory options */);
 export const bootstrap = [cssLc.bootstrap, lc.bootstrap];
 export const mount = [cssLc.mount, lc.mount];
 export const unmount = [cssLc.unmount, lc.unmount];
