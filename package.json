@@ -18,6 +18,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/joy": "^5.0.0-beta.52",
+    "@mui/material": "^7.3.1",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
     "i18next": "^25.3.2",
@@ -25,7 +26,8 @@
     "react-dom": "^19.1.0",
     "react-i18next": "^15.6.1",
     "react-redux": "^9.2.0",
-    "react-router": "^7.7.1"
+    "react-router": "^7.7.1",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
