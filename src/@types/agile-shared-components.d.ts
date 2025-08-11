@@ -1,7 +1,5 @@
-declare module "@agile-software/shared-components" {
-  export const createCustomTheme: (
-    config: Record<string, unknown>
-  ) =>
+declare module '@agile-software/shared-components' {
+  export const createCustomTheme: (config: Record<string, unknown>) =>
     | { $$joy: Record<string, unknown> }
     | {
         cssVarPrefix?: string;

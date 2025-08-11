@@ -1,7 +1,7 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import germanTranslation from "./de-DE/translation.json";
-import englishTranslation from "./en-US/translation.json";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import germanTranslation from './de-DE/translation.json';
+import englishTranslation from './en-US/translation.json';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -12,7 +12,7 @@ i18n.use(initReactI18next).init({
       translation: englishTranslation,
     },
   },
-  lng: "de",
+  lng: 'de',
   interpolation: {
     escapeValue: false,
   },
