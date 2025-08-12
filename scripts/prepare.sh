@@ -3,7 +3,7 @@
 echo "Running prepare script!"
 
 # Initialize shared-components
-git submodule update --init --recursive 
+git submodule update --init --recursive
 cd shared-components
 npm install
 npm run build

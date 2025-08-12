@@ -12,7 +12,8 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "init": "sh ./scripts/prepare.sh",
-    "updateSharedComponents": "sh ./scripts/updateSharedComponents.sh"
+    "updateSharedComponents": "sh ./scripts/updateSharedComponents.sh",
+    "ci": "start-server-and-test dev http://localhost:5173 cy:run"
   },
   "dependencies": {
     "@agile-software/shared-components": "file:./shared-components",
@@ -63,6 +64,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
     "prettier": "^3.6.2",
+    "start-server-and-test": "^2.0.13",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^5.4.19",
