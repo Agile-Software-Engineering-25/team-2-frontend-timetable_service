@@ -1,51 +1,47 @@
-# =================================================================
-# Multi-Stage Docker Build für React/Vite Frontend
-# =================================================================
-
-# Stage 1: Build Env
-FROM node:18-alpine AS builder
+# Stage 1: Dependencies Installation
+FROM node:20-alpine AS deps
 WORKDIR /app
 
-# Setup pnpm & package dependencies
-RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml ./
+# Package Manager Setup für bessere Performance
+RUN apk add --no-cache libc6-compat && \
+    npm config set fund false && \
+    npm config set audit false
 
-# Shared Components Mock -> lokale Dependencies
-RUN mkdir -p shared-components && \
-    if [ ! -f shared-components/package.json ]; then \
-        echo '{"name": "@agile-software/shared-components", "version": "1.0.0", "main": "index.js", "type": "module", "exports": {".": "./index.js", "./createCustomTheme": "./createCustomTheme.js"}}' > shared-components/package.json && \
-        echo 'export const createCustomTheme = (config) => config;' > shared-components/createCustomTheme.js && \
-        echo 'export const createCustomTheme = (config) => config;' > shared-components/index.js; \
-    fi
+# Dependencies installieren (separates Layer für besseres Caching)
+COPY package*.json ./
+RUN npm install --omit=dev --no-optional && \
+    npm cache clean --force
 
-COPY shared-components ./shared-components
-RUN pnpm install --prefer-offline
+# Stage 2: Production Runtime
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Build Application
-COPY . .
-RUN pnpm run build
+# Security: Non-root User erstellen
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nodejs
 
-# Production Env
-FROM nginx:alpine AS production
+# Optimierte Dependencies von deps stage
+COPY --from=deps --chown=nodejs:nodejs /app/node_modules ./node_modules
 
-# Setup Static Files und nginx Config
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf.template
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+# Application Code
+COPY --chown=nodejs:nodejs . .
 
-# Runtime Env Setup
-RUN chmod +x /docker-entrypoint.sh && \
-    apk add --no-cache gettext && \
-    addgroup -g 1001 -S appuser && \
-    adduser -S appuser -u 1001 -G appuser
+# Env Variables mit sinnvollen Defaults
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV DATABASE_URL=mongodb://localhost:27017/timetable
+ENV LOG_LEVEL=info
 
-# Env Variablen und Container Config
-ENV PORT=80
-ENV API_URL=http://host.docker.internal:3000/api/
+# Security und Performance
+USER nodejs
 EXPOSE $PORT
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/health || exit 1
+# Health Check für Container Monitoring
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD node healthcheck.js || exit 1
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# Graceful Shutdown Support
+STOPSIGNAL SIGTERM
+
+# Application starten
+CMD ["node", "server.js"]

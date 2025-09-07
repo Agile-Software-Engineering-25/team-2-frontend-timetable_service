@@ -1,44 +1,65 @@
 node_modules
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
+.pnpm-store
 
 dist
 build
+coverage
+.nyc_output
 
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
+!.env.example
 
 .vscode
 .idea
 *.swp
 *.swo
-
-.git
-.gitignore
-
-coverage
-cypress/videos
-cypress/screenshots
-
-*.tmp
-*.temp
 .DS_Store
 Thumbs.db
 
+.git
+.gitignore
+.gitattributes
+
+test
+tests
+__tests__
+*.test.js
+*.spec.js
+jest.config.js
+cypress
+
 logs
 *.log
+loglevel
+
+pids
+*.pid
+*.seed
+*.pid.lock
+
+*.tmp
+*.temp
 
 README.md
+CHANGELOG.md
 docs/
+*.md
 
 .github
 .gitlab-ci.yml
+.travis.yml
+.circleci
 
 Dockerfile*
 docker-compose*
 .dockerignore
+
+.eslintrc*
+.prettierrc*
+.prettierignore
+
+*.tsbuildinfo
+tsconfig*.json
