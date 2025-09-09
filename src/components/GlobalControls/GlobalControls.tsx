@@ -101,6 +101,13 @@ const GlobalControls = () => {
             >
               Joy Color Showcase
             </Button>
+            <Button
+              variant="soft"
+              color="neutral"
+              onClick={() => navigate('/user')}
+            >
+              User Data Showcase
+            </Button>
           </Box>
         )}
       </Box>
