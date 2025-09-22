@@ -40,4 +40,9 @@ export default defineConfig(({ command }) => ({
       external: [...NPM_EXTERNALS],
     },
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000", // alle /api-Requests → Backend
+    },
+  },
 }));
