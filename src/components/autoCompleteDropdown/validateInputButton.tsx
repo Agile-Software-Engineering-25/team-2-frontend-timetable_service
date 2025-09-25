@@ -1,4 +1,4 @@
-import { Button } from '@agile-software/shared-components/src';
+import { Button } from '@mui/material';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
 export default function ValidateInputButton() {
