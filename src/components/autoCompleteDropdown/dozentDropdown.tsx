@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
-const DOZENTEN: string[] = [
+export const DOZENTEN: string[] = [
   'Folk, Florian',
   'Grebner, Olaf',
   'Bach, Oliver',

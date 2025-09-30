@@ -34,9 +34,12 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       setSelectedDate(selectedEvent.start);
       setStartTime(selectedEvent.start);
       setEndTime(selectedEvent.end);
-      const [modulName, studiengruppeRaw] = selectedEvent.title.split(" (");
-      setModul(modulName || "");
-      setStudiengruppe(studiengruppeRaw ? studiengruppeRaw.replace(")", "") : "");
+      setModul(selectedEvent.modul || "");
+      setStudiengruppe(selectedEvent.studiengruppe || "");
+      setRaum(selectedEvent.raum || "");
+      setTyp(selectedEvent.typ || "");
+      setDozent(selectedEvent.dozent || "");
+      setKommentar(selectedEvent.kommentar || "");
       setEventExists(true);
       const idx = events.findIndex(ev => ev === selectedEvent);
       setCurrentEventIndex(idx >= 0 ? idx : null);
@@ -90,8 +93,13 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       title: `${modul} (${studiengruppe})`,
       start,
       end,
+      studiengruppe,
+      modul,
+      raum,
+      typ,
+      dozent,
+      kommentar,
     };
-
     setEvents([...events, newEvent]);
   };
 
@@ -108,8 +116,13 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       title: `${modul} (${studiengruppe})`,
       start,
       end,
+      studiengruppe,
+      modul,
+      raum,
+      typ,
+      dozent,
+      kommentar,
     };
-
     setEvents(updatedEvents);
   };
 

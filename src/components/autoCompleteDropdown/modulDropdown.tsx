@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
-const MODULE: string[] = [
+export const MODULE: string[] = [
   'Grundlagen der Programmierung',
   'Big Data',
   'Agile Software Engineering',
