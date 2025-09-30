@@ -1,29 +1,30 @@
-import {
-  createCustomJoyTheme,
-  createCustomMuiTheme,
-} from "@agile-software/shared-components";
-import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
-import { ThemeProvider } from "@mui/material/styles";
-import { Card } from "@agile-software/shared-components/dist";
+import { BrowserRouter } from "react-router-dom";
+import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
+import { createCustomJoyTheme, createCustomMuiTheme } from "@agile-software/shared-components";
+import { THEME_ID as MATERIAL_THEME_ID, ThemeProvider } from "@mui/material";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy";
+import "./i18n";
+import { Provider } from "react-redux";
+import store from "@stores/index.ts";
 
-const joyTheme = createCustomJoyTheme();
 const muiTheme = createCustomMuiTheme();
+const joyTheme = createCustomJoyTheme();
 
-function App() {
+type AppProps = {
+  basename?: string;
+};
+
+function App({ basename }: AppProps) {
   return (
-    <ThemeProvider theme={muiTheme}>
-      <JoyCssVarsProvider
-        theme={joyTheme}
-        defaultMode="light"
-        modeStorageKey="joy-mode"
-        colorSchemeStorageKey="joy-color-scheme"
-      >
-        {/* Your app content */}
-        <Card>
-          <h1>Hello, Microfrontend!</h1>
-        </Card>
-      </JoyCssVarsProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
+        <JoyCssVarsProvider theme={joyTheme}>
+          <BrowserRouter basename={basename}>
+            <RoutingComponent />
+          </BrowserRouter>
+        </JoyCssVarsProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
