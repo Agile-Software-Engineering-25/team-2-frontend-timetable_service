@@ -7,10 +7,7 @@ import type { Event } from "./Timetable";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
-import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
-import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
-import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
-import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import { colors } from "@mui/joy";
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -157,7 +154,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2, color: colors.blue[400] }} />
 
       {/* Verwaltung Titel + Datum/Uhrzeit */}
       <Box sx={{ mb: 1 }}>

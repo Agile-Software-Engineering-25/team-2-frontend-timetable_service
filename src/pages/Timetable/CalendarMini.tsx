@@ -4,6 +4,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { de } from "date-fns/locale";
 import { Box } from "@mui/material";
 import { format } from "date-fns";
+import { AspectRatio } from "@mui/joy";
 
 type Props = {
   date: Date | null;
@@ -46,10 +47,9 @@ export default function CalendarMini({ date, onChange }: Props) {
     "& .MuiPickersDay-root": {
       fontSize: "0.5rem",
       width: "calc(100% / 7)",
-      height: 22,
       margin: 0,
-      fontStyle: "normal",           // entfernt Kursivschrift
-      fontFamily: "Arial, sans-serif"
+      fontStyle: "normal",
+      fontFamily: "Arial, sans-serif",
     },
   }}
 >

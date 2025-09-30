@@ -20,7 +20,7 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
           bgcolor: "#0A2E65",
           color: "white",
           "&:hover": { bgcolor: "#072241" },
-          fontWeight: 700,
+          fontWeight: 600,
           py: 1.4,
           borderRadius: 1.5,
         }}
