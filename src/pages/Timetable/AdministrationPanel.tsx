@@ -7,6 +7,10 @@ import type { Event } from "./Timetable";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
+import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
+import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
+import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
+import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
 
 interface AdministrationPanelProps {
   events: Event[];

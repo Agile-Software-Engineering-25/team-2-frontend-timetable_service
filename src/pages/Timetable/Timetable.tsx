@@ -7,6 +7,7 @@ import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGru
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import { RAEUME } from '../../components/autoCompleteDropdown/raumDropdown'
 
 export interface Event {
   title: string;
@@ -29,7 +30,7 @@ const Timetable: React.FC = () => {
       end: new Date(2025, 8, 23, 12, 0),
       studiengruppe: StudienGruppen[0],
       modul: MODULE[2],
-      raum: "A101",
+      raum: RAEUME[1],
       typ: TYPEN[0],
       dozent: DOZENTEN[0],
       kommentar: "Erste Vorlesung des Semesters"
@@ -40,7 +41,7 @@ const Timetable: React.FC = () => {
       end: new Date(2025, 8, 25, 16, 0),
       studiengruppe: StudienGruppen[1],
       modul: MODULE[0],
-      raum: "B202",
+      raum: RAEUME[0],
       typ: TYPEN[4],
       dozent: DOZENTEN[1],
       kommentar: "Abschlussklausur"
