@@ -17,9 +17,10 @@ const localizer = dateFnsLocalizer({
 
 interface BigCalendarProps {
   events: Event[];
+  onSelectEvent?: (event: Event) => void;
 }
 
-export default function BigCalendar({ events }: BigCalendarProps) {
+export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps) {
   return (
     <div style={{ height: "calc(100vh - 100px)", background: "white", borderRadius: 8, padding: 8 }}>
       <Calendar
@@ -30,7 +31,7 @@ export default function BigCalendar({ events }: BigCalendarProps) {
         style={{ height: "100%" }}
         views={["month", "week", "day"]}
         defaultView="month"
-       // culture="de"
+        // culture="de"
         messages={{
           month: "Monat",
           week: "Woche",
@@ -39,6 +40,7 @@ export default function BigCalendar({ events }: BigCalendarProps) {
           previous: "Zurück",
           next: "Weiter",
         }}
+        onSelectEvent={onSelectEvent}
       />
     </div>
   );

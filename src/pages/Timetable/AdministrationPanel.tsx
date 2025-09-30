@@ -11,9 +11,11 @@ import { de } from "date-fns/locale";
 interface AdministrationPanelProps {
   events: Event[];
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
+  selectedEvent: Event | null;
+  setSelectedEvent: (event: Event | null) => void;
 }
 
-export default function AdministrationPanel({ events, setEvents }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -27,6 +29,20 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
 
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
+  useEffect(() => {
+    if (selectedEvent) {
+      setSelectedDate(selectedEvent.start);
+      setStartTime(selectedEvent.start);
+      setEndTime(selectedEvent.end);
+      const [modulName, studiengruppeRaw] = selectedEvent.title.split(" (");
+      setModul(modulName || "");
+      setStudiengruppe(studiengruppeRaw ? studiengruppeRaw.replace(")", "") : "");
+      setEventExists(true);
+      const idx = events.findIndex(ev => ev === selectedEvent);
+      setCurrentEventIndex(idx >= 0 ? idx : null);
+    }
+  }, [selectedEvent]);
+
   useEffect(() => {
     if (!selectedDate) {
       setEventExists(false);
@@ -109,7 +125,8 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
   return (
     <Box
       sx={{
-        width: 420,
+        width: "fit-content",
+        minWidth: 600,
         bgcolor: "#E3F2FD",
         height: "100vh",
         display: "flex",

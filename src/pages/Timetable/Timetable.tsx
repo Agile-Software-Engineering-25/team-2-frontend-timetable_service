@@ -9,21 +9,32 @@ export interface Event {
   end: Date;
 }
 
+
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([
     { title: "Mathematik Vorlesung", start: new Date(2025, 8, 23, 10, 0), end: new Date(2025, 8, 23, 12, 0) },
     { title: "Klausur ASE", start: new Date(2025, 8, 25, 14, 0), end: new Date(2025, 8, 25, 16, 0) },
   ]);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  const handleSelectEvent = (event: Event) => {
+    setSelectedEvent(event);
+  };
 
   return (
     <div style={{ display: "flex", gap: 16, padding: 16 }}>
-      <AdministrationPanel events={events} setEvents={setEvents} />
+      <AdministrationPanel
+        events={events}
+        setEvents={setEvents}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+      />
       <div style={{ flex: 1 }}>
-        <BigCalendar events={events} />
+        <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
       </div>
     </div>
   );
-};
+}
 
 export default Timetable;
 
