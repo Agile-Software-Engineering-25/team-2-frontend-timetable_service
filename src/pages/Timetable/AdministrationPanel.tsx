@@ -140,7 +140,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
     <Box
       sx={{
         width: "fit-content",
-        minWidth: 600,
+        minWidth: 650,
         bgcolor: "#E3F2FD",
         height: "100vh",
         display: "flex",

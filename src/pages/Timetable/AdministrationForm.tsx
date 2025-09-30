@@ -4,7 +4,7 @@ import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGru
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
-import { TYP_COLORS } from "./BigCalendar";
+import TYP_COLORS from "./typColors";
 import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 
 interface Props {

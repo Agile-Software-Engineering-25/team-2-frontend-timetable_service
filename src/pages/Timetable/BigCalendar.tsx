@@ -4,16 +4,11 @@ import { format, parse, startOfWeek, getDay } from "date-fns";
 import { de } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+import { useState } from "react";
 import type { Event } from "./Timetable";
-
-export const TYP_COLORS: Record<string, string> = {
-  'Kurs': '#1976d2',
-  'E-Learning': '#388e3c',
-  'Klausureinsicht': '#fbc02d',
-  'Dekansprechstunde': '#8e24aa',
-  'Prüfung': '#d32f2f',
-  'Sonstiges': '#616161',
-};
+import type { View } from 'react-big-calendar';
+import TYP_COLORS from "./typColors";
+import CustomToolbar from "./CustomToolbar";
 
 const locales = { de };
 
@@ -31,6 +26,8 @@ interface BigCalendarProps {
 }
 
 export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps) {
+  const [view, setView] = useState<View>("month" as View);
+  const [date, setDate] = useState<Date>(new Date());
   const eventPropGetter = (event: Event) => {
     const color = TYP_COLORS[event.typ] || '#1976d2';
     return {
@@ -54,6 +51,16 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
         style={{ height: "100%" }}
         views={["month", "week", "day"]}
         defaultView="month"
+        toolbar={true}
+        components={{ toolbar: CustomToolbar }}
+        view={view}
+        date={date}
+        onNavigate={(newDate) => {
+          setDate(newDate as Date);
+        }}
+        onView={(nextView) => {
+          setView(nextView);
+        }}
         // culture="de"
         messages={{
           month: "Monat",
