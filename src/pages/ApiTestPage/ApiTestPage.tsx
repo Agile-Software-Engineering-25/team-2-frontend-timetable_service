@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Button, Card } from '@mui/material';
+import { Card } from '@agile-software/shared-components/dist'
+import { Button } from '@mui/material';
 import { Box, Typography, Textarea } from '@mui/joy';
 
 type Jsonish = unknown;
