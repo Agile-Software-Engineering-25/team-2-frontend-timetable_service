@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
 export const DOZENTEN: string[] = [
-  'Folk, Florian',
+  'Volk, Florian',
   'Grebner, Olaf',
   'Bach, Oliver',
   // ... hier die restlichen Dozenten eintragen
