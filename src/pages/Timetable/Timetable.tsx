@@ -26,8 +26,8 @@ const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([
     {
       title: `${MODULE[2]} (${StudienGruppen[0]})`,
-      start: new Date(2025, 8, 23, 10, 0),
-      end: new Date(2025, 8, 23, 12, 0),
+      start: new Date(2025, 9, 2, 10, 0),
+      end: new Date(2025, 9, 2, 12, 0),
       studiengruppe: StudienGruppen[0],
       modul: MODULE[2],
       raum: RAEUME[1],
@@ -37,8 +37,8 @@ const Timetable: React.FC = () => {
     },
     {
       title: `${MODULE[0]} (${StudienGruppen[1]})`,
-      start: new Date(2025, 8, 25, 14, 0),
-      end: new Date(2025, 8, 25, 16, 0),
+      start: new Date(2025, 9, 3, 14, 0),
+      end: new Date(2025, 9, 3, 16, 0),
       studiengruppe: StudienGruppen[1],
       modul: MODULE[0],
       raum: RAEUME[0],

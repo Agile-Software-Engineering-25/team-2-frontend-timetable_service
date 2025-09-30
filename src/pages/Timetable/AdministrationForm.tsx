@@ -4,6 +4,7 @@ import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGru
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import { TYP_COLORS } from "./BigCalendar";
 import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 
 interface Props {
@@ -109,7 +110,18 @@ export default function AdministrationForm({
            <FormControl fullWidth>
           <Select value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
             {TYPEN.map((typOpt) => (
-              <MenuItem key={typOpt} value={typOpt}>{typOpt}</MenuItem>
+              <MenuItem key={typOpt} value={typOpt}>
+                <span style={{
+                  display: 'inline-block',
+                  width: 16,
+                  height: 16,
+                  borderRadius: '50%',
+                  background: TYP_COLORS[typOpt] || '#1976d2',
+                  marginRight: 8,
+                  verticalAlign: 'middle',
+                }} />
+                {typOpt}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
