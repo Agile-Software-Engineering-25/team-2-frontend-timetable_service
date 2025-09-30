@@ -1,7 +1,8 @@
 // src/pages/Timetable/Timetable.tsx
 import React, { useState } from "react";
-import AdministrationPanel from "./AdministrationPanel";
-import BigCalendar from "./BigCalendar";
+import AdministrationPanel from "@components/AdministrationNavbar/AdministrationPanel";
+import BigCalendar from "@components/AdministrationNavbar/BigCalendar";
+
 
 export interface Event {
   title: string;

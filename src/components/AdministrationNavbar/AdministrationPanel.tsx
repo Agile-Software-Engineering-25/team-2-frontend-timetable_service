@@ -3,7 +3,7 @@ import { Box, Typography, Divider } from "@mui/material";
 import CalendarMini from "./CalendarMini";
 import VerwaltungsForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
-import type { Event } from "./Timetable";
+import type { Event } from "@pages/Administration/Administration";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
