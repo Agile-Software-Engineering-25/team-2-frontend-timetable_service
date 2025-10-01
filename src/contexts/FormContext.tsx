@@ -13,6 +13,8 @@ interface FormState {
   dozent: string | null;
   /** Ausgewählter Veranstaltungstyp (z.B. "Kurs", "Prüfung") */
   veranstaltungstyp: string | null;
+  /** Ausgewählter Raum (z.B. "R101") */
+  raum: string | null;
 }
 
 /**
@@ -96,6 +98,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     modul: null,
     dozent: null,
     veranstaltungstyp: null,
+    raum: null,
   });
 
   /**
@@ -147,6 +150,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     if (!formState.modul) missingFields.push('Modul');
     if (!formState.dozent) missingFields.push('Dozent');
     if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
+    if (!formState.raum) missingFields.push('Raum');
 
     return {
       isValid: missingFields.length === 0,
