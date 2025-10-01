@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
-const StudienGruppen: string[] = [
+export const StudienGruppen: string[] = [
   'BIN-T-23-F1',
   'BIN-T-23-F2',
   'BIN-T-23-F3',

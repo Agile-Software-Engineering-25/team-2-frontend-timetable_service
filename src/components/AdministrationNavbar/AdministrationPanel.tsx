@@ -16,7 +16,9 @@ interface AdministrationPanelProps {
 export default function AdministrationPanel({ events, setEvents }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
-  const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
+  const [endTime, setEndTime] = useState<Date | null>(
+    new Date(new Date().getTime() + 60 * 60 * 1000)
+  );
   const [studiengruppe, setStudiengruppe] = useState("");
   const [modul, setModul] = useState("");
   const [raum, setRaum] = useState("");
@@ -38,7 +40,7 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
       (ev) =>
         ev.start.toDateString() === selectedDate.toDateString() &&
         ((studiengruppe && ev.title.includes(studiengruppe)) ||
-         (dozent && ev.title.includes(dozent)))
+          (dozent && ev.title.includes(dozent)))
     );
 
     if (index >= 0) {
@@ -143,80 +145,94 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
           <Box sx={{ display: "flex", gap: 1 }}>
             <Box
               sx={{
-                bgcolor: "#ffffffff",
-                px: 1.2,
+                bgcolor: "#fff", // hellblau
+                px: 1.5,
                 py: 0.6,
-                borderRadius: 10,
-                fontSize: 12,
+                borderRadius: "16px",
+                fontSize: "0.75rem",
+                fontWeight: 400,
+                color: "#333",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
               }}
             >
-              {selectedDate?.toLocaleDateString("de-DE", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
+              {selectedDate
+                ? selectedDate.toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                : ""}
             </Box>
             <Box
               sx={{
-                bgcolor: "#ffffffff",
-                px: 1.2,
+                bgcolor: "#fff", // hellblau
+                px: 1.5,
                 py: 0.6,
-                borderRadius: 10,
-                fontSize: 12,
+                borderRadius: "16px",
+                fontSize: "0.75rem",
+                fontWeight: 400,
               }}
             >
-              {selectedDate?.toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {startTime
+                ? startTime.toLocaleTimeString("de-DE", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : ""}
             </Box>
           </Box>
         </Box>
 
         {/* TimePicker für Start- und Endzeit */}
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-            <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-    <TimePicker
-      label="Startzeit"
-      value={startTime}
-      onChange={setStartTime}
-      slotProps={{
-        textField: {
-          fullWidth: true,
-          sx: {
-            bgcolor: "#fff", // weißer Hintergrund
-            borderRadius: 1.5,
-          },
-        },
-      }}
-    />
-    <TimePicker
-      label="Endzeit"
-      value={endTime}
-      onChange={setEndTime}
-      slotProps={{
-        textField: {
-          fullWidth: true,
-          sx: {
-            bgcolor: "#fff", // weißer Hintergrund
-            borderRadius: 1.5,
-          },
-        },
-      }}
-    />
-  </Box>
+          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+            <TimePicker
+              label="Startzeit"
+              value={startTime}
+              onChange={setStartTime}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  sx: {
+                    bgcolor: "#fff",
+                    borderRadius: 1.5,
+                  },
+                },
+              }}
+            />
+            <TimePicker
+              label="Endzeit"
+              value={endTime}
+              onChange={setEndTime}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  sx: {
+                    bgcolor: "#fff",
+                    borderRadius: 1.5,
+                  },
+                },
+              }}
+            />
+          </Box>
         </LocalizationProvider>
       </Box>
 
       {/* Formular */}
       <Box sx={{ mt: 2 }}>
         <VerwaltungsForm
-          studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
-          modul={modul} setModul={setModul}
-          raum={raum} setRaum={setRaum}
-          typ={typ} setTyp={setTyp}
-          dozent={dozent} setDozent={setDozent}
-          kommentar={kommentar} setKommentar={setKommentar}
+          studiengruppe={studiengruppe}
+          setStudiengruppe={setStudiengruppe}
+          modul={modul}
+          setModul={setModul}
+          raum={raum}
+          setRaum={setRaum}
+          typ={typ}
+          setTyp={setTyp}
+          dozent={dozent}
+          setDozent={setDozent}
+          kommentar={kommentar}
+          setKommentar={setKommentar}
         />
       </Box>
 
@@ -232,6 +248,7 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
     </Box>
   );
 }
+
 
 
 

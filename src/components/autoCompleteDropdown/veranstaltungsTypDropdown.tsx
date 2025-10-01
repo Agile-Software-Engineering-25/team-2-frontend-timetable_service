@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 
-const TYPEN: string[] = [
+export const TYPEN: string[] = [
   'Kurs',
   'E-Learning',
   'Klausureinsicht',
