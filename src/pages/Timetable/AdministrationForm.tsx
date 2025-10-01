@@ -1,4 +1,11 @@
+
 import { Box, Typography, FormControl, Select, MenuItem, TextField } from "@mui/material";
+import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
+import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
+import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
+import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import TYP_COLORS from "./typColors";
+import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 
 interface Props {
   studiengruppe: string;
@@ -52,8 +59,9 @@ export default function AdministrationForm({
             onChange={(e) => setStudiengruppe(e.target.value)}
             sx={selectSx}
           >
-            <MenuItem value="BIN-T23-FI">BIN-T23-FI</MenuItem>
-            <MenuItem value="BIN-T24-FI">BIN-T24-FI</MenuItem>
+            {StudienGruppen.map((gruppe) => (
+              <MenuItem key={gruppe} value={gruppe}>{gruppe}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -69,10 +77,9 @@ export default function AdministrationForm({
             onChange={(e) => setModul(e.target.value)}
             sx={selectSx}
           >
-            <MenuItem value="Agile Software Engineering">
-              Agile Software Engineering
-            </MenuItem>
-            <MenuItem value="Mathematik">Mathematik</MenuItem>
+            {MODULE.map((modulOpt) => (
+              <MenuItem key={modulOpt} value={modulOpt}>{modulOpt}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -88,8 +95,9 @@ export default function AdministrationForm({
             onChange={(e) => setRaum(e.target.value)}
             sx={selectSx}
           >
-            <MenuItem value="B835 / 1.34">B835 / 1.34</MenuItem>
-            <MenuItem value="A101">A101</MenuItem>
+            {RAEUME.map((raumOpt) => (
+              <MenuItem key={raumOpt} value={raumOpt}>{raumOpt}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -101,8 +109,20 @@ export default function AdministrationForm({
         </Typography>
            <FormControl fullWidth>
           <Select value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
-            <MenuItem value="Präsenz Vorlesung">Präsenz Vorlesung</MenuItem>
-            <MenuItem value="Online">Online</MenuItem>
+            {TYPEN.map((typOpt) => (
+              <MenuItem key={typOpt} value={typOpt}>
+                <span style={{
+                  display: 'inline-block',
+                  width: 16,
+                  height: 16,
+                  borderRadius: '50%',
+                  background: TYP_COLORS[typOpt] || '#1976d2',
+                  marginRight: 8,
+                  verticalAlign: 'middle',
+                }} />
+                {typOpt}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -118,10 +138,9 @@ export default function AdministrationForm({
             onChange={(e) => setDozent(e.target.value)}
             sx={selectSx}
           >
-            <MenuItem value="Gabriela Niezgodzka">
-              Gabriela Niezgodzka
-            </MenuItem>
-            <MenuItem value="Max Mustermann">Max Mustermann</MenuItem>
+            {DOZENTEN.map((dozentOpt) => (
+              <MenuItem key={dozentOpt} value={dozentOpt}>{dozentOpt}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
