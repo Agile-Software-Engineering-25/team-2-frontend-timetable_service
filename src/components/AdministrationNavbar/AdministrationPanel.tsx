@@ -3,22 +3,23 @@ import { Box, Typography, Divider } from "@mui/material";
 import CalendarMini from "./CalendarMini";
 import VerwaltungsForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
-import type { Event } from "@pages/Administration/Administration";
+import type { Event } from "@pages/Administration/Administration"
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
+import { colors } from "@mui/joy";
 
 interface AdministrationPanelProps {
   events: Event[];
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
+  selectedEvent: Event | null;
+  setSelectedEvent: (event: Event | null) => void;
 }
 
-export default function AdministrationPanel({ events, setEvents }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
-  const [endTime, setEndTime] = useState<Date | null>(
-    new Date(new Date().getTime() + 60 * 60 * 1000)
-  );
+  const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
   const [studiengruppe, setStudiengruppe] = useState("");
   const [modul, setModul] = useState("");
   const [raum, setRaum] = useState("");
@@ -30,6 +31,23 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
 
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
+    if (selectedEvent) {
+      setSelectedDate(selectedEvent.start);
+      setStartTime(selectedEvent.start);
+      setEndTime(selectedEvent.end);
+      setModul(selectedEvent.modul || "");
+      setStudiengruppe(selectedEvent.studiengruppe || "");
+      setRaum(selectedEvent.raum || "");
+      setTyp(selectedEvent.typ || "");
+      setDozent(selectedEvent.dozent || "");
+      setKommentar(selectedEvent.kommentar || "");
+      setEventExists(true);
+      const idx = events.findIndex(ev => ev === selectedEvent);
+      setCurrentEventIndex(idx >= 0 ? idx : null);
+    }
+  }, [selectedEvent]);
+
+  useEffect(() => {
     if (!selectedDate) {
       setEventExists(false);
       setCurrentEventIndex(null);
@@ -40,7 +58,7 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
       (ev) =>
         ev.start.toDateString() === selectedDate.toDateString() &&
         ((studiengruppe && ev.title.includes(studiengruppe)) ||
-          (dozent && ev.title.includes(dozent)))
+         (dozent && ev.title.includes(dozent)))
     );
 
     if (index >= 0) {
@@ -76,8 +94,13 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
       title: `${modul} (${studiengruppe})`,
       start,
       end,
+      studiengruppe,
+      modul,
+      raum,
+      typ,
+      dozent,
+      kommentar,
     };
-
     setEvents([...events, newEvent]);
   };
 
@@ -94,8 +117,13 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
       title: `${modul} (${studiengruppe})`,
       start,
       end,
+      studiengruppe,
+      modul,
+      raum,
+      typ,
+      dozent,
+      kommentar,
     };
-
     setEvents(updatedEvents);
   };
 
@@ -111,21 +139,23 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
   return (
     <Box
       sx={{
-        width: 420,
-        bgcolor: "#E3F2FD",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        borderRight: "1px solid #d0d7dd",
-        p: 2,
-        boxSizing: "border-box",
-        overflowY: "auto",
-      }}
+      width: "fit-content",
+      maxWidth: 450,   // begrenzt nach oben
+      minWidth: 350,   // begrenzt nach unten
+      bgcolor: "#E3F2FD",
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      borderRight: "1px solid #d0d7dd",
+      p: 2,
+      boxSizing: "border-box",
+      overflowY: "auto",
+  }}
     >
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2, color: colors.blue[400] }} />
 
       {/* Verwaltung Titel + Datum/Uhrzeit */}
       <Box sx={{ mb: 1 }}>
@@ -145,94 +175,80 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
           <Box sx={{ display: "flex", gap: 1 }}>
             <Box
               sx={{
-                bgcolor: "#fff", // hellblau
-                px: 1.5,
+                bgcolor: "#ffffffff",
+                px: 1.2,
                 py: 0.6,
-                borderRadius: "16px",
-                fontSize: "0.75rem",
-                fontWeight: 400,
-                color: "#333",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+                borderRadius: 10,
+                fontSize: 12,
               }}
             >
-              {selectedDate
-                ? selectedDate.toLocaleDateString("de-DE", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })
-                : ""}
+              {selectedDate?.toLocaleDateString("de-DE", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
             </Box>
             <Box
               sx={{
-                bgcolor: "#fff", // hellblau
-                px: 1.5,
+                bgcolor: "#ffffffff",
+                px: 1.2,
                 py: 0.6,
-                borderRadius: "16px",
-                fontSize: "0.75rem",
-                fontWeight: 400,
+                borderRadius: 10,
+                fontSize: 12,
               }}
             >
-              {startTime
-                ? startTime.toLocaleTimeString("de-DE", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : ""}
+              {selectedDate?.toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </Box>
           </Box>
         </Box>
 
         {/* TimePicker für Start- und Endzeit */}
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-            <TimePicker
-              label="Startzeit"
-              value={startTime}
-              onChange={setStartTime}
-              slotProps={{
-                textField: {
-                  fullWidth: true,
-                  sx: {
-                    bgcolor: "#fff",
-                    borderRadius: 1.5,
-                  },
-                },
-              }}
-            />
-            <TimePicker
-              label="Endzeit"
-              value={endTime}
-              onChange={setEndTime}
-              slotProps={{
-                textField: {
-                  fullWidth: true,
-                  sx: {
-                    bgcolor: "#fff",
-                    borderRadius: 1.5,
-                  },
-                },
-              }}
-            />
-          </Box>
+            <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+    <TimePicker
+      label="Startzeit"
+      value={startTime}
+      onChange={setStartTime}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          sx: {
+            bgcolor: "#fff", // weißer Hintergrund
+            borderRadius: 1.5,
+          },
+        },
+      }}
+    />
+    <TimePicker
+      label="Endzeit"
+      value={endTime}
+      onChange={setEndTime}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          sx: {
+            bgcolor: "#fff", // weißer Hintergrund
+            borderRadius: 1.5,
+          },
+        },
+      }}
+    />
+  </Box>
         </LocalizationProvider>
       </Box>
 
       {/* Formular */}
       <Box sx={{ mt: 2 }}>
         <VerwaltungsForm
-          studiengruppe={studiengruppe}
-          setStudiengruppe={setStudiengruppe}
-          modul={modul}
-          setModul={setModul}
-          raum={raum}
-          setRaum={setRaum}
-          typ={typ}
-          setTyp={setTyp}
-          dozent={dozent}
-          setDozent={setDozent}
-          kommentar={kommentar}
-          setKommentar={setKommentar}
+          studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
+          modul={modul} setModul={setModul}
+          raum={raum} setRaum={setRaum}
+          typ={typ} setTyp={setTyp}
+          dozent={dozent} setDozent={setDozent}
+          kommentar={kommentar} setKommentar={setKommentar}
         />
       </Box>
 
@@ -248,6 +264,7 @@ export default function AdministrationPanel({ events, setEvents }: Administratio
     </Box>
   );
 }
+
 
 
 
