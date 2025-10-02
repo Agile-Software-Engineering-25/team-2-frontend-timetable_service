@@ -1,10 +1,10 @@
-import { Box, Typography, FormControl, Select, MenuItem, TextField, InputAdornment } from "@mui/material";
+import { Box, Typography, TextField, InputAdornment, Autocomplete } from "@mui/material";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
-import { MODULE }  from "../../components/autoCompleteDropdown/modulDropdown";
-import  { DOZENTEN }  from "../../components/autoCompleteDropdown/dozentDropdown";
-import  { TYPEN }  from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
+import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
+import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
+import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 import TYP_COLORS from "./typColors";
-import { RAEUME } from "../autoCompleteDropdown/raumDropdown";
 
 interface Props {
   studiengruppe: string;
@@ -20,17 +20,6 @@ interface Props {
   kommentar: string;
   setKommentar: (val: string) => void;
 }
-
-const selectSx = {
-  bgcolor: "#fff",
-  borderRadius: 1.5,
-  height: 44,
-  px: 1.5,
-  fontWeight: 600,
-  borderWidth: "2px",
-  color: "#0A2E65",
-  "& .MuiSelect-icon": { color: "#0A2E65" },
-};
 
 export default function AdministrationForm({
   studiengruppe,
@@ -53,19 +42,23 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0dff" }}>
           Studiengruppe
         </Typography>
-        <FormControl fullWidth>
-          <Select
-            value={studiengruppe}
-            onChange={(e) => setStudiengruppe(e.target.value)}
-            sx={selectSx}
-          >
-            {StudienGruppen.map((gruppe) => (
-              <MenuItem key={gruppe} value={gruppe}>
-                {gruppe}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Autocomplete
+          fullWidth
+          options={StudienGruppen}
+          value={studiengruppe || ""}
+          onChange={(_, val) => setStudiengruppe(val || "")}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Studiengruppe wählen"
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: 1.5,
+                "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+              }}
+            />
+          )}
+        />
       </Box>
 
       {/* Modul */}
@@ -73,19 +66,23 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0dff" }}>
           Modul
         </Typography>
-        <FormControl fullWidth>
-          <Select
-            value={modul}
-            onChange={(e) => setModul(e.target.value)}
-            sx={selectSx}
-          >
-            {MODULE.map((modul) => (
-              <MenuItem key={modul} value={modul}>
-                {modul}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Autocomplete
+          fullWidth
+          options={MODULE}
+          value={modul || ""}
+          onChange={(_, val) => setModul(val || "")}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Modul wählen"
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: 1.5,
+                "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+              }}
+            />
+          )}
+        />
       </Box>
 
       {/* Raum */}
@@ -93,19 +90,23 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0dff" }}>
           Raum
         </Typography>
-        <FormControl fullWidth>
-          <Select
-            value={raum}
-            onChange={(e) => setRaum(e.target.value)}
-            sx={selectSx}
-          >
-            {RAEUME.map((raum) => (
-              <MenuItem key={raum} value={raum}>
-                {raum}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Autocomplete
+          fullWidth
+          options={RAEUME}
+          value={raum || ""}
+          onChange={(_, val) => setRaum(val || "")}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Raum wählen"
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: 1.5,
+                "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+              }}
+            />
+          )}
+        />
       </Box>
 
       {/* Typ */}
@@ -113,29 +114,38 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0dff" }}>
           Typ
         </Typography>
-        <FormControl fullWidth>
-          <Select
-            value={typ}
-            onChange={(e) => setTyp(e.target.value)}
-            sx={selectSx}
-          >
-            {TYPEN.map((t) => (
-              <MenuItem key={t} value={t}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Box
-                    sx={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      bgcolor: TYP_COLORS[t] || "#999",
-                    }}
-                  />
-                  {t}
-                </Box>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Autocomplete
+          fullWidth
+          options={TYPEN}
+          value={typ || ""}
+          onChange={(_, val) => setTyp(val || "")}
+          renderOption={(props, option) => (
+            <li {...props}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    bgcolor: TYP_COLORS[option] || "#999",
+                  }}
+                />
+                {option}
+              </Box>
+            </li>
+          )}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Typ wählen"
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: 1.5,
+                "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+              }}
+            />
+          )}
+        />
       </Box>
 
       {/* Dozent */}
@@ -143,19 +153,23 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0dff" }}>
           Dozent/-in
         </Typography>
-        <FormControl fullWidth>
-          <Select
-            value={dozent}
-            onChange={(e) => setDozent(e.target.value)}
-            sx={selectSx}
-          >
-            {DOZENTEN.map((d) => (
-              <MenuItem key={d} value={d}>
-                {d}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Autocomplete
+          fullWidth
+          options={DOZENTEN}
+          value={dozent || ""}
+          onChange={(_, val) => setDozent(val || "")}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Dozent wählen"
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: 1.5,
+                "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+              }}
+            />
+          )}
+        />
       </Box>
 
       {/* Kommentar */}
