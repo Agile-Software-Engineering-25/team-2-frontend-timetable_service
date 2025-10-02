@@ -141,7 +141,7 @@ export default function AdministrationPanel({
   return (
     <Box
       sx={{
-        width: 420, // auf Design-orientierte Breite setzen (anpassen wenn du willst)
+        width: 420,
         bgcolor: "#E3F2FD",
         height: "100vh",
         display: "flex",
@@ -155,6 +155,17 @@ export default function AdministrationPanel({
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
+      {/* Durchgezogene Trennlinie zwischen Kalender und Verwaltung */}
+      <Box
+        sx={{
+          mx: -2,
+          width: "calc(100% + 32px)",
+          borderBottom: "2px solid #0A2E65",
+          my: 2,
+          opacity: 0.95,
+        }}
+      />
+
       {/* Header: Verwaltung (links) + Datum & Uhrzeit (rechts) */}
       <Box
         sx={{
@@ -162,15 +173,15 @@ export default function AdministrationPanel({
           alignItems: "center",
           justifyContent: "space-between",
           gap: 2,
-          mt: 1,
+          mt: -2,
         }}
       >
         <Typography
           sx={{
-            fontWeight: 700,
-            fontSize: "1rem",
+            fontWeight: 800,
+            fontSize: "1.3rem",
             color: "#0d0d0d",
-            lineHeight: 1.1,
+            lineHeight: 3.1,
           }}
         >
           Verwaltung
@@ -219,17 +230,6 @@ export default function AdministrationPanel({
           </Box>
         </Box>
       </Box>
-
-      {/* Durchgezogene Trennlinie (ignoriert die container-Padding: p:2) */}
-      <Box
-        sx={{
-          mx: -2, // negative margin = raus aus dem horizontalen padding
-          width: "calc(100% + 32px)", // 2 * theme.spacing(2) = 32px
-          borderBottom: "2px solid #0A2E65",
-          my: 2,
-          opacity: 0.95,
-        }}
-      />
 
       {/* TimePickers */}
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
