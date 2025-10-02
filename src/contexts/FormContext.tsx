@@ -10,6 +10,8 @@ interface FormState {
   /** Ausgewähltes Modul (z.B. "Agile Software Engineering") */
   modul: string | null;
   /** Ausgewählter Dozent (z.B. "Folk, Florian") */
+  raum: string | null;
+  /**Ausgewählter Raum (z.B "A101") */
   dozent: string | null;
   /** Ausgewählter Veranstaltungstyp (z.B. "Kurs", "Prüfung") */
   veranstaltungstyp: string | null;
@@ -94,6 +96,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [formState, setFormState] = useState<FormState>({
     studienGruppe: null,
     modul: null,
+    raum: null,
     dozent: null,
     veranstaltungstyp: null,
   });
