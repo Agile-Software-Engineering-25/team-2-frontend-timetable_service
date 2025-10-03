@@ -1,5 +1,11 @@
 // src/components/AdministrationNavbar/AdministrationForm.tsx
-import {Box,Typography,TextField,InputAdornment,Autocomplete} from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  InputAdornment,
+  Autocomplete,
+} from "@mui/material";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
@@ -22,31 +28,24 @@ interface Props {
   setKommentar: (val: string) => void;
 }
 
-/**
- * Styling für die einzelnen Input-Felder (TextField innerhalb Autocomplete)
- * - weiße Fläche
- * - runde Ecken
- * - eingestellte Textfarbe (blau) und fettes Gewicht
- */
 const fieldSx = {
   bgcolor: "#fff",
   borderRadius: 1.5,
   "& .MuiOutlinedInput-root": {
-    padding: "0 10px",        // gleichmäßiger Innenabstand
-    height: 40,               // Höhe kontrollieren
+    padding: "0 10px",
+    height: 40,
   },
   "& .MuiInputBase-input": {
     color: "#0A2E65",
     fontWeight: 700,
     fontSize: "0.95rem",
-    padding: "8px 0",        // reduziert das „weiße Drumherum“
+    padding: "8px 0",
   },
   "& .MuiOutlinedInput-notchedOutline": {
     borderColor: "transparent",
   },
   boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
 };
-
 
 export default function AdministrationForm({
   studiengruppe,
@@ -63,18 +62,22 @@ export default function AdministrationForm({
   setKommentar,
 }: Props) {
   return (
-    <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+        gap: 2,
+      }}
+    >
       {/* Studiengruppe */}
       <Box>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Studiengruppe
         </Typography>
         <Autocomplete
-          freeSolo={false}
           options={StudienGruppen ?? []}
           value={studiengruppe || null}
           onChange={(_, val: string | null) => setStudiengruppe(val ?? "")}
-          disableClearable={false}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -92,7 +95,6 @@ export default function AdministrationForm({
           Modul
         </Typography>
         <Autocomplete
-          freeSolo={false}
           options={MODULE ?? []}
           value={modul || null}
           onChange={(_, val: string | null) => setModul(val ?? "")}
@@ -113,7 +115,6 @@ export default function AdministrationForm({
           Raum
         </Typography>
         <Autocomplete
-          freeSolo={false}
           options={RAEUME ?? []}
           value={raum || null}
           onChange={(_, val: string | null) => setRaum(val ?? "")}
@@ -128,13 +129,12 @@ export default function AdministrationForm({
         />
       </Box>
 
-      {/* Typ (mit farbigem Punkt) */}
+      {/* Typ */}
       <Box>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Typ
         </Typography>
         <Autocomplete
-          freeSolo={false}
           options={TYPEN ?? []}
           value={typ || null}
           onChange={(_, val: string | null) => setTyp(val ?? "")}
@@ -165,13 +165,12 @@ export default function AdministrationForm({
         />
       </Box>
 
-      {/* Dozent (ganze Breite) */}
+      {/* Dozent (volle Breite) */}
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Dozent/-in
         </Typography>
         <Autocomplete
-          freeSolo={false}
           options={DOZENTEN ?? []}
           value={dozent || null}
           onChange={(_, val: string | null) => setDozent(val ?? "")}
@@ -186,7 +185,7 @@ export default function AdministrationForm({
         />
       </Box>
 
-      {/* Kommentar (ganze Breite) */}
+      {/* Kommentar (volle Breite) */}
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Veranstaltungskommentar (optional)

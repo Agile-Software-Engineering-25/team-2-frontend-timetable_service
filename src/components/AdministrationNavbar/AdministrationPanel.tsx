@@ -1,6 +1,6 @@
 // src/components/AdministrationNavbar/AdministrationPanel.tsx
 import { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CalendarMini from "./CalendarMini";
 import VerwaltungsForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
@@ -20,8 +20,10 @@ export default function AdministrationPanel({
   events,
   setEvents,
   selectedEvent,
-  setSelectedEvent,
 }: AdministrationPanelProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(
@@ -34,7 +36,9 @@ export default function AdministrationPanel({
   const [dozent, setDozent] = useState("");
   const [kommentar, setKommentar] = useState("");
   const [eventExists, setEventExists] = useState(false);
-  const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
+  const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     if (selectedEvent) {
@@ -108,7 +112,8 @@ export default function AdministrationPanel({
   };
 
   const handleUpdate = () => {
-    if (currentEventIndex === null || !selectedDate || !startTime || !endTime) return;
+    if (currentEventIndex === null || !selectedDate || !startTime || !endTime)
+      return;
 
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
@@ -141,12 +146,13 @@ export default function AdministrationPanel({
   return (
     <Box
       sx={{
-        width: 420,
+        width: { xs: "100%", sm: 380, md: 420 },
+        minWidth: { xs: "100%", sm: 300 },
         bgcolor: "#E3F2FD",
-        height: "100vh",
+        height: { xs: "auto", sm: "100vh" },
         display: "flex",
         flexDirection: "column",
-        borderRight: "1px solid #d0d7dd",
+        borderRight: { xs: "none", sm: "1px solid #d0d7dd" },
         p: 2,
         boxSizing: "border-box",
         overflowY: "auto",
@@ -155,7 +161,7 @@ export default function AdministrationPanel({
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      {/* Durchgezogene Trennlinie zwischen Kalender und Verwaltung */}
+      {/* Trennlinie */}
       <Box
         sx={{
           mx: -2,
@@ -166,11 +172,12 @@ export default function AdministrationPanel({
         }}
       />
 
-      {/* Header: Verwaltung (links) + Datum & Uhrzeit (rechts) */}
+      {/* Header */}
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "flex-start" : "center",
           justifyContent: "space-between",
           gap: 2,
           mt: -2,
@@ -179,7 +186,7 @@ export default function AdministrationPanel({
         <Typography
           sx={{
             fontWeight: 800,
-            fontSize: "1.3rem",
+            fontSize: { xs: "1.1rem", sm: "1.3rem" },
             color: "#0d0d0d",
             lineHeight: 3.1,
           }}
@@ -187,7 +194,14 @@ export default function AdministrationPanel({
           Verwaltung
         </Typography>
 
-        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <Box
             sx={{
               bgcolor: "#fff",
@@ -233,7 +247,14 @@ export default function AdministrationPanel({
 
       {/* TimePickers */}
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-        <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 1,
+            mt: 1,
+          }}
+        >
           <TimePicker
             label="Startzeit"
             value={startTime}
@@ -279,7 +300,7 @@ export default function AdministrationPanel({
         />
       </Box>
 
-      {/* Action Buttons */}
+      {/* Buttons */}
       <Box sx={{ mt: 2 }}>
         <ActionButtons
           eventExists={eventExists}
@@ -291,7 +312,6 @@ export default function AdministrationPanel({
     </Box>
   );
 }
-
 
 
 
