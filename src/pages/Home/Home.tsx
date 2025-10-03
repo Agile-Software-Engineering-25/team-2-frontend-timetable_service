@@ -15,6 +15,8 @@ const Home = () => {
         {t('pages.home.weatherButton')}
       </Button>
       <Button onClick={() => navigate('/apitest')}>API Test Page</Button>
+      <Button onClick={() => navigate('/administration')}>Verwaltung</Button>
+  
       <LanguageSelectorComponent />
     </Box>
   );

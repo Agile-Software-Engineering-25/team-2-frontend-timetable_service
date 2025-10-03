@@ -170,19 +170,37 @@ export default function AdministrationForm({
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Dozent/-in
         </Typography>
-        <Autocomplete
-          options={DOZENTEN ?? []}
-          value={dozent || null}
-          onChange={(_, val: string | null) => setDozent(val ?? "")}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Dozent wählen"
-              size="small"
-              sx={{ ...fieldSx, height: "48px" }}
-            />
-          )}
-        />
+     <Autocomplete
+       freeSolo={false}
+       options={DOZENTEN ?? []}
+       value={dozent || null}
+       onChange={(_, val: string | null) => setDozent(val ?? "")}
+       renderInput={(params) => (
+        <TextField
+           {...params}
+           placeholder="Dozent wählen"
+           size="small"
+            sx={{
+               ...fieldSx,
+               "& .MuiOutlinedInput-root": {
+               height: 44, // Höhe der Box
+               borderRadius: 1.5,
+              "& .MuiInputBase-input": {
+               padding: "10px 14px", // passt den Text-Innenabstand an
+               },
+               "& fieldset": {
+                borderColor: "transparent", // Outline default unsichtbar
+                },
+               "&.Mui-focused fieldset": {
+                borderColor: "#0A2E65", // dein Blau für Focus
+                borderWidth: "2px", // gleiche Dicke für bessere Sichtbarkeit
+          },
+        },
+      }}
+    />
+  )}
+/>
+
       </Box>
 
       {/* Kommentar (volle Breite) */}
