@@ -1,4 +1,3 @@
-// src/components/AdministrationNavbar/AdministrationPanel.tsx
 import { useState, useEffect } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CalendarMini from "./CalendarMini";
@@ -203,16 +202,17 @@ export default function AdministrationPanel({
           }}
         >
           <Box
-            sx={{
-              bgcolor: "#fff",
-              px: 1.2,
-              py: 0.5,
-              borderRadius: 1.5,
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              color: "#0d0d0d",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-            }}
+             sx={{
+               bgcolor: "#fff",
+               px: 1.4,
+               py: 0.6,
+               borderRadius: 10,
+               fontSize: 13,
+               fontFamily: "Inter, Roboto, sans-serif",
+               fontWeight: 600,
+               color: "#0A2E65", 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+               }}
           >
             {selectedDate
               ? selectedDate.toLocaleDateString("de-DE", {
@@ -224,16 +224,17 @@ export default function AdministrationPanel({
           </Box>
 
           <Box
-            sx={{
-              bgcolor: "#fff",
-              px: 1.2,
-              py: 0.5,
-              borderRadius: 1.5,
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              color: "#0d0d0d",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-            }}
+             sx={{
+               bgcolor: "#fff",
+               px: 1.4,
+               py: 0.6,
+               borderRadius: 10,
+               fontSize: 13,
+               fontFamily: "Inter, Roboto, sans-serif",
+               fontWeight: 600,
+               color: "#0A2E65",
+               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+               }}
           >
             {startTime
               ? startTime.toLocaleTimeString("de-DE", {
