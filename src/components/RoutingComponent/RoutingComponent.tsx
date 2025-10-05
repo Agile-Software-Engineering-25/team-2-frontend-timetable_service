@@ -7,10 +7,7 @@ import Timetable from '@/pages/Timetable/Timetable';
 const RoutingComponent = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/weather" element={<Weather />} />
-      <Route path="/apitest" element={<ApiTestPage />} />
-      <Route path="/timetable" element={<Timetable />} />
+      <Route path="/" element={<Timetable />} />
     </Routes>
   );
 };
