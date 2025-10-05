@@ -183,17 +183,17 @@ export default function AdministrationForm({
             sx={{
                ...fieldSx,
                "& .MuiOutlinedInput-root": {
-               height: 44, // Höhe der Box
+               height: 44, 
                borderRadius: 1.5,
               "& .MuiInputBase-input": {
-               padding: "10px 14px", // passt den Text-Innenabstand an
+               padding: "10px 14px", 
                },
                "& fieldset": {
-                borderColor: "transparent", // Outline default unsichtbar
+                borderColor: "transparent", 
                 },
                "&.Mui-focused fieldset": {
-                borderColor: "#0A2E65", // dein Blau für Focus
-                borderWidth: "2px", // gleiche Dicke für bessere Sichtbarkeit
+                borderColor: "#0A2E65", 
+                borderWidth: "2px", 
           },
         },
       }}
