@@ -57,36 +57,33 @@ export default function AdministrationPanel({
   }, [selectedEvent, events]);
 
   useEffect(() => {
-    if (!selectedDate) {
-      setEventExists(false);
-      setCurrentEventIndex(null);
-      return;
-    }
+  if (!selectedDate) return;
 
-    const index = events.findIndex(
-      (ev) =>
-        ev.start.toDateString() === selectedDate.toDateString() &&
-        ((studiengruppe && ev.title.includes(studiengruppe)) ||
-          (dozent && ev.title.includes(dozent)))
-    );
+  const index = events.findIndex(
+    (ev) => ev.start.toDateString() === selectedDate.toDateString()
+  );
 
-    if (index >= 0) {
-      setEventExists(true);
-      setCurrentEventIndex(index);
+  if (index >= 0) {
+    setEventExists(true);
+    setCurrentEventIndex(index);
 
-      const ev = events[index];
-      setStartTime(ev.start);
-      setEndTime(ev.end);
-      setModul(ev.title.split(" (")[0] || "");
-    } else {
-      setEventExists(false);
-      setCurrentEventIndex(null);
+    const ev = events[index];
+
+    // Nur setzen, wenn das Feld noch leer ist
+    if (!modul) setModul(ev.title.split(" (")[0] || "");
+    if (!startTime) setStartTime(ev.start);
+    if (!endTime) setEndTime(ev.end);
+  } else {
+    setEventExists(false);
+    setCurrentEventIndex(null);
+
+    // Nur beim ersten Mal zurücksetzen, nicht jedes Mal
+    if (!eventExists) {
       setModul("");
       setKommentar("");
-      setStartTime(new Date());
-      setEndTime(new Date(new Date().getTime() + 60 * 60 * 1000));
     }
-  }, [selectedDate, studiengruppe, dozent, events]);
+  }
+}, [selectedDate, events]);
 
   const handleAdd = () => {
     if (!selectedDate || !startTime || !endTime) return;
