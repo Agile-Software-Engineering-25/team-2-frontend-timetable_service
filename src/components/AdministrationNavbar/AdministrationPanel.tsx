@@ -94,15 +94,7 @@ export default function AdministrationPanel({
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const newEvent: Event = {
-      title: `${modul} (${studiengruppe})`,
-      start,
-      end,
-      studiengruppe,
-      modul,
-      raum,
-      typ,
-      dozent,
-      kommentar,
+      title: `${modul} (${studiengruppe})`,  start,  end,  studiengruppe,  modul,  raum,  typ,  dozent,  kommentar,
     };
     setEvents([...events, newEvent]);
   };
@@ -118,15 +110,7 @@ export default function AdministrationPanel({
 
     const updatedEvents = [...events];
     updatedEvents[currentEventIndex] = {
-      title: `${modul} (${studiengruppe})`,
-      start,
-      end,
-      studiengruppe,
-      modul,
-      raum,
-      typ,
-      dozent,
-      kommentar,
+      title: `${modul} (${studiengruppe})`,  start,  end,  studiengruppe,  modul,  raum,  typ,  dozent,  kommentar,
     };
     setEvents(updatedEvents);
   };
