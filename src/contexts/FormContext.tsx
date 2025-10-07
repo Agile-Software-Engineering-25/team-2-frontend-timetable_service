@@ -101,7 +101,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     dozent: null,
     veranstaltungstyp: null,
     raum: null,
-    kommentar: null
+    kommentar: null,
   });
 
   /**

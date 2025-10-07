@@ -26,6 +26,7 @@ interface BigCalendarProps {
 }
 
 export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps) {
+
   const [view, setView] = useState<View>("month" as View);
   const [date, setDate] = useState<Date>(new Date());
   const eventPropGetter = (event: Event) => {

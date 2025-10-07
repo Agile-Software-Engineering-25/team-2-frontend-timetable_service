@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CalendarMini from "./CalendarMini";
-import VerwaltungsForm from "./AdministrationForm";
+import AdministrationForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
 import type { Event } from "@pages/Administration/Administration";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -266,7 +266,7 @@ export default function AdministrationPanel({
 
       {/* Formular */}
       <Box sx={{ mt: 2 }}>
-        <VerwaltungsForm
+        <AdministrationForm
           studiengruppe={studiengruppe}
           setStudiengruppe={setStudiengruppe}
           modul={modul}

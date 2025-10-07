@@ -1,14 +1,10 @@
-// src/pages/Timetable/Timetable.tsx
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import AdministrationPanel from "@components/AdministrationNavbar/AdministrationPanel";
 import BigCalendar from "@components/AdministrationNavbar/BigCalendar";
-import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
-import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
-import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
-import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
-import { RAEUME } from '../../components/autoCompleteDropdown/raumDropdown'
+import { FormProvider, useFormContext } from "../../contexts/FormContext"; 
 
+
+// Event Interface
 export interface Event {
   title: string;
   start: Date;
@@ -21,37 +17,53 @@ export interface Event {
   kommentar: string;
 }
 
-
-const Administration: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([
-    {
-      title: `${MODULE[2]} (${StudienGruppen[0]})`,
-      start: new Date(2025, 9, 2, 10, 0),
-      end: new Date(2025, 9, 2, 12, 0),
-      studiengruppe: StudienGruppen[0],
-      modul: MODULE[2],
-      raum: RAEUME[1],
-      typ: TYPEN[0],
-      dozent: DOZENTEN[0],
-      kommentar: "Erste Vorlesung des Semesters"
-    },
-    {
-      title: `${MODULE[0]} (${StudienGruppen[1]})`,
-      start: new Date(2025, 9, 3, 14, 0),
-      end: new Date(2025, 9, 3, 16, 0),
-      studiengruppe: StudienGruppen[1],
-      modul: MODULE[0],
-      raum: RAEUME[0],
-      typ: TYPEN[4],
-      dozent: DOZENTEN[1],
-      kommentar: "Abschlussklausur"
-    },
-  ]);
+const AdministrationInner: React.FC = () => {
+  const { formState } = useFormContext();
+  const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  const handleSelectEvent = (event: Event) => {
-    setSelectedEvent(event);
-  };
+  // Erzeugt ein Event aus formState, falls Datum/Start/End gesetzt sind
+  useEffect(() => {
+    if (!formState.studienGruppe || !formState.modul) return;
+
+    const existingIndex = events.findIndex(
+      (ev) =>
+        ev.start.getTime() === (formState as any).startTime?.getTime() &&
+        ev.end.getTime() === (formState as any).endTime?.getTime() &&
+        ev.studiengruppe === formState.studienGruppe
+    );
+
+    const newEvent: Event = {
+      title: `${formState.modul} (${formState.studienGruppe})`,
+      start: (formState as any).startTime || new Date(),
+      end: (formState as any).endTime || new Date(),
+      studiengruppe: formState.studienGruppe || "",
+      modul: formState.modul || "",
+      raum: formState.raum || "",
+      typ: formState.veranstaltungstyp || "",
+      dozent: formState.dozent || "",
+      kommentar: formState.kommentar || "",
+    };
+
+    if (existingIndex >= 0) {
+      // Event aktualisieren
+      const updated = [...events];
+      updated[existingIndex] = newEvent;
+      setEvents(updated);
+    } else {
+      // Neues Event hinzufügen
+      setEvents((prev) => [...prev, newEvent]);
+    }
+  }, [
+    formState.studienGruppe,
+    formState.modul,
+    formState.raum,
+    formState.veranstaltungstyp,
+    formState.dozent,
+    formState.kommentar,
+    (formState as any).startTime,
+    (formState as any).endTime,
+  ]);
 
   return (
     <div style={{ display: "flex", gap: 16, padding: 16 }}>
@@ -62,13 +74,22 @@ const Administration: React.FC = () => {
         setSelectedEvent={setSelectedEvent}
       />
       <div style={{ flex: 1 }}>
-        <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+        <BigCalendar events={events} onSelectEvent={setSelectedEvent} />
       </div>
     </div>
   );
-}
+};
+
+const Administration: React.FC = () => {
+  return (
+    <FormProvider>
+      <AdministrationInner />
+    </FormProvider>
+  );
+};
 
 export default Administration;
+
 
 
 
