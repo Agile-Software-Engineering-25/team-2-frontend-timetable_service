@@ -15,6 +15,8 @@ interface FormState {
   veranstaltungstyp: string | null;
   /** Ausgewählter Raum (z.B. "R101") */
   raum: string | null;
+  /** Optional verfasster Kommentar */
+  kommentar: string | null;
 }
 
 /**
@@ -99,6 +101,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     dozent: null,
     veranstaltungstyp: null,
     raum: null,
+    kommentar: null
   });
 
   /**

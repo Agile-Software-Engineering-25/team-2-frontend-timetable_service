@@ -1,11 +1,5 @@
 // src/components/AdministrationNavbar/AdministrationForm.tsx
-import {
-  Box,
-  Typography,
-  TextField,
-  InputAdornment,
-  Autocomplete,
-} from "@mui/material";
+import { Box, Typography, TextField, InputAdornment, Autocomplete } from "@mui/material";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
