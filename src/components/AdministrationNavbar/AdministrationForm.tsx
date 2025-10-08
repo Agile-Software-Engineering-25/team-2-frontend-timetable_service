@@ -1,26 +1,11 @@
-// src/components/AdministrationNavbar/AdministrationForm.tsx
-import {Box, Typography, TextField, InputAdornment, Autocomplete } from "@mui/material";
+import { Box, Typography, TextField, InputAdornment, Autocomplete } from "@mui/material";
+import { useFormContext } from "../../contexts/FormContext.tsx";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
 import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 import TYP_COLORS from "./typColors";
-
-interface Props {
-  studiengruppe: string;
-  setStudiengruppe: (val: string) => void;
-  modul: string;
-  setModul: (val: string) => void;
-  raum: string;
-  setRaum: (val: string) => void;
-  typ: string;
-  setTyp: (val: string) => void;
-  dozent: string;
-  setDozent: (val: string) => void;
-  kommentar: string;
-  setKommentar: (val: string) => void;
-}
 
 const fieldSx = {
   bgcolor: "#fff",
@@ -41,20 +26,9 @@ const fieldSx = {
   boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
 };
 
-export default function AdministrationForm({
-  studiengruppe,
-  setStudiengruppe,
-  modul,
-  setModul,
-  raum,
-  setRaum,
-  typ,
-  setTyp,
-  dozent,
-  setDozent,
-  kommentar,
-  setKommentar,
-}: Props) {
+export default function AdministrationForm() {
+  const { formState, updateField } = useFormContext();
+
   return (
     <Box
       sx={{
@@ -65,70 +39,50 @@ export default function AdministrationForm({
     >
       {/* Studiengruppe */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
-          Studiengruppe
-        </Typography>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Studiengruppe</Typography>
         <Autocomplete
           options={StudienGruppen ?? []}
-          value={studiengruppe || null}
-          onChange={(_, val: string | null) => setStudiengruppe(val ?? "")}
+          value={formState.studienGruppe || null}
+          onChange={(_, val) => updateField("studienGruppe", val ?? null)}
           renderInput={(params) => (
-            <TextField
-              {...params} placeholder="Studiengruppe wählen" size="small" sx={fieldSx}
-            />
+            <TextField {...params} placeholder="Studiengruppe wählen" size="small" sx={fieldSx} required/>
           )}
         />
       </Box>
 
       {/* Modul */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
-          Modul
-        </Typography>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Modul</Typography>
         <Autocomplete
           options={MODULE ?? []}
-          value={modul || null}
-          onChange={(_, val: string | null) => setModul(val ?? "")}
+          value={formState.modul || null}
+          onChange={(_, val) => updateField("modul", val ?? null)}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Modul wählen"
-              size="small"
-              sx={fieldSx}
-            />
+            <TextField {...params} placeholder="Modul wählen" size="small" sx={fieldSx} required/>
           )}
         />
       </Box>
 
       {/* Raum */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
-          Raum
-        </Typography>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Raum</Typography>
         <Autocomplete
           options={RAEUME ?? []}
-          value={raum || null}
-          onChange={(_, val: string | null) => setRaum(val ?? "")}
+          value={formState.raum || null}
+          onChange={(_, val) => updateField("raum", val ?? null)}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Raum wählen"
-              size="small"
-              sx={fieldSx}
-            />
+            <TextField {...params} placeholder="Raum wählen" size="small" sx={fieldSx} required/>
           )}
         />
       </Box>
 
       {/* Typ */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
-          Typ
-        </Typography>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Typ</Typography>
         <Autocomplete
           options={TYPEN ?? []}
-          value={typ || null}
-          onChange={(_, val: string | null) => setTyp(val ?? "")}
+          value={formState.veranstaltungstyp || null}
+          onChange={(_, val) => updateField("veranstaltungstyp", val ?? null)}
           renderOption={(props, option) => (
             <li {...props}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -146,62 +100,48 @@ export default function AdministrationForm({
             </li>
           )}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Typ wählen"
-              size="small"
-              sx={fieldSx}
-            />
+            <TextField {...params} placeholder="Typ wählen" size="small" sx={fieldSx} required/>
           )}
         />
       </Box>
 
-      {/* Dozent (volle Breite) */}
+      {/* Dozent */}
       <Box sx={{ gridColumn: "1 / -1" }}>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
-          Dozent/-in
-        </Typography>
-     <Autocomplete
-       freeSolo={false}
-       options={DOZENTEN ?? []}
-       value={dozent || null}
-       onChange={(_, val: string | null) => setDozent(val ?? "")}
-       renderInput={(params) => (
-        <TextField
-           {...params}
-           placeholder="Dozent wählen"
-           size="small"
-            sx={{
-               ...fieldSx,
-               "& .MuiOutlinedInput-root": {
-               height: 44, 
-               borderRadius: 1.5,
-              "& .MuiInputBase-input": {
-               padding: "10px 14px", 
-               },
-               "& fieldset": {
-                borderColor: "transparent", 
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Dozent/-in</Typography>
+        <Autocomplete
+          options={DOZENTEN ?? []}
+          value={formState.dozent || null}
+          onChange={(_, val) => updateField("dozent", val ?? null)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Dozent wählen"
+              size="small"
+              sx={{
+                ...fieldSx,
+                "& .MuiOutlinedInput-root": {
+                  height: 44,
+                  borderRadius: 1.5,
+                  "& fieldset": { borderColor: "transparent" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#0A2E65",
+                    borderWidth: "2px",
+                  },
                 },
-               "&.Mui-focused fieldset": {
-                borderColor: "#0A2E65", 
-                borderWidth: "2px", 
-          },
-        },
-      }}
-    />
-  )}
-/>
-
+              }}
+            required/>
+          )}
+        />
       </Box>
 
-      {/* Kommentar (volle Breite) */}
+      {/* Kommentar */}
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Veranstaltungskommentar (optional)
         </Typography>
         <TextField
-          value={kommentar}
-          onChange={(e) => setKommentar(e.target.value)}
+          value={formState.kommentar || ""}
+          onChange={(e) => updateField("kommentar", e.target.value)}
           fullWidth
           multiline
           rows={3}
@@ -211,19 +151,15 @@ export default function AdministrationForm({
             endAdornment: (
               <InputAdornment
                 position="end"
-                sx={{
-                  alignSelf: "flex-end",
-                  mt: "auto",
-                  transform: "translateY(12px)",
-                }}
+                sx={{ alignSelf: "flex-end", mt: "auto", transform: "translateY(12px)" }}
               >
                 <span
                   style={{
                     fontSize: "0.75rem",
-                    color: kommentar.length >= 250 ? "red" : "#666",
+                    color: (formState.kommentar?.length || 0) >= 250 ? "red" : "#666",
                   }}
                 >
-                  {kommentar.length}/250
+                  {formState.kommentar?.length || 0}/250
                 </span>
               </InputAdornment>
             ),

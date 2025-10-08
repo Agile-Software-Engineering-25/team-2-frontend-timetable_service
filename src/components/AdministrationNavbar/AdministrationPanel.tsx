@@ -7,6 +7,7 @@ import type { Event } from "@pages/Administration/Administration";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
+import { FormProvider } from "@/contexts/FormContext";
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -124,6 +125,7 @@ export default function AdministrationPanel({
   };
 
   return (
+    <FormProvider>
     <Box
       sx={{
         width: { xs: "100%", sm: 380, md: 420 },
@@ -267,20 +269,9 @@ export default function AdministrationPanel({
       {/* Formular */}
       <Box sx={{ mt: 2 }}>
         <AdministrationForm
-          studiengruppe={studiengruppe}
-          setStudiengruppe={setStudiengruppe}
-          modul={modul}
-          setModul={setModul}
-          raum={raum}
-          setRaum={setRaum}
-          typ={typ}
-          setTyp={setTyp}
-          dozent={dozent}
-          setDozent={setDozent}
-          kommentar={kommentar}
-          setKommentar={setKommentar}
         />
       </Box>
+    
 
       {/* Buttons */}
       <Box sx={{ mt: 2 }}>
@@ -292,6 +283,7 @@ export default function AdministrationPanel({
         />
       </Box>
     </Box>
+    </FormProvider>
   );
 }
 
