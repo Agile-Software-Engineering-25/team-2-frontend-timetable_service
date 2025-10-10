@@ -7,7 +7,7 @@ import type { Event } from "@pages/Administration/Administration";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
-import { FormProvider } from "@/contexts/FormContext";
+import { useFormContext } from "@/contexts/FormContext";
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -20,74 +20,47 @@ export default function AdministrationPanel({
   events,
   setEvents,
   selectedEvent,
+  setSelectedEvent,
 }: AdministrationPanelProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { formState, updateField, validateForm } = useFormContext();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(
     new Date(new Date().getTime() + 60 * 60 * 1000)
   );
-  const [studiengruppe, setStudiengruppe] = useState("");
-  const [modul, setModul] = useState("");
-  const [raum, setRaum] = useState("");
-  const [typ, setTyp] = useState("");
-  const [dozent, setDozent] = useState("");
-  const [kommentar, setKommentar] = useState("");
   const [eventExists, setEventExists] = useState(false);
-  const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(
-    null
-  );
+  const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
 
+  // 🔄 Wenn im Kalender ein Event ausgewählt wird → Form füllen
   useEffect(() => {
     if (selectedEvent) {
       setSelectedDate(selectedEvent.start);
       setStartTime(selectedEvent.start);
       setEndTime(selectedEvent.end);
-      setModul(selectedEvent.modul || "");
-      setStudiengruppe(selectedEvent.studiengruppe || "");
-      setRaum(selectedEvent.raum || "");
-      setTyp(selectedEvent.typ || "");
-      setDozent(selectedEvent.dozent || "");
-      setKommentar(selectedEvent.kommentar || "");
       setEventExists(true);
       const idx = events.findIndex((ev) => ev === selectedEvent);
       setCurrentEventIndex(idx >= 0 ? idx : null);
+
+      // Formular-Felder automatisch füllen
+      updateField("studienGruppe", selectedEvent.studiengruppe);
+      updateField("modul", selectedEvent.modul);
+      updateField("raum", selectedEvent.raum);
+      updateField("veranstaltungstyp", selectedEvent.typ);
+      updateField("dozent", selectedEvent.dozent);
+      updateField("kommentar", selectedEvent.kommentar);
+    } else {
+      setEventExists(false);
+      setCurrentEventIndex(null);
     }
-  }, [selectedEvent, events]);
+  }, [selectedEvent]);
 
-  useEffect(() => {
-  if (!selectedDate) return;
-
-  const index = events.findIndex(
-    (ev) => ev.start.toDateString() === selectedDate.toDateString()
-  );
-
-  if (index >= 0) {
-    setEventExists(true);
-    setCurrentEventIndex(index);
-
-    const ev = events[index];
-
-    // Nur setzen, wenn das Feld noch leer ist
-    if (!modul) setModul(ev.title.split(" (")[0] || "");
-    if (!startTime) setStartTime(ev.start);
-    if (!endTime) setEndTime(ev.end);
-  } else {
-    setEventExists(false);
-    setCurrentEventIndex(null);
-
-    // Nur beim ersten Mal zurücksetzen, nicht jedes Mal
-    if (!eventExists) {
-      setModul("");
-      setKommentar("");
-    }
-  }
-}, [selectedDate, events]);
-
+  // ➕ Hinzufügen
   const handleAdd = () => {
-    if (!selectedDate || !startTime || !endTime) return;
+    const { isValid } = validateForm();
+    if (!isValid || !selectedDate || !startTime || !endTime) return;
 
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
@@ -95,14 +68,25 @@ export default function AdministrationPanel({
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const newEvent: Event = {
-      title: `${modul} (${studiengruppe})`,  start,  end,  studiengruppe,  modul,  raum,  typ,  dozent,  kommentar,
+      title: `${formState.modul || "Unbekannt"} (${formState.studienGruppe || "-"})`,
+      start,
+      end,
+      studiengruppe: formState.studienGruppe || "",
+      modul: formState.modul || "",
+      raum: formState.raum || "",
+      typ: formState.veranstaltungstyp || "",
+      dozent: formState.dozent || "",
+      kommentar: formState.kommentar || "",
     };
-    setEvents([...events, newEvent]);
+
+    setEvents((prev) => [...prev, newEvent]);
+    setSelectedEvent(newEvent);
+    setEventExists(true);
   };
 
+  // ✏️ Aktualisieren
   const handleUpdate = () => {
-    if (currentEventIndex === null || !selectedDate || !startTime || !endTime)
-      return;
+    if (currentEventIndex === null || !selectedDate || !startTime || !endTime) return;
 
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
@@ -111,21 +95,32 @@ export default function AdministrationPanel({
 
     const updatedEvents = [...events];
     updatedEvents[currentEventIndex] = {
-      title: `${modul} (${studiengruppe})`,  start,  end,  studiengruppe,  modul,  raum,  typ,  dozent,  kommentar,
+      title: `${formState.modul || "Unbekannt"} (${formState.studienGruppe || "-"})`,
+      start,
+      end,
+      studiengruppe: formState.studienGruppe || "",
+      modul: formState.modul || "",
+      raum: formState.raum || "",
+      typ: formState.veranstaltungstyp || "",
+      dozent: formState.dozent || "",
+      kommentar: formState.kommentar || "",
     };
+
     setEvents(updatedEvents);
+    setSelectedEvent(updatedEvents[currentEventIndex]);
   };
 
+  // 🗑️ Löschen
   const handleDelete = () => {
     if (currentEventIndex === null) return;
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
     setEvents(filteredEvents);
+    setSelectedEvent(null);
     setEventExists(false);
     setCurrentEventIndex(null);
   };
 
   return (
-    <FormProvider>
     <Box
       sx={{
         width: { xs: "100%", sm: 380, md: 420 },
@@ -140,10 +135,9 @@ export default function AdministrationPanel({
         overflowY: "auto",
       }}
     >
-      {/* Mini-Kalender */}
+      {/* Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      {/* Trennlinie */}
       <Box
         sx={{
           mx: -2,
@@ -176,26 +170,19 @@ export default function AdministrationPanel({
           Verwaltung
         </Typography>
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 1,
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
+        {/* Datum + Zeit */}
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center", flexWrap: "wrap" }}>
           <Box
-             sx={{
-               bgcolor: "#fff",
-               px: 1.4,
-               py: 0.6,
-               borderRadius: 10,
-               fontSize: 13,
-               fontFamily: "Inter, Roboto, sans-serif",
-               fontWeight: 600,
-               color: "#0A2E65", 
-               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-               }}
+            sx={{
+              bgcolor: "#fff",
+              px: 1.4,
+              py: 0.6,
+              borderRadius: 10,
+              fontSize: 13,
+              fontWeight: 600,
+              color: "#0A2E65",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+            }}
           >
             {selectedDate
               ? selectedDate.toLocaleDateString("de-DE", {
@@ -205,40 +192,12 @@ export default function AdministrationPanel({
                 })
               : ""}
           </Box>
-
-          <Box
-             sx={{
-               bgcolor: "#fff",
-               px: 1.4,
-               py: 0.6,
-               borderRadius: 10,
-               fontSize: 13,
-               fontFamily: "Inter, Roboto, sans-serif",
-               fontWeight: 600,
-               color: "#0A2E65",
-               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-               }}
-          >
-            {startTime
-              ? startTime.toLocaleTimeString("de-DE", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              : ""}
-          </Box>
         </Box>
       </Box>
 
-      {/* TimePickers */}
+      {/* Zeit-Picker */}
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            gap: 1,
-            mt: 1,
-          }}
-        >
+        <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
           <TimePicker
             label="Startzeit"
             value={startTime}
@@ -268,10 +227,8 @@ export default function AdministrationPanel({
 
       {/* Formular */}
       <Box sx={{ mt: 2 }}>
-        <AdministrationForm
-        />
+        <AdministrationForm />
       </Box>
-    
 
       {/* Buttons */}
       <Box sx={{ mt: 2 }}>
@@ -283,7 +240,6 @@ export default function AdministrationPanel({
         />
       </Box>
     </Box>
-    </FormProvider>
   );
 }
 

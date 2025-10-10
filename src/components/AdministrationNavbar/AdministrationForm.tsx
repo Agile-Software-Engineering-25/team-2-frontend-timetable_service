@@ -41,7 +41,7 @@ export default function AdministrationForm() {
       <Box>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Studiengruppe</Typography>
         <Autocomplete
-          options={StudienGruppen ?? []}
+          options={StudienGruppen ?? []} 
           value={formState.studienGruppe || null}
           onChange={(_, val) => updateField("studienGruppe", val ?? null)}
           renderInput={(params) => (
