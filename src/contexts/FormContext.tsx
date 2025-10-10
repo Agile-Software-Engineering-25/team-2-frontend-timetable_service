@@ -149,10 +149,11 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const validateForm = () => {
     const missingFields: string[] = [];
 
-    if (!formState.studienGruppe) missingFields.push('Studiengruppe');
-    if (!formState.modul) missingFields.push('Modul');
-    if (!formState.dozent) missingFields.push('Dozent');
-    if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
+    if (!formState.studienGruppe) missingFields.push('Studiengruppe erforderlich');
+    if (!formState.modul) missingFields.push('Modul erforderlich');
+    if (!formState.modul) missingFields.push('Raum erforderlich');
+    if (!formState.dozent) missingFields.push('Dozent erforderlich');
+    if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp erforderlich');
 
     return {
       isValid: missingFields.length === 0,

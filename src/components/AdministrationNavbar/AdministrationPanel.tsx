@@ -59,8 +59,12 @@ export default function AdministrationPanel({
 
   // ➕ Hinzufügen
   const handleAdd = () => {
-    const { isValid } = validateForm();
-    if (!isValid || !selectedDate || !startTime || !endTime) return;
+    const { isValid, missingFields } = validateForm();
+    if (!selectedDate || !startTime || !endTime) return;
+    if (!isValid) { console.log("Fehler:", missingFields.join(","))
+      alert(missingFields.join("\n")); // später ersetzen durch Snackbar
+    return;
+  }
 
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
