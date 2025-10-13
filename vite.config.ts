@@ -7,6 +7,7 @@ import vitePluginReactHMR from "vite-plugin-react-single-spa-hmr";
 const PORT = parseInt(process.env.PORT ?? "5173");
 
 // Wenn lokal gestartet wird, dann: const BASE_URL_DEPLOYMENT = `http://localhost:${PORT}/`;
+// Sonst wird /api/ASE-02/ in Zeile 17 verwendet
 
 const ENTRY_POINT = "src/singleSpa.tsx";
 
