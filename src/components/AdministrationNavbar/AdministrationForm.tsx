@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Box, Typography, TextField, InputAdornment, Autocomplete } from "@mui/material";
 import { useFormContext } from "../../contexts/FormContext.tsx";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
@@ -27,7 +28,40 @@ const fieldSx = {
 };
 
 export default function AdministrationForm() {
-  const { formState, updateField } = useFormContext();
+  const { formState, updateField, validateForm, showErrors } = useFormContext();
+
+  const [errors, setErrors] = useState<Record<string, string | null>>({
+    studienGruppe: null,
+    modul: null,
+    raum: null,
+    veranstaltungstyp: null,
+    dozent: null,
+  });
+
+  // Wenn showErrors aktiv ist → sofortige Fehlermeldungsanzeige
+  useEffect(() => {
+    if (showErrors) {
+      const { missingFields } = validateForm();
+      const newErrors: Record<string, string | null> = {
+        studienGruppe: missingFields.includes("Studiengruppe erforderlich")
+          ? "Studiengruppe ist erforderlich"
+          : null,
+        modul: missingFields.includes("Modul erforderlich")
+          ? "Modul ist erforderlich"
+          : null,
+        raum: missingFields.includes("Raum erforderlich")
+          ? "Raum ist erforderlich"
+          : null,
+        veranstaltungstyp: missingFields.includes("Veranstaltungstyp erforderlich")
+          ? "Typ ist erforderlich"
+          : null,
+        dozent: missingFields.includes("Dozent erforderlich")
+          ? "Dozent ist erforderlich"
+          : null,
+      };
+      setErrors(newErrors);
+    }
+  }, [showErrors, formState]); // prüft erneut, wenn Fehler aktiviert oder Felder geändert werden
 
   return (
     <Box
@@ -41,13 +75,25 @@ export default function AdministrationForm() {
       <Box>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>Studiengruppe</Typography>
         <Autocomplete
-          options={StudienGruppen ?? []} 
+          options={StudienGruppen ?? []}
           value={formState.studienGruppe || null}
           onChange={(_, val) => updateField("studienGruppe", val ?? null)}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Studiengruppe wählen" size="small" sx={fieldSx} required/>
+            <TextField
+              {...params}
+              placeholder="Studiengruppe wählen"
+              size="small"
+              sx={fieldSx}
+              error={!!errors.studienGruppe && showErrors}
+              required
+            />
           )}
         />
+        {showErrors && errors.studienGruppe && (
+          <Typography sx={{ color: "red", fontSize: "0.75rem", mt: 0.3 }}>
+            {errors.studienGruppe}
+          </Typography>
+        )}
       </Box>
 
       {/* Modul */}
@@ -58,9 +104,21 @@ export default function AdministrationForm() {
           value={formState.modul || null}
           onChange={(_, val) => updateField("modul", val ?? null)}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Modul wählen" size="small" sx={fieldSx} required/>
+            <TextField
+              {...params}
+              placeholder="Modul wählen"
+              size="small"
+              sx={fieldSx}
+              error={!!errors.modul && showErrors}
+              required
+            />
           )}
         />
+        {showErrors && errors.modul && (
+          <Typography sx={{ color: "red", fontSize: "0.75rem", mt: 0.3 }}>
+            {errors.modul}
+          </Typography>
+        )}
       </Box>
 
       {/* Raum */}
@@ -71,9 +129,21 @@ export default function AdministrationForm() {
           value={formState.raum || null}
           onChange={(_, val) => updateField("raum", val ?? null)}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Raum wählen" size="small" sx={fieldSx} required/>
+            <TextField
+              {...params}
+              placeholder="Raum wählen"
+              size="small"
+              sx={fieldSx}
+              error={!!errors.raum && showErrors}
+              required
+            />
           )}
         />
+        {showErrors && errors.raum && (
+          <Typography sx={{ color: "red", fontSize: "0.75rem", mt: 0.3 }}>
+            {errors.raum}
+          </Typography>
+        )}
       </Box>
 
       {/* Typ */}
@@ -100,9 +170,21 @@ export default function AdministrationForm() {
             </li>
           )}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Typ wählen" size="small" sx={fieldSx} required/>
+            <TextField
+              {...params}
+              placeholder="Typ wählen"
+              size="small"
+              sx={fieldSx}
+              error={!!errors.veranstaltungstyp && showErrors}
+              required
+            />
           )}
         />
+        {showErrors && errors.veranstaltungstyp && (
+          <Typography sx={{ color: "red", fontSize: "0.75rem", mt: 0.3 }}>
+            {errors.veranstaltungstyp}
+          </Typography>
+        )}
       </Box>
 
       {/* Dozent */}
@@ -129,12 +211,19 @@ export default function AdministrationForm() {
                   },
                 },
               }}
-            required/>
+              error={!!errors.dozent && showErrors}
+              required
+            />
           )}
         />
+        {showErrors && errors.dozent && (
+          <Typography sx={{ color: "red", fontSize: "0.75rem", mt: 0.3 }}>
+            {errors.dozent}
+          </Typography>
+        )}
       </Box>
 
-      {/* Kommentar */}
+      {/* Kommentar (optional) */}
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#0d0d0d" }}>
           Veranstaltungskommentar (optional)

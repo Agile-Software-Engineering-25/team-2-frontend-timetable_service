@@ -24,7 +24,7 @@ export default function AdministrationPanel({
 }: AdministrationPanelProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const { formState, updateField, validateForm } = useFormContext();
+  const { formState, updateField, validateForm, setShowErrors } = useFormContext();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
@@ -33,6 +33,26 @@ export default function AdministrationPanel({
   );
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
+
+  // 🕒 Uhrzeit live anzeigen
+  const [setCurrentTime] = useState<string>(
+    new Date().toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(
+        new Date().toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
+    }, 60000); // jede Minute aktualisieren
+    return () => clearInterval(timer);
+  }, []);
 
   // 🔄 Wenn im Kalender ein Event ausgewählt wird → Form füllen
   useEffect(() => {
@@ -60,9 +80,11 @@ export default function AdministrationPanel({
   // ➕ Hinzufügen
   const handleAdd = () => {
     const { isValid, missingFields } = validateForm();
-    if (!selectedDate || !startTime || !endTime) return;
-    if (!isValid) { console.log("Fehler:", missingFields.join(","))
-      alert(missingFields.join("\n")); // später ersetzen durch Snackbar
+     setShowErrors(true); // 🔥 Fehlermeldungen ab jetzt anzeigen
+
+  if (!selectedDate || !startTime || !endTime) return;
+  if (!isValid) {
+    console.log("Fehler:", missingFields.join(", "));
     return;
   }
 
@@ -90,7 +112,14 @@ export default function AdministrationPanel({
 
   // ✏️ Aktualisieren
   const handleUpdate = () => {
+    const { isValid, missingFields } = validateForm();
     if (currentEventIndex === null || !selectedDate || !startTime || !endTime) return;
+
+      if (!isValid) {
+      console.log("Fehler:", missingFields.join(", "));
+      // ❌ Pop-up wurde entfernt, Fehlermeldungen erscheinen jetzt direkt unter Feldern
+      return;
+    }
 
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
@@ -174,8 +203,9 @@ export default function AdministrationPanel({
           Verwaltung
         </Typography>
 
-        {/* Datum + Zeit */}
-        <Box sx={{ display: "flex", gap: 1, alignItems: "center", flexWrap: "wrap" }}>
+        {/* Datum + Uhrzeit (wiederhergestellt wie vorher) */}
+        <Box
+          sx={{display: "flex", gap: 1, alignItems: "center", flexWrap: "wrap"}}>
           <Box
             sx={{
               bgcolor: "#fff",
@@ -183,6 +213,7 @@ export default function AdministrationPanel({
               py: 0.6,
               borderRadius: 10,
               fontSize: 13,
+              fontFamily: "Inter, Roboto, sans-serif",
               fontWeight: 600,
               color: "#0A2E65",
               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
@@ -196,8 +227,26 @@ export default function AdministrationPanel({
                 })
               : ""}
           </Box>
+          <Box
+              sx={{
+                bgcolor: "#fff",
+                px: 1.4,
+                py: 0.6,
+                borderRadius: 10,
+                fontSize: 13,
+                fontFamily: "Inter, Roboto, sans-serif",
+                fontWeight: 600,
+                color: "#0A2E65",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+              }}
+            >
+
+               {startTime
+                ? startTime.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })
+                : ""}
+            </Box>
+          </Box>
         </Box>
-      </Box>
 
       {/* Zeit-Picker */}
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>

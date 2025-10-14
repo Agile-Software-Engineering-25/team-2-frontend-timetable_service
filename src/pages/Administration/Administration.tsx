@@ -13,6 +13,7 @@ export interface Event {
   start: Date;
   end: Date;
   studiengruppe: string;
+  
   modul: string;
   raum: string;
   typ: string;

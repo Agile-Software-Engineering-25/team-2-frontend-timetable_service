@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, type ReactNode } from "react";
 
 /**
  * Interface für den Zustand des Formulars
@@ -30,6 +30,10 @@ interface FormContextType {
   updateField: (field: keyof FormState, value: string | null) => void;
   /** Funktion zur Validierung des gesamten Formulars */
   validateForm: () => { isValid: boolean; missingFields: string[] };
+  /** Flag, ob Fehlermeldungen angezeigt werden sollen */
+  showErrors: boolean;
+  /** Setzt, ob Fehlermeldungen angezeigt werden sollen */
+  setShowErrors: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 /**
@@ -43,25 +47,11 @@ const FormContext = createContext<FormContextType | undefined>(undefined);
  *
  * @returns FormContextType - Objekt mit formState, updateField und validateForm
  * @throws Error - Falls der Hook außerhalb eines FormProviders verwendet wird
- *
- * @example
- * ```tsx
- * const { formState, updateField, validateForm } = useFormContext();
- *
- * // Feld aktualisieren
- * updateField('dozent', 'Folk, Florian');
- *
- * // Formular validieren
- * const validation = validateForm();
- * if (!validation.isValid) {
- *   console.log('Fehlende Felder:', validation.missingFields);
- * }
- * ```
  */
 export const useFormContext = () => {
   const context = useContext(FormContext);
   if (!context) {
-    throw new Error('useFormContext must be used within a FormProvider');
+    throw new Error("useFormContext must be used within a FormProvider");
   }
   return context;
 };
@@ -79,19 +69,6 @@ interface FormProviderProps {
  *
  * Verwaltet den zentralen State für das Veranstaltungsbuchungsformular und stellt
  * Funktionen zum Aktualisieren und Validieren der Formulardaten bereit.
- *
- * @param props - FormProviderProps mit children
- *
- * @example
- * ```tsx
- * <FormProvider>
- *   <DozentDropdown />
- *   <StudienGruppeDropdown />
- *   <ModulDropdown />
- *   <VeranstaltungstypDropdown />
- *   <ValidateInputButton />
- * </FormProvider>
- * ```
  */
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   // Zentraler State für alle Formularfelder
@@ -104,25 +81,19 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     kommentar: null,
   });
 
+  // Steuert, ob Fehlermeldungen im Formular angezeigt werden sollen
+  const [showErrors, setShowErrors] = useState(false);
+
   /**
    * Aktualisiert ein einzelnes Feld im Formular-State
    *
    * @param field - Der Schlüssel des zu aktualisierenden Feldes
    * @param value - Der neue Wert für das Feld (null zum Zurücksetzen)
-   *
-   * @example
-   * ```tsx
-   * // Dozent setzen
-   * updateField('dozent', 'Folk, Florian');
-   *
-   * // Feld zurücksetzen
-   * updateField('modul', null);
-   * ```
    */
   const updateField = (field: keyof FormState, value: string | null) => {
-    setFormState(prev => ({
+    setFormState((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -133,36 +104,22 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
    * und erstellt eine Liste der fehlenden Felder.
    *
    * @returns Objekt mit isValid (boolean) und missingFields (string[])
-   *
-   * @example
-   * ```tsx
-   * const validation = validateForm();
-   *
-   * if (validation.isValid) {
-   *   console.log('Formular ist vollständig ausgefüllt');
-   * } else {
-   *   console.log('Fehlende Felder:', validation.missingFields);
-   *   // Ausgabe z.B.: ['Studiengruppe', 'Dozent']
-   * }
-   * ```
    */
   const validateForm = () => {
     const missingFields: string[] = [];
 
-    if (!formState.studienGruppe) missingFields.push('Studiengruppe erforderlich');
-    if (!formState.modul) missingFields.push('Modul erforderlich');
-    if (!formState.modul) missingFields.push('Raum erforderlich');
-    if (!formState.dozent) missingFields.push('Dozent erforderlich');
-    if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp erforderlich');
+    if (!formState.studienGruppe) missingFields.push("Studiengruppe erforderlich");
+    if (!formState.modul) missingFields.push("Modul erforderlich");
+    if (!formState.raum) missingFields.push("Raum erforderlich");
+    if (!formState.dozent) missingFields.push("Dozent erforderlich");
+    if (!formState.veranstaltungstyp) missingFields.push("Veranstaltungstyp erforderlich");
 
-    return {
-      isValid: missingFields.length === 0,
-      missingFields
-    };
+    const isValid = missingFields.length === 0;
+    return { isValid, missingFields };
   };
 
   return (
-    <FormContext.Provider value={{ formState, updateField, validateForm }}>
+    <FormContext.Provider value={{ formState, updateField, validateForm, showErrors, setShowErrors }}>
       {children}
     </FormContext.Provider>
   );
