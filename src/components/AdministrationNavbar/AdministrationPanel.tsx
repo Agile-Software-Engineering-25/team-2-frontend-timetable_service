@@ -35,7 +35,7 @@ export default function AdministrationPanel({
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
 
   // 🕒 Uhrzeit live anzeigen
-  const [setCurrentTime] = useState<string>(
+  const [currentTime, setCurrentTime] = useState<string>(
     new Date().toLocaleTimeString("de-DE", {
       hour: "2-digit",
       minute: "2-digit",
