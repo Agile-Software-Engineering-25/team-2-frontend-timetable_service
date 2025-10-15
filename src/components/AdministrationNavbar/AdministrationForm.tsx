@@ -61,7 +61,8 @@ export default function AdministrationForm() {
       };
       setErrors(newErrors);
     }
-  }, [showErrors, formState]); // prüft erneut, wenn Fehler aktiviert oder Felder geändert werden
+  }, 
+  [showErrors, formState]); // prüft erneut, wenn Fehler aktiviert oder Felder geändert werden
 
   return (
     <Box

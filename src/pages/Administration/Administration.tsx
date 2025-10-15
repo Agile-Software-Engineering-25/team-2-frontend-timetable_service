@@ -9,6 +9,7 @@ import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDr
 import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
 
 export interface Event {
+  id?: number;
   title: string;
   start: Date;
   end: Date;
@@ -24,6 +25,7 @@ export interface Event {
 const Administration: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([
     {
+      id: 1,
       title: `${MODULE[2]} (${StudienGruppen[0]})`,
       start: new Date(2025, 9, 2, 10, 0),
       end: new Date(2025, 9, 2, 12, 0),
@@ -35,6 +37,7 @@ const Administration: React.FC = () => {
       kommentar: "Erste Vorlesung des Semesters",
     },
     {
+      id: 2,
       title: `${MODULE[0]} (${StudienGruppen[1]})`,
       start: new Date(2025, 9, 3, 14, 0),
       end: new Date(2025, 9, 3, 16, 0),
@@ -54,7 +57,7 @@ const Administration: React.FC = () => {
   };
 
   return (
-    // ✅ Der Provider umschließt jetzt ALLES, was das Formular nutzt
+    // Der Provider umschließt jetzt ALLES, was das Formular nutzt
     <FormProvider>
       <div style={{ display: "flex", gap: 16, padding: 16 }}>
         <AdministrationPanel

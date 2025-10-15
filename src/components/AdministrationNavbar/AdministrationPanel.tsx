@@ -34,7 +34,7 @@ export default function AdministrationPanel({
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
 
-  // 🕒 Uhrzeit live anzeigen
+  //  Uhrzeit live anzeigen
   const [currentTime, setCurrentTime] = useState<string>(
     new Date().toLocaleTimeString("de-DE", {
       hour: "2-digit",
@@ -54,7 +54,7 @@ export default function AdministrationPanel({
     return () => clearInterval(timer);
   }, []);
 
-  // 🔄 Wenn im Kalender ein Event ausgewählt wird → Form füllen
+  //  Wenn im Kalender ein Event ausgewählt wird → Form füllen
   useEffect(() => {
     if (selectedEvent) {
       setSelectedDate(selectedEvent.start);
@@ -77,7 +77,7 @@ export default function AdministrationPanel({
     }
   }, [selectedEvent]);
 
-  // ➕ Hinzufügen
+  //  Hinzufügen
   const handleAdd = () => {
     const { isValid, missingFields } = validateForm();
      setShowErrors(true); // 🔥 Fehlermeldungen ab jetzt anzeigen
@@ -94,6 +94,7 @@ export default function AdministrationPanel({
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const newEvent: Event = {
+      id: Date.now(),
       title: `${formState.modul || "Unbekannt"} (${formState.studienGruppe || "-"})`,
       start,
       end,
@@ -110,14 +111,13 @@ export default function AdministrationPanel({
     setEventExists(true);
   };
 
-  // ✏️ Aktualisieren
+  // Aktualisieren
   const handleUpdate = () => {
     const { isValid, missingFields } = validateForm();
     if (currentEventIndex === null || !selectedDate || !startTime || !endTime) return;
 
       if (!isValid) {
       console.log("Fehler:", missingFields.join(", "));
-      // ❌ Pop-up wurde entfernt, Fehlermeldungen erscheinen jetzt direkt unter Feldern
       return;
     }
 
@@ -143,7 +143,7 @@ export default function AdministrationPanel({
     setSelectedEvent(updatedEvents[currentEventIndex]);
   };
 
-  // 🗑️ Löschen
+  //  Löschen
   const handleDelete = () => {
     if (currentEventIndex === null) return;
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
