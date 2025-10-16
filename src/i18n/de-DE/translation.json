@@ -11,6 +11,19 @@
       "getWeatherButton": "WETTER ABRUFEN",
       "weatherHeader": "Aktuelles Wetter",
       "temperature": "Temperatur"
+    },
+    "administrationpanel": {
+      "title": "Veranstaltungen",
+      "startzeit": "Startzeit",
+      "endzeit": "Endzeit"
+    },
+    "administrationform": {
+      "studiengruppe": "Studiengruppe",
+      "modul": "Modul",
+      "raum": "Raum",
+      "typ": "Typ",
+      "dozent": "Dozent/-in",
+      "kommentar": "Kommentar"
     }
   }
 }
