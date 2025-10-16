@@ -148,6 +148,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
         p: 2,
         boxSizing: "border-box",
         overflowY: "auto",
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          p: 1.5,
+        },
         '@media (max-width: 900px)': {
           overflowY: 'visible',
           height: 'auto',
@@ -164,6 +167,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       <Divider sx={{ 
         my: 2, 
         color: colors.blue[400],
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          my: 1.5,
+        },
         '@media (max-width: 900px)': {
           my: 1,
         },
@@ -175,6 +181,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       {/* Verwaltung Titel + Datum/Uhrzeit */}
       <Box sx={{ 
         mb: 1,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mb: 0.8,
+        },
         '@media (max-width: 900px)': {
           mb: 0.5,
         },
@@ -188,6 +197,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
             alignItems: "center",
             justifyContent: "space-between",
             mb: 1,
+            '@media (max-width: 1200px) and (min-width: 901px)': {
+              mb: 0.8,
+            },
             '@media (max-width: 900px)': {
               mb: 0.5,
             },
@@ -240,6 +252,10 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
               display: "flex", 
               gap: 1, 
               mt: 1,
+              '@media (max-width: 1200px) and (min-width: 901px)': {
+                mt: 0.8,
+                gap: 0.8,
+              },
               '@media (max-width: 900px)': {
                 mt: 0.5,
                 gap: 0.5,
@@ -284,6 +300,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       {/* Formular */}
       <Box sx={{ 
         mt: 2,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mt: 1.5,
+        },
         '@media (max-width: 900px)': {
           mt: 1,
         },
@@ -304,6 +323,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       {/* Buttons */}
       <Box sx={{ 
         mt: 2,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mt: 1.5,
+        },
         '@media (max-width: 900px)': {
           mt: 1,
         },

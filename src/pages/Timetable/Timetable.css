@@ -44,6 +44,49 @@
   }
 }
 
+@media (max-width: 1200px) and (min-width: 901px) {
+  .timetable-admin-panel {
+    overflow-y: auto;
+  }
+  
+  .timetable-admin-panel .MuiTextField-root {
+    margin-bottom: 0.3rem !important;
+    width: 100% !important;
+  }
+  
+  .timetable-admin-panel .MuiFormControl-root {
+    width: 100% !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  .timetable-admin-panel .MuiAutocomplete-root {
+    width: 100% !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  .timetable-admin-panel .MuiBox-root:has(.MuiTimePicker-root) {
+    margin-bottom: 0.4rem !important;
+  }
+  
+  .timetable-admin-panel .MuiTimePicker-root {
+    width: 100% !important;
+  }
+  
+  .timetable-admin-panel > .MuiBox-root {
+    margin-bottom: 0.4rem !important;
+  }
+  
+  .timetable-admin-panel .MuiTypography-h6 {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  
+  .timetable-admin-panel .MuiButton-root {
+    margin: 0.1rem !important;
+    width: 100% !important;
+  }
+}
+
 @media (max-width: 900px) {
   .timetable-container {
     flex-direction: column;
