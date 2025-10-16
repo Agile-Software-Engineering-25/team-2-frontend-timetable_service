@@ -36,6 +36,7 @@
   overflow: hidden;
 }
 
+/* Responsive Design */
 @media (max-width: 1200px) {
   .timetable-admin-panel {
     min-width: 350px;
@@ -54,14 +55,18 @@
     width: 100%;
     max-width: none;
     min-width: 0;
-    height: 40vh;
+    height: auto;
+    max-height: fit-content;
+    overflow-y: visible;
     border-right: none;
     border-bottom: 1px solid #d0d7dd;
     border-radius: 8px 8px 0 0;
   }
   
   .timetable-calendar-container {
-    height: 60vh;
+    flex: 1;
+    height: auto;
+    min-height: 300px;
     border-radius: 0 0 8px 8px;
   }
 }
@@ -73,15 +78,19 @@
   }
   
   .timetable-admin-panel {
-    height: 45vh;
+    height: auto;
+    max-height: fit-content;
   }
   
   .timetable-calendar-container {
-    height: 55vh;
+    flex: 1;
+    height: auto;
+    min-height: 250px;
     padding: 0.25rem;
   }
 }
 
+/* Big Calendar Responsive Styles */
 .rbc-calendar {
   font-size: 0.875rem;
 }
@@ -125,31 +134,99 @@
   }
 }
 
+/* Administration Panel Responsive Adjustments */
 @media (max-width: 900px) {
-  .timetable-admin-panel .MuiBox-root {
-    padding: 1rem !important;
+  .timetable-admin-panel {
+    overflow-y: visible !important;
+  }
+  
+  /* Mobile-optimierte Dropdowns - minimaler Abstand und volle Breite */
+  .timetable-admin-panel .MuiTextField-root {
+    margin-bottom: 0.2rem !important;
+    width: 100% !important;
+  }
+  
+  .timetable-admin-panel .MuiFormControl-root {
+    width: 100% !important;
+    margin-bottom: 0.2rem !important;
+  }
+  
+  .timetable-admin-panel .MuiAutocomplete-root {
+    width: 100% !important;
+    margin-bottom: 0.2rem !important;
+  }
+  
+  /* TimePicker Container anpassen */
+  .timetable-admin-panel .MuiBox-root:has(.MuiTimePicker-root) {
+    margin-bottom: 0.3rem !important;
+  }
+  
+  .timetable-admin-panel .MuiTimePicker-root {
+    width: 100% !important;
+  }
+  
+  /* Kompakte Abschnitte */
+  .timetable-admin-panel > .MuiBox-root {
+    margin-bottom: 0.3rem !important;
   }
   
   .timetable-admin-panel .MuiTypography-h6 {
     font-size: 1.1rem !important;
-  }
-  
-  .timetable-admin-panel .MuiTextField-root {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.3rem !important;
   }
 }
 
 @media (max-width: 600px) {
-  .timetable-admin-panel .MuiBox-root {
-    padding: 0.5rem !important;
+  .timetable-admin-panel {
+    overflow-y: visible !important;
   }
   
   .timetable-admin-panel .MuiTypography-h6 {
     font-size: 1rem !important;
+    margin-bottom: 0.2rem !important;
   }
   
+  /* Ultra kompakte Dropdowns für kleine Bildschirme */
+  .timetable-admin-panel .MuiTextField-root {
+    margin-bottom: 0.1rem !important;
+    width: 100% !important;
+  }
+  
+  .timetable-admin-panel .MuiFormControl-root {
+    width: 100% !important;
+    margin-bottom: 0.1rem !important;
+  }
+  
+  .timetable-admin-panel .MuiAutocomplete-root {
+    width: 100% !important;
+    margin-bottom: 0.1rem !important;
+  }
+  
+  /* Sehr kompakte TimePicker */
+  .timetable-admin-panel .MuiBox-root:has(.MuiTimePicker-root) {
+    margin-bottom: 0.2rem !important;
+  }
+  
+  .timetable-admin-panel .MuiTimePicker-root {
+    width: 100% !important;
+  }
+  
+  /* Kompakte Buttons */
   .timetable-admin-panel .MuiButton-root {
     font-size: 0.75rem !important;
     padding: 0.4rem 0.8rem !important;
+    margin: 0.05rem !important;
+    width: 100% !important;
+  }
+  
+  /* Minimale Abschnitte */
+  .timetable-admin-panel > .MuiBox-root {
+    margin-bottom: 0.2rem !important;
+  }
+  
+  /* Letzter Button-Container */
+  .timetable-admin-panel > .MuiBox-root:last-child {
+    margin-top: 0.3rem !important;
+    margin-bottom: 0 !important;
   }
 }
