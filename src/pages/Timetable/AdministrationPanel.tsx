@@ -16,7 +16,7 @@ interface AdministrationPanelProps {
   setSelectedEvent: (event: Event | null) => void;
 }
 
-export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
