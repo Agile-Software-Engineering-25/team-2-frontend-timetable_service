@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import AdministrationPanel from "./AdministrationPanel";
 import BigCalendar from "./BigCalendar";
+import "./Timetable.css";
 import { StudienGruppen } from "../../components/autoCompleteDropdown/studienGruppeDropdown";
 import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
@@ -54,19 +55,18 @@ const Timetable: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "flex", gap: 16, padding: 16 }}>
-      <AdministrationPanel
-        events={events}
-        setEvents={setEvents}
-        selectedEvent={selectedEvent}
-        setSelectedEvent={setSelectedEvent}
-      />
-      <div style={{ flex: 1 }}>
-        <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+    <div className="timetable-container">
+      <div className="timetable-admin-panel">
+        <AdministrationPanel events={events} setEvents={setEvents} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent}/>
+      </div>
+      <div className="timetable-calendar-container">
+        <div className="timetable-calendar-wrapper">
+          <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Timetable;
 
