@@ -6,7 +6,6 @@ import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
 import TYP_COLORS from "./typColors";
 import { RAEUME } from "../../components/autoCompleteDropdown/raumDropdown";
-import languageSelector from "../../components/LanguageSelectorComponent/LanguageSelectorComponent";
 import { useTranslation } from 'react-i18next';
 
 interface Props {
