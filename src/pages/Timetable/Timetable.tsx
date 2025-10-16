@@ -9,6 +9,7 @@ import { MODULE } from "../../components/autoCompleteDropdown/modulDropdown";
 import { DOZENTEN } from "../../components/autoCompleteDropdown/dozentDropdown";
 import { TYPEN } from "../../components/autoCompleteDropdown/veranstaltungsTypDropdown";
 import { RAEUME } from '../../components/autoCompleteDropdown/raumDropdown'
+import LanguageSelectorComponent from "../../components/LanguageSelectorComponent/LanguageSelectorComponent";
 
 export interface Event {
   title: string;
@@ -62,6 +63,9 @@ const Timetable: React.FC = () => {
       <div className="timetable-calendar-container">
         <div className="timetable-calendar-wrapper">
           <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+        </div>
+        <div className="language-selector-container">
+          <LanguageSelectorComponent />
         </div>
       </div>
     </div>

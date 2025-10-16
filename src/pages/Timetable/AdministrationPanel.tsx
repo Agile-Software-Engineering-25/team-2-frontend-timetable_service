@@ -8,6 +8,7 @@ import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
 import { colors } from "@mui/joy";
+import { useTranslation } from 'react-i18next';
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -28,6 +29,11 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
   const [kommentar, setKommentar] = useState("");
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
+
+  //Übersetzungen
+  const { t } = useTranslation();
+  const starttime = t('pages.administrationpanel.startzeit')
+  const endtime = t('pages.administrationpanel.endzeit')
 
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
@@ -209,7 +215,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
           }}
         >
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            Verwaltung
+            {t('pages.administrationpanel.title')}
           </Typography>
 
           {/* Datum + Uhrzeit Anzeige */}
@@ -266,7 +272,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
               },
             }}>
     <TimePicker
-      label="Startzeit"
+      label= {starttime}
       value={startTime}
       onChange={setStartTime}
       slotProps={{
@@ -280,7 +286,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       }}
     />
     <TimePicker
-      label="Endzeit"
+      label={endtime}
       value={endTime}
       onChange={setEndTime}
       slotProps={{
