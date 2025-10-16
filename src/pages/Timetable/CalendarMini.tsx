@@ -4,7 +4,6 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { de } from "date-fns/locale";
 import { Box } from "@mui/material";
 import { format } from "date-fns";
-import { AspectRatio } from "@mui/joy";
 
 type Props = {
   date: Date | null;
