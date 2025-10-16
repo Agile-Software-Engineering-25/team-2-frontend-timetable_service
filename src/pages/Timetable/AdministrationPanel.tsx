@@ -139,31 +139,73 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
   return (
     <Box
       sx={{
-        width: "fit-content",
-        minWidth: 650,
+        width: "100%",
         bgcolor: "#E3F2FD",
-        height: "100vh",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         borderRight: "1px solid #d0d7dd",
         p: 2,
         boxSizing: "border-box",
         overflowY: "auto",
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          p: 1.5,
+        },
+        '@media (max-width: 900px)': {
+          overflowY: 'visible',
+          height: 'auto',
+          p: 1,
+        },
+        '@media (max-width: 600px)': {
+          p: 0.5,
+        },
       }}
     >
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      <Divider sx={{ my: 2, color: colors.blue[400] }} />
+      <Divider sx={{ 
+        my: 2, 
+        color: colors.blue[400],
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          my: 1.5,
+        },
+        '@media (max-width: 900px)': {
+          my: 1,
+        },
+        '@media (max-width: 600px)': {
+          my: 0.5,
+        },
+      }} />
 
       {/* Verwaltung Titel + Datum/Uhrzeit */}
-      <Box sx={{ mb: 1 }}>
+      <Box sx={{ 
+        mb: 1,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mb: 0.8,
+        },
+        '@media (max-width: 900px)': {
+          mb: 0.5,
+        },
+        '@media (max-width: 600px)': {
+          mb: 0.3,
+        },
+      }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             mb: 1,
+            '@media (max-width: 1200px) and (min-width: 901px)': {
+              mb: 0.8,
+            },
+            '@media (max-width: 900px)': {
+              mb: 0.5,
+            },
+            '@media (max-width: 600px)': {
+              mb: 0.3,
+            },
           }}
         >
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -206,7 +248,23 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
         {/* TimePicker für Start- und Endzeit */}
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-            <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+            <Box sx={{ 
+              display: "flex", 
+              gap: 1, 
+              mt: 1,
+              '@media (max-width: 1200px) and (min-width: 901px)': {
+                mt: 0.8,
+                gap: 0.8,
+              },
+              '@media (max-width: 900px)': {
+                mt: 0.5,
+                gap: 0.5,
+              },
+              '@media (max-width: 600px)': {
+                mt: 0.3,
+                gap: 0.3,
+              },
+            }}>
     <TimePicker
       label="Startzeit"
       value={startTime}
@@ -240,7 +298,18 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       </Box>
 
       {/* Formular */}
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ 
+        mt: 2,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mt: 1.5,
+        },
+        '@media (max-width: 900px)': {
+          mt: 1,
+        },
+        '@media (max-width: 600px)': {
+          mt: 0.5,
+        },
+      }}>
         <VerwaltungsForm
           studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
           modul={modul} setModul={setModul}
@@ -252,7 +321,18 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       </Box>
 
       {/* Buttons */}
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ 
+        mt: 2,
+        '@media (max-width: 1200px) and (min-width: 901px)': {
+          mt: 1.5,
+        },
+        '@media (max-width: 900px)': {
+          mt: 1,
+        },
+        '@media (max-width: 600px)': {
+          mt: 0.5,
+        },
+      }}>
         <ActionButtons
           eventExists={eventExists}
           onAdd={handleAdd}

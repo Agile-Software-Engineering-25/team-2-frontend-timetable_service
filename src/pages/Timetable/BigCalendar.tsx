@@ -25,7 +25,7 @@ interface BigCalendarProps {
   onSelectEvent?: (event: Event) => void;
 }
 
-export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps) {
+export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps) {  
   const [view, setView] = useState<View>("month" as View);
   const [date, setDate] = useState<Date>(new Date());
   const eventPropGetter = (event: Event) => {
@@ -42,7 +42,7 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
   };
 
   return (
-    <div style={{ height: "calc(100vh - 100px)", background: "white", borderRadius: 8, padding: 8 }}>
+    <div style={{ height: "100%", width: "100%", background: "white", borderRadius: 8, padding: 8 }}>
       <Calendar
         localizer={localizer}
         events={events}
@@ -61,7 +61,7 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
         onView={(nextView) => {
           setView(nextView);
         }}
-        // culture="de"
+       // culture="de"
         messages={{
           month: "Monat",
           week: "Woche",
