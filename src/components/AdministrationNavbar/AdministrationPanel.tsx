@@ -3,7 +3,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CalendarMini from "./CalendarMini";
 import AdministrationForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
-import type { Event } from "@pages/Administration/Administration";
+import type { Event } from "@/pages/Timetable/Timetable";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
@@ -16,12 +16,7 @@ interface AdministrationPanelProps {
   setSelectedEvent: (event: Event | null) => void;
 }
 
-export default function AdministrationPanel({
-  events,
-  setEvents,
-  selectedEvent,
-  setSelectedEvent,
-}: AdministrationPanelProps) {
+export default function AdministrationPanel({events, setEvents, selectedEvent, setSelectedEvent}: AdministrationPanelProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { formState, updateField, validateForm, setShowErrors } = useFormContext();
@@ -34,26 +29,7 @@ export default function AdministrationPanel({
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
 
-  //  Uhrzeit live anzeigen
-  const [currentTime, setCurrentTime] = useState<string>(
-    new Date().toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(
-        new Date().toLocaleTimeString("de-DE", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
-    }, 60000); // jede Minute aktualisieren
-    return () => clearInterval(timer);
-  }, []);
-
+  
   //  Wenn im Kalender ein Event ausgewählt wird → Form füllen
   useEffect(() => {
     if (selectedEvent) {
@@ -80,7 +56,7 @@ export default function AdministrationPanel({
   //  Hinzufügen
   const handleAdd = () => {
     const { isValid, missingFields } = validateForm();
-     setShowErrors(true); // 🔥 Fehlermeldungen ab jetzt anzeigen
+     setShowErrors(true); 
 
   if (!selectedDate || !startTime || !endTime) return;
   if (!isValid) {
@@ -203,7 +179,7 @@ export default function AdministrationPanel({
           Verwaltung
         </Typography>
 
-        {/* Datum + Uhrzeit (wiederhergestellt wie vorher) */}
+        
         <Box
           sx={{display: "flex", gap: 1, alignItems: "center", flexWrap: "wrap"}}>
           <Box

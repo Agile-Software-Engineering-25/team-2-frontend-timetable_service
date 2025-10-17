@@ -5,7 +5,7 @@ import { de } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { useState } from "react";
-import type { Event } from "@pages/Administration/Administration";
+import type { Event } from "@/pages/Timetable/Timetable";
 import type { View } from 'react-big-calendar';
 import TYP_COLORS from "./typColors";
 import CustomToolbar from "./CustomToolbar";
