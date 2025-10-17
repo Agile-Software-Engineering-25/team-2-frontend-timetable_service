@@ -154,6 +154,7 @@ export default function AdministrationForm() {
           options={TYPEN ?? []}
           value={formState.veranstaltungstyp || null}
           onChange={(_, val) => updateField("veranstaltungstyp", val ?? null)}
+          getOptionLabel={(option) => option || ""}
           renderOption={(props, option) => (
             <li {...props}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -178,6 +179,21 @@ export default function AdministrationForm() {
               sx={fieldSx}
               error={!!errors.veranstaltungstyp && showErrors}
               required
+              InputProps={{
+               ...params.InputProps,
+               startAdornment: formState.veranstaltungstyp ? (
+                <Box
+                  sx={{
+                  width: 12,
+                  height: 12,
+                  borderRadius: "50%",
+                  bgcolor: (TYP_COLORS as any)[formState.veranstaltungstyp] || "#9aa",
+                  ml: 0.5,
+                  mr: 1,
+                  }}
+                 />
+                ) : null,
+              }}
             />
           )}
         />
