@@ -11,6 +11,19 @@
       "getWeatherButton": "GET WEATHER",
       "weatherHeader": "Current Weather",
       "temperature": "Temperature"
+    },
+    "administrationpanel": {
+      "title": "Events",
+      "startzeit": "Start time",
+      "endzeit": "End time"
+    },
+    "administrationform": {
+      "studiengruppe": "Study group",
+      "modul": "Module",
+      "raum": "Room",
+      "typ": "Type",
+      "dozent": "Teacher",
+      "kommentar": "Comment"
     }
   }
 }
