@@ -54,14 +54,16 @@ export default function AdministrationForm({
     <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
       {/* Studiengruppe */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-studiengruppe" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.studiengruppe')}
         </Typography>
         <FormControl fullWidth>
           <Select
+            id="select-studiengruppe"
             value={studiengruppe}
             onChange={(e) => setStudiengruppe(e.target.value)}
             sx={selectSx}
+            inputProps={{ 'aria-labelledby': 'label-studiengruppe' }}
           >
             {StudienGruppen.map((gruppe) => (
               <MenuItem key={gruppe} value={gruppe}>{gruppe}</MenuItem>
@@ -72,7 +74,8 @@ export default function AdministrationForm({
 
       {/* Modul */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-modul"
+                    sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.modul')}
         </Typography>
         <FormControl fullWidth>
@@ -80,6 +83,7 @@ export default function AdministrationForm({
             value={modul}
             onChange={(e) => setModul(e.target.value)}
             sx={selectSx}
+            inputProps={{ 'aria-labelledby': 'label-modul' }}
           >
             {MODULE.map((modulOpt) => (
               <MenuItem key={modulOpt} value={modulOpt}>{modulOpt}</MenuItem>
@@ -90,14 +94,16 @@ export default function AdministrationForm({
 
       {/* Raum */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-raum" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.raum')}
         </Typography>
         <FormControl fullWidth>
           <Select
+            id="select-raum"
             value={raum}
             onChange={(e) => setRaum(e.target.value)}
             sx={selectSx}
+            inputProps={{ 'aria-labelledby': 'label-raum' }}
           >
             {RAEUME.map((raumOpt) => (
               <MenuItem key={raumOpt} value={raumOpt}>{raumOpt}</MenuItem>
@@ -112,10 +118,10 @@ export default function AdministrationForm({
           {t('pages.administrationform.typ')}
         </Typography>
            <FormControl fullWidth>
-          <Select value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
+          <Select id="select-typ" value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
             {TYPEN.map((typOpt) => (
               <MenuItem key={typOpt} value={typOpt}>
-                <span style={{
+                <span aria-hidden="true" style={{
                   display: 'inline-block',
                   width: 16,
                   height: 16,
@@ -133,14 +139,16 @@ export default function AdministrationForm({
 
       {/* Dozent */}
       <Box sx={{ gridColumn: "1 / -1" }}>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-dozent" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.dozent')}
         </Typography>
         <FormControl fullWidth>
           <Select
+            id="select-dozent"
             value={dozent}
             onChange={(e) => setDozent(e.target.value)}
             sx={selectSx}
+            inputProps={{ 'aria-labelledby': 'label-dozent' }}
           >
             {DOZENTEN.map((dozentOpt) => (
               <MenuItem key={dozentOpt} value={dozentOpt}>{dozentOpt}</MenuItem>
@@ -155,6 +163,8 @@ export default function AdministrationForm({
           {t('pages.administrationform.kommentar')}
         </Typography>
         <TextField
+          id="input-kommentar"
+          aria-describedby="hint-kommentar"
           value={kommentar}
           onChange={(e) => setKommentar(e.target.value)}
           fullWidth
@@ -165,6 +175,7 @@ export default function AdministrationForm({
             bgcolor: "#fff",
             borderRadius: 1.5,
             "& .MuiInputBase-input": { color: "#004080", fontWeight: 600 },
+            "&:focus-within": { outline: "3px solid #FFBF47" }
           }}
         />
       </Box>
