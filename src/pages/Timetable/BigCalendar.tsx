@@ -7,6 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useState } from "react";
 import type { Event } from "./Timetable";
 import type { View } from 'react-big-calendar';
+import type { EventWrapperProps } from "react-big-calendar";
 import TYP_COLORS from "./typColors";
 import CustomToolbar from "./CustomToolbar";
 
@@ -19,7 +20,9 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
-
+interface AccessibleEventWrapperProps extends EventWrapperProps<Event> {
+  children?: React.ReactNode;
+}
 interface BigCalendarProps {
   events: Event[];
   onSelectEvent?: (event: Event) => void;
@@ -42,7 +45,21 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
   };
 
   return (
-    <div style={{ height: "100%", width: "100%", background: "white", borderRadius: 8, padding: 8 }}>
+    <div role="region"
+         aria-labelledby="calendar-heading"
+         aria-live="polite"
+         style={{
+           height: "100%",
+           width: "100%",
+           background: "white",
+           borderRadius: 8,
+           padding: 8
+    }}
+    >
+      <h2 id="calendar-heading"
+          style={{ position: "absolute", left: "-9999px" }}>
+          Kalenderansicht – Stundenplan
+      </h2>
       <Calendar
         localizer={localizer}
         events={events}
@@ -52,7 +69,29 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
         views={["month", "week", "day"]}
         defaultView="month"
         toolbar={true}
-        components={{ toolbar: CustomToolbar }}
+        components={{
+          toolbar: CustomToolbar,
+          eventWrapper: ({ event, children }: AccessibleEventWrapperProps  ) => (
+            <div
+              tabIndex={0}
+              role="button"
+              aria-label={`${event.title}, ${new Date(event.start).toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })} bis ${new Date(event.end).toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}`}
+              onClick={() => onSelectEvent?.(event)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") onSelectEvent?.(event);
+              }}
+              style={{ outline: "none" }}
+            >
+              {children}
+            </div>
+          ),
+        }}
         view={view}
         date={date}
         onNavigate={(newDate) => {
