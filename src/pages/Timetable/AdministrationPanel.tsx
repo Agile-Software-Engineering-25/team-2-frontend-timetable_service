@@ -144,6 +144,8 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
   return (
     <Box
+      role="region"
+      aria-labelledby="administration-heading"
       sx={{
         width: "100%",
         bgcolor: "#E3F2FD",
@@ -214,7 +216,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
             },
           }}
         >
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          <Typography id="administration-heading" variant="h6" sx={{ fontWeight: 700 }}>
             {t('pages.administrationpanel.title')}
           </Typography>
 
@@ -281,6 +283,10 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
           sx: {
             bgcolor: "#fff", // weißer Hintergrund
             borderRadius: 1.5,
+            "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+              borderColor: "#FFBF47", // sichtbarer Fokusrahmen
+              borderWidth: 2,
+            },
           },
         },
       }}
@@ -295,6 +301,10 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
           sx: {
             bgcolor: "#fff", // weißer Hintergrund
             borderRadius: 1.5,
+            "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+              borderColor: "#FFBF47", // sichtbarer Fokusrahmen
+              borderWidth: 2,
+            },
           },
         },
       }}
@@ -327,7 +337,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       </Box>
 
       {/* Buttons */}
-      <Box sx={{ 
+      <Box aria-label="Veranstaltungsaktionen" sx={{
         mt: 2,
         '@media (max-width: 1200px) and (min-width: 901px)': {
           mt: 1.5,
