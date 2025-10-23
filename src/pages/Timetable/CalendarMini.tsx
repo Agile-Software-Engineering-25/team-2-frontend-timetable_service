@@ -14,6 +14,9 @@ export default function CalendarMini({ date, onChange }: Props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
    <Box
+     role="region"
+     aria-label="Mini-Kalender"
+     aria-live="polite"
   sx={{
     bgcolor: "#eff4f9ff",
     borderRadius: 2,
@@ -50,6 +53,17 @@ export default function CalendarMini({ date, onChange }: Props) {
       fontStyle: "normal",
       fontFamily: "Arial, sans-serif",
     },
+    "& .MuiPickersDay-root:focus-visible": {
+      outline: "3px solid #FFBF47",
+      outlineOffset: 2,
+    },
+    "& .MuiPickersDay-root.Mui-selected": {
+      backgroundColor: "#0A2E65",
+      color: "#fff",
+    },
+    "& .MuiPickersDay-root.Mui-selected:hover": {
+      backgroundColor: "#072241",
+    },
   }}
 >
 
@@ -58,6 +72,8 @@ export default function CalendarMini({ date, onChange }: Props) {
           onChange={onChange}
           views={["day"]}
           showDaysOutsideCurrentMonth
+          reduceAnimations
+          aria-label="Datum wählen"
           dayOfWeekFormatter={(date) =>
             format(date, "EE", { locale: de }).toUpperCase()
           }

@@ -54,25 +54,39 @@ const Timetable: React.FC = () => {
   const handleSelectEvent = (event: Event) => {
     setSelectedEvent(event);
   };
+  const srStatus = selectedEvent
+    ? `Ausgewählt: ${selectedEvent.modul} in ${selectedEvent.raum}, ` +
+    `${selectedEvent.start.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} bis ` +
+    `${selectedEvent.end.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}`
+    : "";
+
 
   return (
-    <div className="timetable-container">
-      <div className="timetable-admin-panel">
-        <AdministrationPanel events={events} setEvents={setEvents} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent}/>
-      </div>
-      <div className="timetable-calendar-container">
-        <div className="timetable-calendar-wrapper">
-          <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+      <div className="timetable-container" role="main" aria-labelledby="timetable-heading">
+        <h1 id="timetable-heading" style={{ position: 'absolute', left: '-9999px' }}>
+          Stundenplan
+        </h1>
+        <div aria-live="polite" style={{ position: 'absolute', left: '-9999px' }}>
+          {srStatus}
         </div>
-        <div className="language-selector-container">
-          <LanguageSelectorComponent />
+
+        <div className="timetable-admin-panel">
+          <AdministrationPanel events={events} setEvents={setEvents} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent}/>
+        </div>
+        <div className="timetable-calendar-container">
+          <div className="timetable-calendar-wrapper"
+               id="big-calendar-grid"
+               aria-label="Kalenderansicht"
+               role="region"
+          >
+            <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+          </div>
+          <div className="language-selector-container" aria-label="Sprache wählen">
+            <LanguageSelectorComponent />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
 export default Timetable;
-
-
-

@@ -24,6 +24,7 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
           py: 1.4,
           borderRadius: 1.5,
         }}
+        aria-label="Neue Veranstaltung hinzufügen"
       >
         VERANSTALTUNG HINZUFÜGEN
       </Button>
@@ -40,7 +41,14 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
             fontWeight: 600,
             bgcolor: eventExists ? "#ffffff" : "#f0f2f4",
             color: eventExists ? "#0A2E65" : "#8b9096",
+            border: "1px solid #0A2E65",
+            "&:focus-visible": { outline: "3px solid #FFBF47" }
           }}
+          aria-label={
+            eventExists
+              ? "Veranstaltung aktualisieren"
+              : "Aktualisieren deaktiviert, keine Veranstaltung vorhanden"
+          }
         >
           Aktualisieren
         </Button>
@@ -54,7 +62,14 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
           sx={{
             fontWeight: 600,
             color: eventExists ? "#0A2E65" : "#8b9096",
+            borderColor: "#0A2E65",
+            "&:focus-visible": { outline: "3px solid #FFBF47" }
           }}
+          aria-label={
+            eventExists
+              ? "Veranstaltung löschen"
+              : "Löschen deaktiviert, keine Veranstaltung vorhanden"
+          }
         >
           Löschen
         </Button>
