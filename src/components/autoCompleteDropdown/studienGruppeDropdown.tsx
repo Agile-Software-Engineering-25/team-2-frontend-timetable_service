@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
+import { useEffect, useState } from 'react';
+import { getGroups } from '@/api/getGroups.ts';
 
 export const StudienGruppen: string[] = [
   'BIN-T-23-F1',
@@ -13,7 +15,21 @@ export const StudienGruppen: string[] = [
 
 export default function StudienGruppeDropdown() {
   const { formState, updateField } = useFormContext();
-
+  const [studyGroups, setStudyGroups] = useState<string[] | null>(null);
+  useEffect(() => {
+    let ignoreResult = false;
+    getGroups().then((result) => {
+      if (ignoreResult) return;
+      const groups = result.groups.map((group: { name: string }) => group.name);
+      // Beispiele
+      // const groups = result.groups.map((group) => ({ name: group.name, count: group.students_count }));
+      // const allStudentUUIDs = result.groups.flatMap((group) => group.students.map((student) => student.uuid));
+      setStudyGroups(groups);
+    })
+    return () => {
+      ignoreResult = true;
+    };
+  }, []);
   return (
     <Box>
       <Autocomplete
