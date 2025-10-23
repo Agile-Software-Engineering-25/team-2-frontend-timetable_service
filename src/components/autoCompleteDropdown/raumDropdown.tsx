@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
+import { useEffect, useState } from 'react';
+import { getRooms } from '@/api/getRooms.ts';
 
 export const RAEUME: string[] = [
   "A101",
@@ -15,12 +17,23 @@ export const RAEUME: string[] = [
 
 export default function RaumDropdown() {
   const { formState, updateField } = useFormContext();
-
+  const [room, setRoom] = useState<string[] | null>(null);
+  useEffect(() => {
+    let ignoreResult = false;
+    getRooms().then((result) => {
+      if (ignoreResult) return;
+      const rooms = result.rooms.map((rooms: { name: string }) => rooms.name);
+      setRoom(rooms);
+    })
+    return () => {
+      ignoreResult = true;
+    };
+  }, []);
   return (
     <Box>
       <Autocomplete
         fullWidth
-        options={RAEUME}
+        options={room ?? []}
         value={formState.raum}
         onChange={(_, value) => updateField('raum', value)}
         // Live-Filter beim Tippen (Standard), fallunabhängig
