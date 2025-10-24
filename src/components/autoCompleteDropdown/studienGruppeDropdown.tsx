@@ -13,17 +13,19 @@ export const StudienGruppen: string[] = [
   // ... hier die restlichen Gruppen eintragen
 ];
 
+export interface Group {
+  name: string,
+  id: string,
+}
+
 export default function StudienGruppeDropdown() {
   const { formState, updateField } = useFormContext();
-  const [studyGroups, setStudyGroups] = useState<string[] | null>(null);
+  const [studyGroups, setStudyGroups] = useState<Group[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getGroups().then((result) => {
       if (ignoreResult) return;
-      const groups = result.groups.map((group: { name: string }) => group.name);
-      // Beispiele
-      // const groups = result.groups.map((group) => ({ name: group.name, count: group.students_count }));
-      // const allStudentUUIDs = result.groups.flatMap((group) => group.students.map((student) => student.uuid));
+      const groups = result.groups.map((group: any ) => {return {name: group.name, id: group.id }});
       setStudyGroups(groups);
     })
     return () => {
@@ -34,9 +36,11 @@ export default function StudienGruppeDropdown() {
     <Box>
       <Autocomplete
         fullWidth
-        options={StudienGruppen}
+        options={studyGroups ?? []}
         value={formState.studienGruppe}
-        onChange={(_, value) => updateField('studienGruppe', value)}
+        onChange={(_, value) => {updateField('studienGruppe', value);}}
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
