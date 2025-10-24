@@ -5,19 +5,6 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getGroups } from '@/api/getGroups.ts';
 
-export const StudienGruppen: string[] = [
-  'BIN-T-23-F1',
-  'BIN-T-23-F2',
-  'BIN-T-23-F3',
-  'BIN-T-23-F4',
-  // ... hier die restlichen Gruppen eintragen
-];
-
-export interface Group {
-  name: string,
-  id: string,
-}
-
 export default function StudienGruppeDropdown() {
   const { formState, updateField } = useFormContext();
   const [studyGroups, setStudyGroups] = useState<Group[] | null>(null);
