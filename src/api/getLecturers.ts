@@ -1,7 +1,7 @@
 export async function getLecturers() {
  /*return fetch('https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer')
     .then((response) => response.json())
-    .then((data) => {((dozenten: any) => dozenten.id);
+    .then((data) => {
       return data;
     })
     .catch((error) => {

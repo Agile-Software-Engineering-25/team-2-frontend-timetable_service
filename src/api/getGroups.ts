@@ -2,7 +2,7 @@ export async function getGroups() {
   /*return fetch('https://sau-portal.de/team-11-api/api/v1/group?withDetails=false')
     .then((response) => response.json())
     .then((data) => {
-      return data.groups;
+      return data;
     })
     .catch((error) => {
       console.error('Error fetching study groups:', error);

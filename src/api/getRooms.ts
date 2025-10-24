@@ -1,7 +1,7 @@
 export async function getRooms() {
   return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms')
      .then((response) => response.json())
-     .then((data) => {((rooms: any) => rooms.id);
+     .then((data) => {
        return data;
      })
      .catch((error) => {
