@@ -12,20 +12,25 @@ export const DOZENTEN: string[] = [
   // ... hier die restlichen Dozenten eintragen
 ];
 
-export default function DozentDropdown() {
+export interface Lecturer {
+  name: string,
+  id: string,
+}
+
+export function DozentDropdown() {
   const { formState, updateField } = useFormContext();
-  const [lecturer, setLecturer] = useState<string[] | null>(null);
+  const [lecturer, setLecturer] = useState<Lecturer[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getLecturers().then((result) => {
       if (ignoreResult) return;
-      const lecturers = result.map((doz: { title?: string; firstName: string; lastName: string }) => {
+      const lecturers = result.map((doz: { title?: string; firstName: string; lastName: string; id: string}) => {
         let fullName = '';
         if (doz.title) {
           fullName = doz.title + ' ';
         }
         fullName += doz.firstName + ' ' + doz.lastName;
-        return fullName.trim();
+        return {name: fullName.trim(), id: doz.id};
       });
       setLecturer(lecturers);
     })
@@ -40,6 +45,8 @@ export default function DozentDropdown() {
         options={lecturer ?? []}
         value={formState.dozent}
         onChange={(_, value) => updateField('dozent', value)}
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
