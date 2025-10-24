@@ -8,16 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { ModulDropdown } from '@components/autoCompleteDropdown/modulDropdown';
 
 interface Props {
-  studiengruppe: string;
-  setStudiengruppe: (val: string) => void;
-  modul: Module;
-  setModul: (val: string) => void;
-  raum: string;
-  setRaum: (val: string) => void;
   typ: string;
   setTyp: (val: string) => void;
-  dozent: Lecturer;
-  setDozent: (val: string) => void;
   kommentar: string;
   setKommentar: (val: string) => void;
 }
@@ -33,14 +25,8 @@ const selectSx = {
 };
 
 export default function AdministrationForm({
-  //modul,
-  //setModul,
-  //raum,
-  //setRaum,
   typ,
   setTyp,
-  //dozent,
-  //setDozent,
   kommentar,
   setKommentar,
 }: Props) {
