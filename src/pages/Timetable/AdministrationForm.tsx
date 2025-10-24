@@ -1,23 +1,22 @@
-
-import { Box, Typography, FormControl, Select, MenuItem, TextField } from "@mui/material";
-import { StudienGruppen } from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
-import { MODULE } from '@components/autoCompleteDropdown/modulDropdown.tsx';
-import { DOZENTEN } from "@components/autoCompleteDropdown/dozentDropdown";
-import { TYPEN } from "@components/autoCompleteDropdown/veranstaltungsTypDropdown";
-import TYP_COLORS from "./typColors";
-import { RAEUME } from "@components/autoCompleteDropdown/raumDropdown";
+import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material';
+import StudienGruppeDropdown from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
+import { DozentDropdown, type Lecturer } from '@components/autoCompleteDropdown/dozentDropdown';
+import { TYPEN } from '@components/autoCompleteDropdown/veranstaltungsTypDropdown';
+import TYP_COLORS from './typColors';
+import { RaumDropdown } from '@components/autoCompleteDropdown/raumDropdown';
 import { useTranslation } from 'react-i18next';
+import { ModulDropdown, type Module } from '@components/autoCompleteDropdown/modulDropdown';
 
 interface Props {
   studiengruppe: string;
   setStudiengruppe: (val: string) => void;
-  modul: string;
+  modul: Module;
   setModul: (val: string) => void;
   raum: string;
   setRaum: (val: string) => void;
   typ: string;
   setTyp: (val: string) => void;
-  dozent: string;
+  dozent: Lecturer;
   setDozent: (val: string) => void;
   kommentar: string;
   setKommentar: (val: string) => void;
@@ -34,16 +33,14 @@ const selectSx = {
 };
 
 export default function AdministrationForm({
-  studiengruppe,
-  setStudiengruppe,
-  modul,
-  setModul,
-  raum,
-  setRaum,
+  //modul,
+  //setModul,
+  //raum,
+  //setRaum,
   typ,
   setTyp,
-  dozent,
-  setDozent,
+  //dozent,
+  //setDozent,
   kommentar,
   setKommentar,
 }: Props) {
@@ -58,17 +55,7 @@ export default function AdministrationForm({
           {t('pages.administrationform.studiengruppe')}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            id="select-studiengruppe"
-            value={studiengruppe}
-            onChange={(e) => setStudiengruppe(e.target.value)}
-            sx={selectSx}
-            inputProps={{ 'aria-labelledby': 'label-studiengruppe' }}
-          >
-            {StudienGruppen.map((gruppe) => (
-              <MenuItem key={gruppe} value={gruppe}>{gruppe}</MenuItem>
-            ))}
-          </Select>
+          <StudienGruppeDropdown/>
         </FormControl>
       </Box>
 
@@ -79,16 +66,7 @@ export default function AdministrationForm({
           {t('pages.administrationform.modul')}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            value={modul}
-            onChange={(e) => setModul(e.target.value)}
-            sx={selectSx}
-            inputProps={{ 'aria-labelledby': 'label-modul' }}
-          >
-            {MODULE.map((modulOpt) => (
-              <MenuItem key={modulOpt} value={modulOpt}>{modulOpt}</MenuItem>
-            ))}
-          </Select>
+          <ModulDropdown/>
         </FormControl>
       </Box>
 
@@ -98,17 +76,7 @@ export default function AdministrationForm({
           {t('pages.administrationform.raum')}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            id="select-raum"
-            value={raum}
-            onChange={(e) => setRaum(e.target.value)}
-            sx={selectSx}
-            inputProps={{ 'aria-labelledby': 'label-raum' }}
-          >
-            {RAEUME.map((raumOpt) => (
-              <MenuItem key={raumOpt} value={raumOpt}>{raumOpt}</MenuItem>
-            ))}
-          </Select>
+          <RaumDropdown/>
         </FormControl>
       </Box>
 
@@ -143,17 +111,7 @@ export default function AdministrationForm({
           {t('pages.administrationform.dozent')}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            id="select-dozent"
-            value={dozent}
-            onChange={(e) => setDozent(e.target.value)}
-            sx={selectSx}
-            inputProps={{ 'aria-labelledby': 'label-dozent' }}
-          >
-            {DOZENTEN.map((dozentOpt) => (
-              <MenuItem key={dozentOpt} value={dozentOpt}>{dozentOpt}</MenuItem>
-            ))}
-          </Select>
+          <DozentDropdown/>
         </FormControl>
       </Box>
 

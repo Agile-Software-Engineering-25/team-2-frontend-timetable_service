@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import CalendarMini from "./CalendarMini";
-import VerwaltungsForm from "./AdministrationForm";
+import AdministrationForm from "./AdministrationForm";
 import ActionButtons from "./ActionsButtons";
 import type { Event } from "./Timetable";
 import { TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -9,6 +9,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { de } from "date-fns/locale";
 import { colors } from "@mui/joy";
 import { useTranslation } from 'react-i18next';
+import { FormProvider } from '@/contexts/FormContext.tsx';
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -90,7 +91,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
   const handleAdd = () => {
     if (!selectedDate || !startTime || !endTime) return;
-
+    console.log(selectedDate, startTime, endTime);
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
     const end = new Date(selectedDate);
@@ -172,8 +173,8 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       {/* Mini-Kalender */}
       <CalendarMini date={selectedDate} onChange={setSelectedDate} />
 
-      <Divider sx={{ 
-        my: 2, 
+      <Divider sx={{
+        my: 2,
         color: colors.blue[400],
         '@media (max-width: 1200px) and (min-width: 901px)': {
           my: 1.5,
@@ -187,7 +188,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       }} />
 
       {/* Verwaltung Titel + Datum/Uhrzeit */}
-      <Box sx={{ 
+      <Box sx={{
         mb: 1,
         '@media (max-width: 1200px) and (min-width: 901px)': {
           mb: 0.8,
@@ -256,9 +257,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
         {/* TimePicker für Start- und Endzeit */}
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-            <Box sx={{ 
-              display: "flex", 
-              gap: 1, 
+            <Box sx={{
+              display: "flex",
+              gap: 1,
               mt: 1,
               '@media (max-width: 1200px) and (min-width: 901px)': {
                 mt: 0.8,
@@ -313,49 +314,51 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
         </LocalizationProvider>
       </Box>
 
-      {/* Formular */}
-      <Box sx={{ 
-        mt: 2,
-        '@media (max-width: 1200px) and (min-width: 901px)': {
-          mt: 1.5,
-        },
-        '@media (max-width: 900px)': {
-          mt: 1,
-        },
-        '@media (max-width: 600px)': {
-          mt: 0.5,
-        },
-      }}>
-        <VerwaltungsForm
-          studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
-          modul={modul} setModul={setModul}
-          raum={raum} setRaum={setRaum}
-          typ={typ} setTyp={setTyp}
-          dozent={dozent} setDozent={setDozent}
-          kommentar={kommentar} setKommentar={setKommentar}
-        />
-      </Box>
+      {/* Formular und Buttons - beide innerhalb des FormProvider */}
+      <FormProvider>
+        <Box sx={{
+          mt: 2,
+          '@media (max-width: 1200px) and (min-width: 901px)': {
+            mt: 1.5,
+          },
+          '@media (max-width: 900px)': {
+            mt: 1,
+          },
+          '@media (max-width: 600px)': {
+            mt: 0.5,
+          },
+        }}>
+          <AdministrationForm
+            studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
+            modul={modul} setModul={setModul}
+            raum={raum} setRaum={setRaum}
+            typ={typ} setTyp={setTyp}
+            dozent={dozent} setDozent={setDozent}
+            kommentar={kommentar} setKommentar={setKommentar}
+          />
+        </Box>
 
-      {/* Buttons */}
-      <Box aria-label="Veranstaltungsaktionen" sx={{
-        mt: 2,
-        '@media (max-width: 1200px) and (min-width: 901px)': {
-          mt: 1.5,
-        },
-        '@media (max-width: 900px)': {
-          mt: 1,
-        },
-        '@media (max-width: 600px)': {
-          mt: 0.5,
-        },
-      }}>
-        <ActionButtons
-          eventExists={eventExists}
-          onAdd={handleAdd}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-        />
-      </Box>
+        {/* Buttons */}
+        <Box aria-label="Veranstaltungsaktionen" sx={{
+          mt: 2,
+          '@media (max-width: 1200px) and (min-width: 901px)': {
+            mt: 1.5,
+          },
+          '@media (max-width: 900px)': {
+            mt: 1,
+          },
+          '@media (max-width: 600px)': {
+            mt: 0.5,
+          },
+        }}>
+          <ActionButtons
+            eventExists={eventExists}
+            onAdd={handleAdd}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        </Box>
+      </FormProvider>
     </Box>
   );
 }

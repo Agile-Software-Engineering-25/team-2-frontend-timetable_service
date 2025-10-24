@@ -1,5 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import { CalendarMonth, Edit, Close } from "@mui/icons-material";
+import { ValidateInputButton } from '@components/autoCompleteDropdown/validateInputButton.tsx';
 
 interface Props {
   eventExists: boolean;
@@ -11,7 +12,8 @@ interface Props {
 export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }: Props) {
   return (
     <Stack spacing={1}>
-      <Button
+      <ValidateInputButton/>
+      {/*<Button
         variant="contained"
         fullWidth
         onClick={onAdd}
@@ -27,7 +29,7 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
         aria-label="Neue Veranstaltung hinzufügen"
       >
         VERANSTALTUNG HINZUFÜGEN
-      </Button>
+      </Button>*/}
 
       {/* Nebeneinander */}
       <Stack direction="row" spacing={1}>
