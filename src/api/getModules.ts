@@ -1,14 +1,14 @@
 export async function getModules() {
-  /*return fetch('https://sau-portal.de/api/masterdata/studies/modules/')
+  return fetch('https://sau-portal.de/api/masterdata/studies/modules/')
      .then((response) => response.json())
      .then((data) => {
        return data;
      })
      .catch((error) => {
        console.error('Error fetching lecturers:', error);
-     });*/
+     });}
 
-  return [
+  /*return [
     {
       "id": 10,
       "template": {
@@ -52,4 +52,4 @@ export async function getModules() {
         }
       ]
     }
-  ]}
+  ]}*/
