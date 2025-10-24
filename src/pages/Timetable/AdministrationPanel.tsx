@@ -53,6 +53,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setCurrentEventIndex(null);
       return;
     }
+    if (selectedEvent) {
+      return;
+    }
 
     const index = events.findIndex(
       (ev) =>
@@ -71,16 +74,22 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setEndTime(ev.end);
       // Modul aus Titel extrahieren (optional)
       setModul(ev.title.split(" (")[0] || "");
+      setRaum(ev.raum || "");
+      setTyp(ev.typ || "");
+      setDozent(ev.dozent || "");
+      setKommentar(ev.kommentar || "");
     } else {
       setEventExists(false);
       setCurrentEventIndex(null);
-      // Formular leeren
-      setModul("");
-      setKommentar("");
-      setStartTime(new Date());
-      setEndTime(new Date(new Date().getTime() + 60 * 60 * 1000));
     }
-  }, [selectedDate, studiengruppe, dozent, events]);
+  }, [selectedDate, events]);
+
+  // Wenn ein Event bearbeitet wird (durch selectedEvent), stelle sicher dass eventExists true bleibt
+  useEffect(() => {
+    if (selectedEvent && currentEventIndex !== null) {
+      setEventExists(true);
+    }
+  }, [studiengruppe, modul, raum, typ, dozent, kommentar, startTime, endTime]);
 
   const handleAdd = () => {
     if (!selectedDate || !startTime || !endTime) return;
