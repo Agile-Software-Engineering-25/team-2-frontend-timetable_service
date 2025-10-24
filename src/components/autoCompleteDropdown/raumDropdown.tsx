@@ -15,14 +15,19 @@ export const RAEUME: string[] = [
   // Hoffe das passt so
 ];
 
-export default function RaumDropdown() {
+export interface Room {
+  name: string,
+  id: string,
+}
+
+export function RaumDropdown() {
   const { formState, updateField } = useFormContext();
-  const [room, setRoom] = useState<string[] | null>(null);
+  const [room, setRoom] = useState<Room[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getRooms().then((result) => {
       if (ignoreResult) return;
-      const rooms = result.rooms.map((rooms: { name: string }) => rooms.name);
+      const rooms = result.rooms.map((rooms: any) => { return { name: rooms.name, id: rooms.id }});
       setRoom(rooms);
     })
     return () => {
@@ -36,12 +41,14 @@ export default function RaumDropdown() {
         options={room ?? []}
         value={formState.raum}
         onChange={(_, value) => updateField('raum', value)}
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Raum"
+            label=""
             placeholder="Raum tippen, um zu filtern"
           />
         )}
