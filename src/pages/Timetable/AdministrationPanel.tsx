@@ -16,7 +16,7 @@ interface AdministrationPanelProps {
   setSelectedEvent: (event: Event | null) => void;
 }
 
-export default function AdministrationPanel({ events, setEvents, selectedEvent }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -95,9 +95,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
     if (!selectedDate || !startTime || !endTime) return;
 
     const start = new Date(selectedDate);
-    start.setHours(startTime.getHours(), startTime.getMinutes());
+    start.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0);
     const end = new Date(selectedDate);
-    end.setHours(endTime.getHours(), endTime.getMinutes());
+    end.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0);
 
     const newEvent: Event = {
       title: `${modul} (${studiengruppe})`,
@@ -117,12 +117,11 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
     if (currentEventIndex === null || !selectedDate || !startTime || !endTime) return;
 
     const start = new Date(selectedDate);
-    start.setHours(startTime.getHours(), startTime.getMinutes());
+    start.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0);
     const end = new Date(selectedDate);
-    end.setHours(endTime.getHours(), endTime.getMinutes());
+    end.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0);
 
-    const updatedEvents = [...events];
-    updatedEvents[currentEventIndex] = {
+    const updatedEvent: Event = {
       title: `${modul} (${studiengruppe})`,
       start,
       end,
@@ -133,7 +132,14 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       dozent,
       kommentar,
     };
+
+    const updatedEvents = events.map((event, index) => 
+      index === currentEventIndex ? updatedEvent : event
+    );
+    
     setEvents(updatedEvents);
+    
+    setSelectedEvent(updatedEvent);
   };
 
   const handleDelete = () => {
@@ -143,6 +149,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
     setEvents(filteredEvents);
     setEventExists(false);
     setCurrentEventIndex(null);
+    setSelectedEvent(null);
   };
 
   return (
