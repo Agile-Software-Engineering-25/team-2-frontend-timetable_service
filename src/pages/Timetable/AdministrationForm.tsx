@@ -1,11 +1,11 @@
 import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material';
 import StudienGruppeDropdown from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
-import { DozentDropdown, type Lecturer } from '@components/autoCompleteDropdown/dozentDropdown';
+import { DozentDropdown } from '@components/autoCompleteDropdown/dozentDropdown';
 import { TYPEN } from '@components/autoCompleteDropdown/veranstaltungsTypDropdown';
 import TYP_COLORS from './typColors';
 import { RaumDropdown } from '@components/autoCompleteDropdown/raumDropdown';
 import { useTranslation } from 'react-i18next';
-import { ModulDropdown, type Module } from '@components/autoCompleteDropdown/modulDropdown';
+import { ModulDropdown } from '@components/autoCompleteDropdown/modulDropdown';
 
 interface Props {
   studiengruppe: string;
@@ -86,23 +86,23 @@ export default function AdministrationForm({
           {t('pages.administrationform.typ')}
         </Typography>
            <FormControl fullWidth>
-          <Select id="select-typ" value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
-            {TYPEN.map((typOpt) => (
-              <MenuItem key={typOpt} value={typOpt}>
-                <span aria-hidden="true" style={{
-                  display: 'inline-block',
-                  width: 16,
-                  height: 16,
-                  borderRadius: '50%',
-                  background: TYP_COLORS[typOpt] || '#1976d2',
-                  marginRight: 8,
-                  verticalAlign: 'middle',
-                }} />
-                {typOpt}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+             <Select id="select-typ" value={typ} onChange={(e) => setTyp(e.target.value)} sx={selectSx}>
+               {TYPEN.map((typOpt) => (
+                 <MenuItem key={typOpt} value={typOpt}>
+                   <span aria-hidden="true" style={{
+                     display: 'inline-block',
+                     width: 16,
+                     height: 16,
+                     borderRadius: '50%',
+                     background: TYP_COLORS[typOpt] || '#1976d2',
+                     marginRight: 8,
+                     verticalAlign: 'middle',
+                   }} />
+                   {typOpt}
+                 </MenuItem>
+               ))}
+             </Select>
+           </FormControl>
       </Box>
 
       {/* Dozent */}
