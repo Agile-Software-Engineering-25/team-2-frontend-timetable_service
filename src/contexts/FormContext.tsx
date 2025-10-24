@@ -3,7 +3,6 @@ import type { Lecturer } from '@components/autoCompleteDropdown/dozentDropdown.t
 import type { Module } from '@components/autoCompleteDropdown/modulDropdown.tsx';
 import type { AutocompleteValue } from '@mui/material';
 import type { Room } from '@components/autoCompleteDropdown/raumDropdown.tsx';
-import type { Group } from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
 
 /**
  * Interface für den Zustand des Formulars
@@ -11,7 +10,7 @@ import type { Group } from '@components/autoCompleteDropdown/studienGruppeDropdo
  */
 interface FormState {
   /** Ausgewählte Studiengruppe (z.B. "BIN-T-23-F1") */
-  studienGruppe: Group | null;
+  studienGruppe: string | null;
   /** Ausgewähltes Modul (z.B. "Agile Software Engineering") */
   modul: Module | null;
   /** Ausgewählter Dozent (z.B. "Folk, Florian") */
