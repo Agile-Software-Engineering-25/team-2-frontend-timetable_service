@@ -23,15 +23,11 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
-  const [studiengruppe, setStudiengruppe] = useState("");
-  const [modul, setModul] = useState("");
-  const [raum, setRaum] = useState("");
   const [typ, setTyp] = useState("");
-  const [dozent, setDozent] = useState("");
   const [kommentar, setKommentar] = useState("");
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
-
+  const { validateForm, formState } = useFormContext();
   //Übersetzungen
   const { t } = useTranslation();
   const starttime = t('pages.administrationpanel.startzeit')
@@ -43,11 +39,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setSelectedDate(selectedEvent.start);
       setStartTime(selectedEvent.start);
       setEndTime(selectedEvent.end);
-      setModul(selectedEvent.modul || "");
-      setStudiengruppe(selectedEvent.studiengruppe || "");
-      setRaum(selectedEvent.raum || "");
       setTyp(selectedEvent.typ || "");
-      setDozent(selectedEvent.dozent || "");
       setKommentar(selectedEvent.kommentar || "");
       setEventExists(true);
       const idx = events.findIndex(ev => ev === selectedEvent);
@@ -64,9 +56,8 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
     const index = events.findIndex(
       (ev) =>
-        ev.start.toDateString() === selectedDate.toDateString() &&
-        ((studiengruppe && ev.title.includes(studiengruppe)) ||
-         (dozent && ev.title.includes(dozent)))
+        ev.start.toDateString() === selectedDate.toDateString()
+
     );
 
     if (index >= 0) {
@@ -78,20 +69,36 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setStartTime(ev.start);
       setEndTime(ev.end);
       // Modul aus Titel extrahieren (optional)
-      setModul(ev.title.split(" (")[0] || "");
+
     } else {
       setEventExists(false);
       setCurrentEventIndex(null);
       // Formular leeren
-      setModul("");
+
       setKommentar("");
       setStartTime(new Date());
       setEndTime(new Date(new Date().getTime() + 60 * 60 * 1000));
     }
-  }, [selectedDate, studiengruppe, dozent, events]);
+  }, [selectedDate,  events]);
 
   const handleAdd = () => {
     if (!selectedDate || !startTime || !endTime) return;
+
+      // Aktuelle Werte ausgeben
+      console.log('Studiengruppe:', formState.studienGruppe);
+      console.log('Modul:', formState.modul);
+      console.log('Dozent:', formState.dozent);
+      console.log('Veranstaltungstyp:', formState.veranstaltungstyp);
+      console.log('Raum:', formState.raum);
+
+      const validation = validateForm();
+
+      if (validation.isValid) {
+        alert('Alle Felder sind ausgefüllt! Die Veranstaltung kann gebucht werden.');
+        // Hier können Sie weitere Aktionen ausführen, z.B. API-Call
+      } else {
+        alert(`Bitte füllen Sie folgende Felder aus: ${validation.missingFields.join(', ')}`);
+      }
     console.log(selectedDate, startTime, endTime);
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
@@ -99,17 +106,24 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const newEvent: Event = {
-      title: `${modul} (${studiengruppe})`,
+      title: `${formState.modul?.name} (${formState.studienGruppe})`,
       start,
       end,
-      studiengruppe,
-      modul,
-      raum,
+      studiengruppenName: formState.studienGruppe|| "",
+      modulName: formState.modul?.name || "",
+      modulId: formState.modul?.id || "",
+      raumName: formState.raum?.name || "",
+      raumId: formState.raum?.id || "",
       typ,
-      dozent,
+      dozentNamen: formState.dozent?.name || "",
+      dozentId: formState.dozent?.id || "",
       kommentar,
     };
-    setEvents([...events, newEvent]);
+     createEvent(newEvent).then((res:any) =>{
+       setEvents([...events, res]);
+       console.log(res);
+
+    });
   };
 
   const handleUpdate = () => {
@@ -122,24 +136,36 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
 
     const updatedEvents = [...events];
     updatedEvents[currentEventIndex] = {
-      title: `${modul} (${studiengruppe})`,
+      title: `${formState.modul?.name} (${formState.studienGruppe})`,
       start,
       end,
-      studiengruppe,
-      modul,
-      raum,
+      studiengruppenName: formState.studienGruppe || "",
+      modulName: formState.modul?.name || "",
+      modulId: formState.modul?.id || "",
+      raumName: formState.raum?.name || "",
+      raumId: formState.raum?.id || "",
       typ,
-      dozent,
+      dozentNamen: formState.dozent?.name || "",
+      dozentId: formState.dozent?.id || "",
       kommentar,
     };
-    setEvents(updatedEvents);
+    editEvent(updatedEvents[currentEventIndex]).then((res:any) =>{
+      updatedEvents[currentEventIndex] = res;
+      setEvents(updatedEvents);
+
+  console.log(res)
+    });
+
+    console.log(updatedEvents[currentEventIndex]);
   };
 
   const handleDelete = () => {
     if (currentEventIndex === null) return;
-
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
     setEvents(filteredEvents);
+    deleteEvent(events[currentEventIndex]).then(() =>{
+      console.log("Event gelöscht");
+    });
     setEventExists(false);
     setCurrentEventIndex(null);
   };
@@ -316,7 +342,6 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       </Box>
 
       {/* Formular und Buttons - beide innerhalb des FormProvider */}
-      <FormProvider>
         <Box sx={{
           mt: 2,
           '@media (max-width: 1200px) and (min-width: 901px)': {
@@ -330,11 +355,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
           },
         }}>
           <AdministrationForm
-            studiengruppe={studiengruppe} setStudiengruppe={setStudiengruppe}
-            modul={modul} setModul={setModul}
-            raum={raum} setRaum={setRaum}
             typ={typ} setTyp={setTyp}
-            dozent={dozent} setDozent={setDozent}
             kommentar={kommentar} setKommentar={setKommentar}
           />
         </Box>
@@ -359,7 +380,6 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
             onDelete={handleDelete}
           />
         </Box>
-      </FormProvider>
     </Box>
   );
 }
