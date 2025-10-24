@@ -1,4 +1,9 @@
 import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import type { Lecturer } from '@components/autoCompleteDropdown/dozentDropdown.tsx';
+import type { Module } from '@components/autoCompleteDropdown/modulDropdown.tsx';
+import type { AutocompleteValue } from '@mui/material';
+import type { Room } from '@components/autoCompleteDropdown/raumDropdown.tsx';
+import type { Group } from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
 
 /**
  * Interface für den Zustand des Formulars
@@ -6,15 +11,15 @@ import React, { createContext, useContext, useState, type ReactNode } from 'reac
  */
 interface FormState {
   /** Ausgewählte Studiengruppe (z.B. "BIN-T-23-F1") */
-  studienGruppe: string | null;
+  studienGruppe: Group | null;
   /** Ausgewähltes Modul (z.B. "Agile Software Engineering") */
-  modul: string | null;
+  modul: Module | null;
   /** Ausgewählter Dozent (z.B. "Folk, Florian") */
-  dozent: string | null;
+  dozent: Lecturer | null;
   /** Ausgewählter Veranstaltungstyp (z.B. "Kurs", "Prüfung") */
   veranstaltungstyp: string | null;
   /** Ausgewählter Raum (z.B. "R101") */
-  raum: string | null;
+  raum: Room | null;
 }
 
 /**
@@ -25,7 +30,7 @@ interface FormContextType {
   /** Aktueller Zustand des Formulars */
   formState: FormState;
   /** Funktion zum Aktualisieren einzelner Formularfelder */
-  updateField: (field: keyof FormState, value: string | null) => void;
+  updateField: (field: keyof FormState, value: AutocompleteValue<unknown, false, false, false>) => void;
   /** Funktion zur Validierung des gesamten Formulars */
   validateForm: () => { isValid: boolean; missingFields: string[] };
 }
@@ -116,7 +121,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
    * updateField('modul', null);
    * ```
    */
-  const updateField = (field: keyof FormState, value: string | null) => {
+  const updateField = (field: keyof FormState, value: any ) => {
     setFormState(prev => ({
       ...prev,
       [field]: value
