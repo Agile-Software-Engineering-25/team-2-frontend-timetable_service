@@ -10,10 +10,9 @@ export const TYPEN: string[] = [
   'Dekansprechstunde',
   'Prüfung',
   'Sonstiges',
-  // ... hier die restlichen Dozenten eintragen
 ];
 
-export default function VeranstaltungstypDropdown() {
+export function VeranstaltungstypDropdown() {
   const { formState, updateField } = useFormContext();
 
   return (
@@ -23,7 +22,6 @@ export default function VeranstaltungstypDropdown() {
         options={TYPEN}
         value={formState.veranstaltungstyp}
         onChange={(_, value) => updateField('veranstaltungstyp', value)}
-        // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
           <TextField
