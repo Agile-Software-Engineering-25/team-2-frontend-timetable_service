@@ -17,9 +17,10 @@ interface AdministrationPanelProps {
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
   selectedEvent: Event | null;
   setSelectedEvent: (event: Event | null) => void;
+  selectedTimeSlot: { start: Date; end: Date } | null;
 }
 
-export default function AdministrationPanel({ events, setEvents, selectedEvent }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, selectedTimeSlot }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -46,6 +47,15 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setCurrentEventIndex(idx >= 0 ? idx : null);
     }
   }, [selectedEvent]);
+
+  // Wenn ein Zeitslot durch Drag ausgewählt wurde, Start- und Endzeit aktualisieren
+  useEffect(() => {
+    if (selectedTimeSlot) {
+      setStartTime(selectedTimeSlot.start);
+      setEndTime(selectedTimeSlot.end);
+      setSelectedDate(selectedTimeSlot.start);
+    }
+  }, [selectedTimeSlot]);
 
   useEffect(() => {
     if (!selectedDate) {
@@ -74,10 +84,9 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent }
       setEventExists(false);
       setCurrentEventIndex(null);
       // Formular leeren
-
       setKommentar("");
-      setStartTime(new Date());
-      setEndTime(new Date(new Date().getTime() + 60 * 60 * 1000));
+      // Zeiten nicht zurücksetzen, wenn sie durch einen Zeitslot-Drag gesetzt wurden
+      // Die Zeiten bleiben erhalten, wenn der Benutzer einen Zeitslot ausgewählt hat
     }
   }, [selectedDate,  events]);
 
