@@ -9,7 +9,7 @@ import { FormProvider } from '@/contexts/FormContext.tsx';
 import { getEvent } from '@/api/createEvent.ts';
 
 //Konstanten für Ansicht-Steuerung
-const isAdmin = false;
+const isAdmin = true;
 const isTeacher = false;
 
 export interface Event {
