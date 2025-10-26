@@ -52,8 +52,8 @@ export function DozentDropdown() {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Dozent"
-            placeholder="Name tippen, um zu filtern"
+            label=""
+            placeholder=""
           />
         )}
       />

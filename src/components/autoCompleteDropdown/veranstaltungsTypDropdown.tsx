@@ -26,8 +26,8 @@ export function VeranstaltungstypDropdown() {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Veranstaltungstyp"
-            placeholder="Typ tippen, um zu filtern"
+            label=""
+            placeholder=""
           />
         )}
       />

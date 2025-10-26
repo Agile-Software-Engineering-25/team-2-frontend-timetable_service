@@ -31,8 +31,8 @@ export default function StudienGruppeDropdown() {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Studiengruppe"
-            placeholder="Studiengruppe suchen, um zu filtern"
+            label=""
+            placeholder=""
           />
         )}
       />
