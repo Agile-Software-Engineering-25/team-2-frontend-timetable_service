@@ -49,19 +49,37 @@ const Timetable: React.FC = () => {
     },
   ]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<{ start: Date; end: Date } | null>(null);
 
   const handleSelectEvent = (event: Event) => {
     setSelectedEvent(event);
+    setSelectedSlot(null);
+  };
+
+  const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
+    setSelectedSlot(slotInfo);
+    setSelectedEvent(null);
   };
 
   return (
     <div className="timetable-container">
       <div className="timetable-admin-panel">
-        <AdministrationPanel events={events} setEvents={setEvents} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent}/>
+        <AdministrationPanel 
+          events={events} 
+          setEvents={setEvents} 
+          selectedEvent={selectedEvent} 
+          setSelectedEvent={setSelectedEvent}
+          selectedSlot={selectedSlot}
+          setSelectedSlot={setSelectedSlot}
+        />
       </div>
       <div className="timetable-calendar-container">
         <div className="timetable-calendar-wrapper">
-          <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+          <BigCalendar 
+            events={events} 
+            onSelectEvent={handleSelectEvent}
+            onSelectSlot={handleSelectSlot}
+          />
         </div>
       </div>
     </div>

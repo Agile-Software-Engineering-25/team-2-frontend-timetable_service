@@ -14,9 +14,11 @@ interface AdministrationPanelProps {
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
   selectedEvent: Event | null;
   setSelectedEvent: (event: Event | null) => void;
+  selectedSlot?: { start: Date; end: Date } | null;
+  setSelectedSlot?: (slot: { start: Date; end: Date } | null) => void;
 }
 
-export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, setSelectedEvent, selectedSlot, setSelectedSlot }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -28,6 +30,17 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
   const [kommentar, setKommentar] = useState("");
   const [eventExists, setEventExists] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(null);
+
+  // Wenn ein Slot durch Drag ausgewählt wurde
+  useEffect(() => {
+    if (selectedSlot) {
+      setSelectedDate(selectedSlot.start);
+      setStartTime(selectedSlot.start);
+      setEndTime(selectedSlot.end);
+      setEventExists(false);
+      setCurrentEventIndex(null);
+    }
+  }, [selectedSlot]);
 
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
@@ -111,6 +124,10 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       kommentar,
     };
     setEvents([...events, newEvent]);
+    
+    if (setSelectedSlot) {
+      setSelectedSlot(null);
+    }
   };
 
   const handleUpdate = () => {
