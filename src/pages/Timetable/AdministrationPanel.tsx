@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { useFormContext } from '@/contexts/FormContext.tsx';
 import { editEvent, createEvent, deleteEvent } from '@/api/createEvent.ts';
 import DisplayNextEvents from '@components/visualComponents/displayNextEvents.tsx';
-import LanguageSelectorComponent from '@components/LanguageSelectorComponent/LanguageSelectorComponent.tsx';
 
 interface AdministrationPanelProps {
   events: Event[];
