@@ -1,11 +1,11 @@
 import type { Event } from "../pages/Timetable/Timetable";
 
-export const eventMock: Event[] = [
+const eventMock: Event[] = [
   {
     id: "1",
     title: "Hier steht der Modul-Name",
-    start: new Date(2025, 0, 13, 8, 0), // 13.01.2025 08:00
-    end: new Date(2025, 0, 13, 8, 45),  // 45 Minuten später
+    start: new Date(2025, 10, 13, 8, 0), // 13.01.2025 08:00
+    end: new Date(2025, 10, 13, 8, 45),  // 45 Minuten später
     studiengruppenName: "BIN-T23-F1",
     modulId: "1",
     modulName: "Grundlagen der Informatik",
@@ -19,8 +19,8 @@ export const eventMock: Event[] = [
   {
     id: "2",
     title: "Datenbanken I",
-    start: new Date(2025, 0, 13, 9, 0),
-    end: new Date(2025, 0, 13, 9, 45),
+    start: new Date(2025, 10, 13, 10, 0),
+    end: new Date(2025, 10, 13, 10, 45),
     studiengruppenName: "BIN-T23-F1",
     modulId: "2",
     modulName: "Datenbanken I",
@@ -34,8 +34,8 @@ export const eventMock: Event[] = [
   {
     id: "3",
     title: "Programmierung II",
-    start: new Date(2025, 0, 13, 10, 0),
-    end: new Date(2025, 0, 13, 10, 45),
+    start: new Date(2025, 10, 13, 10, 0),
+    end: new Date(2025, 10, 13, 10, 45),
     studiengruppenName: "BIN-T23-F2",
     modulId: "3",
     modulName: "Programmierung II",
@@ -49,8 +49,8 @@ export const eventMock: Event[] = [
   {
     id: "4",
     title: "Mathematik für Informatiker",
-    start: new Date(2025, 0, 13, 11, 0),
-    end: new Date(2025, 0, 13, 11, 45),
+    start: new Date(2025, 10, 13, 11, 0),
+    end: new Date(2025, 10, 13, 11, 45),
     studiengruppenName: "BIN-T22-F1",
     modulId: "4",
     modulName: "Mathematik für Informatiker",
@@ -58,14 +58,14 @@ export const eventMock: Event[] = [
     raumId: "HS-A",
     typ: "Vorlesung",
     dozentNamen: "Dr. Sabine Köhler",
-    dozentId: "9-2",
+    dozentId: "10-2",
     kommentar: "Analysis Grundlagen"
   },
   {
     id: "5",
     title: "Betriebssysteme",
-    start: new Date(2025, 0, 13, 12, 0),
-    end: new Date(2025, 0, 13, 12, 45),
+    start: new Date(2025, 10, 13, 12, 0),
+    end: new Date(2025, 10, 13, 12, 45),
     studiengruppenName: "BIN-T22-F2",
     modulId: "5",
     modulName: "Betriebssysteme",
@@ -79,8 +79,8 @@ export const eventMock: Event[] = [
   {
     id: "6",
     title: "Software Engineering",
-    start: new Date(2025, 0, 13, 14, 0),
-    end: new Date(2025, 0, 13, 14, 45),
+    start: new Date(2025, 10, 13, 14, 0),
+    end: new Date(2025, 10, 13, 14, 45),
     studiengruppenName: "BIN-T21-F1",
     modulId: "6",
     modulName: "Software Engineering",
@@ -92,3 +92,7 @@ export const eventMock: Event[] = [
     kommentar: "Agile Methoden"
   }
 ];
+
+export function getMockEvents(): Event[] {
+  return eventMock;
+}
