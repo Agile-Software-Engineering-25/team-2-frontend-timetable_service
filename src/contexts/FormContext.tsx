@@ -153,7 +153,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     if (!formState.studienGruppe) missingFields.push('Studiengruppe');
     if (!formState.modul) missingFields.push('Modul');
     if (!formState.dozent) missingFields.push('Dozent');
-    if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
+    //if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
     if (!formState.raum) missingFields.push('Raum');
 
     return {
