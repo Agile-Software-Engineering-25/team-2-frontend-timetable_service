@@ -103,7 +103,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
       const validation = validateForm();
 
       if (validation.isValid) {
-        alert('Alle Felder sind ausgefüllt! Die Veranstaltung kann gebucht werden.');
+        // alert('Alle Felder sind ausgefüllt! Die Veranstaltung kann gebucht werden.');
         // Hier können Sie weitere Aktionen ausführen, z.B. API-Call
       } else {
         alert(`Bitte füllen Sie folgende Felder aus: ${validation.missingFields.join(', ')}`);

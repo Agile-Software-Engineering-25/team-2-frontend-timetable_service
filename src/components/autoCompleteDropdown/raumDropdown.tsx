@@ -49,7 +49,7 @@ export function RaumDropdown() {
           <TextField
             {...params}
             label=""
-            placeholder="Raum tippen, um zu filtern"
+            placeholder=""
           />
         )}
       />

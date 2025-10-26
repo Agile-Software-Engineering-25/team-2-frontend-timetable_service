@@ -42,8 +42,8 @@ export function ModulDropdown() {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Modul"
-            placeholder="Modul tippen, um zu filtern"
+            label=""
+            placeholder=""
           />
         )}
       />

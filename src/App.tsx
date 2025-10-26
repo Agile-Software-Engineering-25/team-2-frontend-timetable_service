@@ -6,6 +6,7 @@ import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy";
 import "./i18n";
 import { Provider } from "react-redux";
 import store from "@stores/index.ts";
+import "./global.css";
 
 const muiTheme = createCustomMuiTheme();
 const joyTheme = createCustomJoyTheme();
