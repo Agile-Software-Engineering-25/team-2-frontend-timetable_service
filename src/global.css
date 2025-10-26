@@ -1,0 +1,9 @@
+/* Global base styles to prevent unwanted page scroll due to default margins */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0; /* remove default browser margin that caused tiny page scroll */
+}
+
