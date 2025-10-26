@@ -27,9 +27,14 @@ export interface Event {
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<{ start: Date; end: Date } | null>(null);
 
   const handleSelectEvent = (event: Event) => {
     setSelectedEvent(event);
+  };
+
+  const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
+    setSelectedTimeSlot(slotInfo);
   };
   const srStatus = selectedEvent
     ? `Ausgewählt: ${selectedEvent.modulName} in ${selectedEvent.raumName}, ` +
@@ -48,8 +53,13 @@ const Timetable: React.FC = () => {
       </div>
       <FormProvider>
         <div className="timetable-admin-panel">
-          <AdministrationPanel events={events} setEvents={setEvents} selectedEvent={selectedEvent}
-                               setSelectedEvent={setSelectedEvent} />
+          <AdministrationPanel 
+            events={events} 
+            setEvents={setEvents} 
+            selectedEvent={selectedEvent}
+            setSelectedEvent={setSelectedEvent}
+            selectedTimeSlot={selectedTimeSlot}
+          />
         </div>
       </FormProvider>
       <div className="timetable-calendar-container">
@@ -58,7 +68,11 @@ const Timetable: React.FC = () => {
              aria-label="Kalenderansicht"
              role="region"
         >
-          <BigCalendar events={events} onSelectEvent={handleSelectEvent} />
+          <BigCalendar 
+            events={events} 
+            onSelectEvent={handleSelectEvent}
+            onSelectSlot={handleSelectSlot}
+          />
         </div>
         <div className="language-selector-container" aria-label="Sprache wählen">
           <LanguageSelectorComponent />
