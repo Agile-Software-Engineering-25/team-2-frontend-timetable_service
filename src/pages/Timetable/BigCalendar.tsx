@@ -54,7 +54,10 @@ export default function BigCalendar({ events, onSelectEvent, onSelectSlot }: Big
            width: "100%",
            background: "white",
            borderRadius: 0,
-           padding: 0
+           padding: 0,
+           display: "flex",
+           flexDirection: "column",
+           overflow: "hidden"
     }}
     >
       <h2 id="calendar-heading"
@@ -66,7 +69,7 @@ export default function BigCalendar({ events, onSelectEvent, onSelectSlot }: Big
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: "100%" }}
+        style={{ height: "100%", width: "100%" }}
         views={["month", "week", "day"]}
         defaultView="month"
         toolbar={true}
@@ -118,5 +121,3 @@ export default function BigCalendar({ events, onSelectEvent, onSelectSlot }: Big
     </div>
   );
 }
-
-
