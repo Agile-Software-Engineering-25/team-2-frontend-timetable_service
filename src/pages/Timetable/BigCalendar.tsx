@@ -52,8 +52,8 @@ export default function BigCalendar({ events, onSelectEvent }: BigCalendarProps)
            height: "100%",
            width: "100%",
            background: "white",
-           borderRadius: 8,
-           padding: 8
+           borderRadius: 0,
+           padding: 0
     }}
     >
       <h2 id="calendar-heading"
