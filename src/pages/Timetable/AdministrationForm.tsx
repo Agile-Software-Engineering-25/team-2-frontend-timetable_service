@@ -12,6 +12,8 @@ interface Props {
   setTyp: (val: string) => void;
   kommentar: string;
   setKommentar: (val: string) => void;
+  isAdmin: boolean;
+  isTeacher: boolean;
 }
 
 const selectSx = {
@@ -29,6 +31,8 @@ export default function AdministrationForm({
   setTyp,
   kommentar,
   setKommentar,
+  isAdmin,
+  isTeacher,
 }: Props) {
 
   const { t } = useTranslation();
@@ -36,6 +40,7 @@ export default function AdministrationForm({
   return (
     <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
       {/* Studiengruppe */}
+      {isAdmin &&
       <Box>
         <Typography id="label-studiengruppe" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.studiengruppe')}
@@ -43,9 +48,10 @@ export default function AdministrationForm({
         <FormControl fullWidth>
           <StudienGruppeDropdown/>
         </FormControl>
-      </Box>
+      </Box>}
 
       {/* Modul */}
+      {isAdmin &&
       <Box>
         <Typography id="label-modul"
                     sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
@@ -54,9 +60,10 @@ export default function AdministrationForm({
         <FormControl fullWidth>
           <ModulDropdown/>
         </FormControl>
-      </Box>
+      </Box>}
 
       {/* Raum */}
+      {isAdmin &&
       <Box>
         <Typography id="label-raum" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.raum')}
@@ -64,9 +71,10 @@ export default function AdministrationForm({
         <FormControl fullWidth>
           <RaumDropdown/>
         </FormControl>
-      </Box>
+      </Box>}
 
       {/* Typ (Radio Buttons) */}
+      {isAdmin &&
       <Box>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.typ')}
@@ -89,9 +97,10 @@ export default function AdministrationForm({
                ))}
              </Select>
            </FormControl>
-      </Box>
+      </Box>}
 
       {/* Dozent */}
+      {isAdmin &&
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography id="label-dozent" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.dozent')}
@@ -99,9 +108,10 @@ export default function AdministrationForm({
         <FormControl fullWidth>
           <DozentDropdown/>
         </FormControl>
-      </Box>
+      </Box>}
 
       {/* Kommentar */}
+      {(isAdmin || isTeacher) &&
       <Box sx={{ gridColumn: "1 / -1" }}>
         <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
           {t('pages.administrationform.kommentar')}
@@ -122,7 +132,7 @@ export default function AdministrationForm({
             "&:focus-within": { outline: "3px solid #FFBF47" }
           }}
         />
-      </Box>
+      </Box>}
     </Box>
   );
 }

@@ -6,6 +6,11 @@ import BigCalendar from './BigCalendar';
 import './Timetable.css';
 import LanguageSelectorComponent from '../../components/LanguageSelectorComponent/LanguageSelectorComponent';
 import { FormProvider } from '@/contexts/FormContext.tsx';
+import { getEvent } from '@/api/createEvent.ts';
+
+//Konstanten für Ansicht-Steuerung
+const isAdmin = true;
+const isTeacher = false;
 
 export interface Event {
   id?: string;
@@ -26,6 +31,10 @@ export interface Event {
 
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  getEvent().then ((result) => {
+    setEvents(result);
+    console.log(events);
+  })
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<{ start: Date; end: Date } | null>(null);
 
@@ -53,12 +62,14 @@ const Timetable: React.FC = () => {
       </div>
       <FormProvider>
         <div className="timetable-admin-panel">
-          <AdministrationPanel 
-            events={events} 
-            setEvents={setEvents} 
+          <AdministrationPanel
+            events={events}
+            setEvents={setEvents}
             selectedEvent={selectedEvent}
             setSelectedEvent={setSelectedEvent}
             selectedTimeSlot={selectedTimeSlot}
+            isTeacher={isTeacher}
+            isAdmin={isAdmin}
           />
         </div>
       </FormProvider>

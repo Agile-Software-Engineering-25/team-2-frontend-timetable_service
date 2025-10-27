@@ -7,12 +7,15 @@ interface Props {
   onAdd: () => void;
   onUpdate: () => void;
   onDelete: () => void;
+  isTeacher: boolean;
+  isAdmin: boolean;
 }
 
-export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }: Props) {
+export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete, isTeacher, isAdmin }: Props) {
   return (
     <Stack spacing={1}>
       {/*//<ValidateInputButton/>*/}
+      {isAdmin &&
       <Button
         variant="contained"
         fullWidth
@@ -30,9 +33,11 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
       >
         VERANSTALTUNG HINZUFÜGEN
       </Button>
+      }
 
       {/* Nebeneinander */}
       <Stack direction="row" spacing={1}>
+        {(isTeacher || isAdmin) &&
         <Button
           variant="contained"
           fullWidth
@@ -53,8 +58,9 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
           }
         >
           Aktualisieren
-        </Button>
+        </Button>}
 
+        {isAdmin &&
         <Button
           variant="outlined"
           fullWidth
@@ -74,7 +80,7 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete }
           }
         >
           Löschen
-        </Button>
+        </Button>}
       </Stack>
     </Stack>
   );

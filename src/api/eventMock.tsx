@@ -1,0 +1,98 @@
+import type { Event } from "../pages/Timetable/Timetable";
+
+const eventMock: Event[] = [
+  {
+    id: "1",
+    title: "Hier steht der Modul-Name",
+    start: new Date(2025, 10, 13, 8, 0), // 13.01.2025 08:00
+    end: new Date(2025, 10, 13, 8, 45),  // 45 Minuten später
+    studiengruppenName: "BIN-T23-F1",
+    modulId: "1",
+    modulName: "Grundlagen der Informatik",
+    raumName: "1.22",
+    raumId: "1-22",
+    typ: "Prüfung",
+    dozentNamen: "Olaf Grebner",
+    dozentId: "2-1",
+    kommentar: "Test-Veranstaltung 1"
+  },
+  {
+    id: "2",
+    title: "Datenbanken I",
+    start: new Date(2025, 10, 13, 10, 0),
+    end: new Date(2025, 10, 13, 10, 45),
+    studiengruppenName: "BIN-T23-F1",
+    modulId: "2",
+    modulName: "Datenbanken I",
+    raumName: "2.10",
+    raumId: "2-10",
+    typ: "Vorlesung",
+    dozentNamen: "Anna Müller",
+    dozentId: "3-4",
+    kommentar: "Einführung in relationale Modelle"
+  },
+  {
+    id: "3",
+    title: "Programmierung II",
+    start: new Date(2025, 10, 13, 10, 0),
+    end: new Date(2025, 10, 13, 10, 45),
+    studiengruppenName: "BIN-T23-F2",
+    modulId: "3",
+    modulName: "Programmierung II",
+    raumName: "3.05",
+    raumId: "3-05",
+    typ: "Übung",
+    dozentNamen: "Max Mustermann",
+    dozentId: "5-7",
+    kommentar: "Praxisübung zu OOP"
+  },
+  {
+    id: "4",
+    title: "Mathematik für Informatiker",
+    start: new Date(2025, 10, 13, 11, 0),
+    end: new Date(2025, 10, 13, 11, 45),
+    studiengruppenName: "BIN-T22-F1",
+    modulId: "4",
+    modulName: "Mathematik für Informatiker",
+    raumName: "Hörsaal A",
+    raumId: "HS-A",
+    typ: "Vorlesung",
+    dozentNamen: "Dr. Sabine Köhler",
+    dozentId: "10-2",
+    kommentar: "Analysis Grundlagen"
+  },
+  {
+    id: "5",
+    title: "Betriebssysteme",
+    start: new Date(2025, 10, 13, 12, 0),
+    end: new Date(2025, 10, 13, 12, 45),
+    studiengruppenName: "BIN-T22-F2",
+    modulId: "5",
+    modulName: "Betriebssysteme",
+    raumName: "Lab 1",
+    raumId: "LAB-1",
+    typ: "Praktikum",
+    dozentNamen: "Peter Schmidt",
+    dozentId: "10-3",
+    kommentar: "Prozesse und Threads"
+  },
+  {
+    id: "6",
+    title: "Software Engineering",
+    start: new Date(2025, 10, 13, 14, 0),
+    end: new Date(2025, 10, 13, 14, 45),
+    studiengruppenName: "BIN-T21-F1",
+    modulId: "6",
+    modulName: "Software Engineering",
+    raumName: "2.21",
+    raumId: "2-21",
+    typ: "Seminar",
+    dozentNamen: "Laura Fischer",
+    dozentId: "6-8",
+    kommentar: "Agile Methoden"
+  }
+];
+
+export function getMockEvents(): Event[] {
+  return eventMock;
+}

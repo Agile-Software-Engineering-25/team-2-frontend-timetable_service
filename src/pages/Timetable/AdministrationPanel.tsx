@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import CalendarMini from "./CalendarMini";
 import AdministrationForm from "./AdministrationForm";
@@ -11,6 +11,7 @@ import { colors } from "@mui/joy";
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '@/contexts/FormContext.tsx';
 import { editEvent, createEvent, deleteEvent } from '@/api/createEvent.ts';
+import DisplayNextEvents from '@components/visualComponents/displayNextEvents.tsx';
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -18,9 +19,11 @@ interface AdministrationPanelProps {
   selectedEvent: Event | null;
   setSelectedEvent: (event: Event | null) => void;
   selectedTimeSlot: { start: Date; end: Date } | null;
+  isTeacher: boolean;
+  isAdmin: boolean;
 }
 
-export default function AdministrationPanel({ events, setEvents, selectedEvent, selectedTimeSlot }: AdministrationPanelProps) {
+export default function AdministrationPanel({ events, setEvents, selectedEvent, selectedTimeSlot, isTeacher, isAdmin }: AdministrationPanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -310,6 +313,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
                 gap: 0.3,
               },
             }}>
+              {isAdmin &&
     <TimePicker
       label= {starttime}
       value={startTime}
@@ -327,7 +331,8 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
           },
         },
       }}
-    />
+    />}
+              {isAdmin &&
     <TimePicker
       label={endtime}
       value={endTime}
@@ -345,7 +350,7 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
           },
         },
       }}
-    />
+    />}
   </Box>
         </LocalizationProvider>
       </Box>
@@ -364,8 +369,12 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
           },
         }}>
           <AdministrationForm
-            typ={typ} setTyp={setTyp}
-            kommentar={kommentar} setKommentar={setKommentar}
+            typ={typ}
+            setTyp={setTyp}
+            kommentar={kommentar}
+            setKommentar={setKommentar}
+            isTeacher={isTeacher}
+            isAdmin={isAdmin}
           />
         </Box>
 
@@ -387,8 +396,17 @@ export default function AdministrationPanel({ events, setEvents, selectedEvent, 
             onAdd={handleAdd}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
+            isTeacher={isTeacher}
+            isAdmin={isAdmin}
           />
         </Box>
+      <Box>
+        {!isAdmin && !isTeacher && (
+          <div style={{ marginTop: 16 }}>
+            <DisplayNextEvents events={events} />
+          </div>
+        )}
+      </Box>
     </Box>
   );
 }
