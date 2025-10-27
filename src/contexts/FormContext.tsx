@@ -128,7 +128,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
    * updateField('modul', null);
    * ```
    */
-  /* @ts-expect-error dont care */
   const updateField = (field: keyof FormState, value: any) => {
     setFormState((prev) => ({
       ...prev,
@@ -172,7 +171,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   };
 
   return (
-    /* @ts-expect-error dont care */
     <FormContext.Provider value={{ formState, updateField, validateForm }}>
       {children}
     </FormContext.Provider>
