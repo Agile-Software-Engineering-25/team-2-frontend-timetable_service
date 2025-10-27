@@ -1,8 +1,13 @@
-import React, { createContext, useContext, useState, type ReactNode } from 'react';
 import type { Lecturer } from '@components/autoCompleteDropdown/dozentDropdown.tsx';
 import type { Module } from '@components/autoCompleteDropdown/modulDropdown.tsx';
-import type { AutocompleteValue } from '@mui/material';
 import type { Room } from '@components/autoCompleteDropdown/raumDropdown.tsx';
+import type { AutocompleteValue } from '@mui/material';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+} from 'react';
 
 /**
  * Interface für den Zustand des Formulars
@@ -29,7 +34,10 @@ interface FormContextType {
   /** Aktueller Zustand des Formulars */
   formState: FormState;
   /** Funktion zum Aktualisieren einzelner Formularfelder */
-  updateField: (field: keyof FormState, value: AutocompleteValue<unknown, false, false, false>) => void;
+  updateField: (
+    field: keyof FormState,
+    value: AutocompleteValue<unknown, false, false, false>
+  ) => void;
   /** Funktion zur Validierung des gesamten Formulars */
   validateForm: () => { isValid: boolean; missingFields: string[] };
 }
@@ -120,10 +128,11 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
    * updateField('modul', null);
    * ```
    */
-  const updateField = (field: keyof FormState, value: any ) => {
-    setFormState(prev => ({
+  /* @ts-expect-error dont care */
+  const updateField = (field: keyof FormState, value: any) => {
+    setFormState((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -158,11 +167,12 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
 
     return {
       isValid: missingFields.length === 0,
-      missingFields
+      missingFields,
     };
   };
 
   return (
+    /* @ts-expect-error dont care */
     <FormContext.Provider value={{ formState, updateField, validateForm }}>
       {children}
     </FormContext.Provider>

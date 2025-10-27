@@ -1,14 +1,15 @@
 export async function getRooms() {
   return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms')
-     .then((response) => response.json())
-     .then((data) => {
-       return data;
-     })
-     .catch((error) => {
-       console.error('Error fetching lecturers:', error);
-     });}
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error('Error fetching lecturers:', error);
+    });
+}
 
-  /*return {
+/*return {
     'rooms': [{
       'id': '01996b8c-8d47-7f28-971b-a308d25b17b5',
       'name': '1.21-1.22',

@@ -2,52 +2,60 @@ import type { Event } from '@pages/Timetable/Timetable.tsx';
 import { getMockEvents } from '@/api/eventMock.tsx';
 
 export async function createEvent(event: Event) {
-  const body = convertToApiBody(event)
+  const body = convertToApiBody(event);
 
-  const response = await fetch('https://sau-portal.de/ase-2/api/timetable/v1/events/',
+  const response = await fetch(
+    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
     {
-      method: "POST",
-      body: JSON.stringify(body)
+      method: 'POST',
+      body: JSON.stringify(body),
     }
-  )
+  );
   const responseData = await response.json();
 
   if (!response.ok) {
-    alert(`Veranstaltung konnte nicht erstellt werden: ${responseData.message}`);
-  }else {
-    return responseData
+    alert(
+      `Veranstaltung konnte nicht erstellt werden: ${responseData.message}`
+    );
+  } else {
+    return responseData;
   }
 }
 export async function editEvent(event: Event) {
-  const body = convertToApiBody(event)
+  const body = convertToApiBody(event);
 
-  const response = await fetch('https://sau-portal.de/ase-2/api/timetable/v1/events/',
+  const response = await fetch(
+    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
     {
-      method: "PUT",
-      body: JSON.stringify(body)
+      method: 'PUT',
+      body: JSON.stringify(body),
     }
-  )
+  );
   const responseData = await response.json();
 
   if (!response.ok) {
-    alert(`Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`);
-  }else{
-  return responseData
-}}
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
+  } else {
+    return responseData;
+  }
+}
 export async function deleteEvent(event: Event) {
-
-  const response = await fetch(`https://sau-portal.de/ase-2/api/timetable/v1/events/${event.id}`,
+  const response = await fetch(
+    `https://sau-portal.de/ase-2/api/timetable/v1/events/${event.id}`,
     {
-      method: "DELETE",
+      method: 'DELETE',
     }
-  )
+  );
   if (!response.ok) {
     const responseData = await response.json();
-    alert(`Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`);
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
   }
-
 }
-export function  convertToApiBody(event:Event){
+export function convertToApiBody(event: Event) {
   return {
     time: event.start,
     endTime: event.end,
@@ -59,24 +67,26 @@ export function  convertToApiBody(event:Event){
     room_name: event.raumName,
     comment: event.kommentar,
     type: event.typ,
-    module: event.modulName
+    module: event.modulName,
   };
 }
 
-
 export async function getEvent() {
-
   return getMockEvents();
 
-  const response = await fetch('https://sau-portal.de/ase-2/api/timetable/v1/events/',
+  const response = await fetch(
+    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
     {
-      method: "GET",
+      method: 'GET',
     }
-  )
+  );
   const responseData = await response.json();
 
   if (!response.ok) {
-    alert(`Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`);
-  }else{
-    return responseData
-  }}
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
+  } else {
+    return responseData;
+  }
+}
