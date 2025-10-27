@@ -118,7 +118,7 @@
     border-radius: 0 0 8px 8px;
     overflow: visible; /* damit innerer Wrapper bei Bedarf Höhe expandiert */
   }
-
+  
   .timetable-calendar-wrapper {
     overflow: visible; /* Kalender darf Höhe bestimmen; Scroll passiert in rbc-time-content */
   }

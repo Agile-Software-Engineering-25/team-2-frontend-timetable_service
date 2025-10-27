@@ -15,7 +15,7 @@ const NPM_EXTERNALS: string[] = [];
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
-  base: command === "serve" ? "/" : "/api/ASE-02/",
+  base: command === "serve" ? "/" : "/api/ase-02/",
   plugins: [
     react(),
     command === "serve" && vitePluginReactHMR(ENTRY_POINT),
@@ -42,9 +42,9 @@ export default defineConfig(({ command }) => ({
       external: [...NPM_EXTERNALS],
     },
   },
-  server: {
+  /*server: {
     proxy: {
-      "/api": "http://localhost:3000", // alle /api-Requests → Backend
+      "/api": "https://sau-portal.de/timetable/", // alle /api-Requests → Backend
     },
-  },
+  },*/
 }));
