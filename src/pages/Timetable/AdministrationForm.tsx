@@ -24,7 +24,7 @@ interface Props {
 }
 
 const selectSx = {
-  bgcolor: '#fff',
+  bgcolor: 'transparent',
   borderRadius: 1.5,
   height: 44,
   px: 1.5,
@@ -113,6 +113,7 @@ export default function AdministrationForm({
                       width: 16,
                       height: 16,
                       borderRadius: '50%',
+                      backgroundColor: '#E3F2FD',
                       background: TYP_COLORS[typOpt] || '#1976d2',
                       marginRight: 8,
                       verticalAlign: 'middle',
