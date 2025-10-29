@@ -27,6 +27,10 @@ export default function CalendarMini({ date, onChange }: Props) {
             fontWeight: "bold",
             fontSize: "1rem",
             textAlign: "center",
+            color: "#002E6D",
+          },
+          "& .MuiPickersArrowSwitcher-button": {
+            color: "#002E6D",
           },
           "& .MuiDayCalendar-weekDayLabel": {
             fontWeight: 600,
@@ -51,6 +55,7 @@ export default function CalendarMini({ date, onChange }: Props) {
             fontStyle: "normal",
             fontFamily: "Arial, sans-serif",
             borderRadius: 2, 
+            color: "#002E6D",
           },
           "& .Mui-selected": {
             borderRadius: 2, 

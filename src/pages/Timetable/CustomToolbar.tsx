@@ -11,6 +11,7 @@ export default function CustomToolbar(props: any) {
       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
       role="group"
       aria-label="Kalender-Navigation"
+      color={"#002E6D"}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Button
@@ -20,6 +21,7 @@ export default function CustomToolbar(props: any) {
           aria-label="Vorheriger Zeitraum"
           title="Vorheriger Zeitraum"
           sx={{
+            color: "#002E6D",
             boxShadow: 'none',
             outline: 'none',
             fontWeight: 400,
