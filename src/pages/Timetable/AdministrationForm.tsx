@@ -1,4 +1,4 @@
-import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, FormControl, MenuItem, Select, TextField, Typography, InputAdornment } from '@mui/material';
 import StudienGruppeDropdown from '@components/autoCompleteDropdown/studienGruppeDropdown.tsx';
 import { DozentDropdown } from '@components/autoCompleteDropdown/dozentDropdown';
 import { TYPEN } from '@components/autoCompleteDropdown/veranstaltungsTypDropdown';
@@ -37,7 +37,7 @@ export default function AdministrationForm({
     <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
       {/* Studiengruppe */}
       <Box>
-        <Typography id="label-studiengruppe" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-studiengruppe" sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.studiengruppe')}
         </Typography>
         <FormControl fullWidth>
@@ -48,7 +48,7 @@ export default function AdministrationForm({
       {/* Modul */}
       <Box>
         <Typography id="label-modul"
-                    sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+                    sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.modul')}
         </Typography>
         <FormControl fullWidth>
@@ -58,7 +58,7 @@ export default function AdministrationForm({
 
       {/* Raum */}
       <Box>
-        <Typography id="label-raum" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-raum" sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.raum')}
         </Typography>
         <FormControl fullWidth>
@@ -68,7 +68,7 @@ export default function AdministrationForm({
 
       {/* Typ (Radio Buttons) */}
       <Box>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.typ')}
         </Typography>
            <FormControl fullWidth>
@@ -93,7 +93,7 @@ export default function AdministrationForm({
 
       {/* Dozent */}
       <Box sx={{ gridColumn: "1 / -1" }}>
-        <Typography id="label-dozent" sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography id="label-dozent" sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.dozent')}
         </Typography>
         <FormControl fullWidth>
@@ -103,7 +103,7 @@ export default function AdministrationForm({
 
       {/* Kommentar */}
       <Box sx={{ gridColumn: "1 / -1" }}>
-        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#004080" }}>
+        <Typography sx={{ fontWeight: 600, mb: 0.5, color: "#1A1A1A" }}>
           {t('pages.administrationform.kommentar')}
         </Typography>
         <TextField
@@ -115,6 +115,24 @@ export default function AdministrationForm({
           multiline
           rows={2}
           placeholder="Bitte Spaß mitbringen"
+          inputProps={{ maxLength: 250 }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment
+                position="end"
+                sx={{ alignSelf: "flex-end", mt: "auto", transform: "translateY(12px)" }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: (kommentar?.length || 0) >= 250 ? "red" : "#666",
+                  }}
+                >
+                  {kommentar?.length || 0}/250
+                </span>
+              </InputAdornment>
+            ),
+          }}
           sx={{
             bgcolor: "#fff",
             borderRadius: 1.5,
