@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { getRooms } from '@/api/getRooms.ts';
 
 export const RAEUME: string[] = [
-  "A101",
-  "B835 / 1.34",
-  "B202",
+  'A101',
+  'B835 / 1.34',
+  'B202',
   // Wer hat sich gedacht "Für alles mache ich Komponenten außer für dieses eine spezifische Dropdown"??
   // Echt keinen bock mehr das ich sowas fixxen darf....
 
@@ -16,20 +16,28 @@ export const RAEUME: string[] = [
 ];
 
 export interface Room {
-  name: string,
-  id: string,
+  name: string;
+  id: string;
 }
 
-export function RaumDropdown() {
+export function RaumDropdown({
+  isTeacher,
+  isAdmin,
+}: {
+  isTeacher: boolean;
+  isAdmin: boolean;
+}) {
   const { formState, updateField } = useFormContext();
   const [room, setRoom] = useState<Room[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getRooms().then((result) => {
       if (ignoreResult) return;
-      const rooms = result.rooms.map((rooms: any) => { return { name: rooms.name, id: rooms.id }});
+      const rooms = result.rooms.map((rooms: any) => {
+        return { name: rooms.name, id: rooms.id };
+      });
       setRoom(rooms);
-    })
+    });
     return () => {
       ignoreResult = true;
     };
@@ -37,6 +45,7 @@ export function RaumDropdown() {
   return (
     <Box>
       <Autocomplete
+        disabled={isTeacher && !isAdmin}
         fullWidth
         options={room ?? []}
         value={formState.raum}
@@ -46,11 +55,7 @@ export function RaumDropdown() {
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label=""
-            placeholder=""
-          />
+          <TextField {...params} label="" placeholder="" />
         )}
       />
     </Box>
