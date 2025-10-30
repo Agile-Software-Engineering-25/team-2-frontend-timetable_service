@@ -5,16 +5,24 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getGroups } from '@/api/getGroups.ts';
 
-export default function StudienGruppeDropdown() {
+export default function StudienGruppeDropdown({
+  isTeacher,
+  isAdmin,
+}: {
+  isTeacher: boolean;
+  isAdmin: boolean;
+}) {
   const { formState, updateField } = useFormContext();
   const [studyGroups, setStudyGroups] = useState<string[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getGroups().then((result) => {
       if (ignoreResult) return;
-      const groups = result.groups.map((group: any ) => {return  group.name });
+      const groups = result.groups.map((group: any) => {
+        return group.name;
+      });
       setStudyGroups(groups);
-    })
+    });
     return () => {
       ignoreResult = true;
     };
@@ -22,18 +30,17 @@ export default function StudienGruppeDropdown() {
   return (
     <Box>
       <Autocomplete
+        disabled={isTeacher && !isAdmin}
         fullWidth
         options={studyGroups ?? []}
         value={formState.studienGruppe}
-        onChange={(_, value) => {updateField('studienGruppe', value);}}
+        onChange={(_, value) => {
+          updateField('studienGruppe', value);
+        }}
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label=""
-            placeholder=""
-          />
+          <TextField {...params} label="" placeholder="" />
         )}
       />
     </Box>
