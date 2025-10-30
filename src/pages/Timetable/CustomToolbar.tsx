@@ -11,6 +11,7 @@ export default function CustomToolbar(props: any) {
       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
       role="group"
       aria-label="Kalender-Navigation"
+      color={"#002E6D"}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Button
@@ -20,6 +21,7 @@ export default function CustomToolbar(props: any) {
           aria-label="Vorheriger Zeitraum"
           title="Vorheriger Zeitraum"
           sx={{
+            color: "#002E6D",
             boxShadow: 'none',
             outline: 'none',
             fontWeight: 400,
@@ -72,6 +74,13 @@ export default function CustomToolbar(props: any) {
             aria-pressed={view === name}
             sx={{
               fontWeight: view === name ? 700 : 500,
+              textTransform: 'none',
+              color: view === name ? '#fff' : '#078BB9', 
+              backgroundColor: view === name ? '#078BB9' : '#fff', 
+              border: '1px solid #078BB9',
+              '&:hover': {
+              backgroundColor: view === name ? '#06779E' : '#f0faff', 
+              },
               '&:focus-visible': { outline: '3px solid #FFBF47', outlineOffset: 2 }
             }}
           >
