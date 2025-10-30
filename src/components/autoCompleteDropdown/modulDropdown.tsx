@@ -5,32 +5,39 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getModules } from '@/api/getModules.ts';
 
-export const MODULE: string[] = [
-  "Agile"
-]
+export const MODULE: string[] = ['Agile'];
 
 export interface Module {
-  name: string,
-  id: string,
+  name: string;
+  id: string;
 }
 
-export function ModulDropdown() {
+export function ModulDropdown({
+  isTeacher,
+  isAdmin,
+}: {
+  isTeacher: boolean;
+  isAdmin: boolean;
+}) {
   const { formState, updateField } = useFormContext();
   const [modules, setModules] = useState<Module[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getModules().then((result) => {
       if (ignoreResult) return;
-      const modules = result.map((module: any ) => { return {name: module.template.name, id: module.id }});
+      const modules = result.map((module: any) => {
+        return { name: module.template.name, id: module.id };
+      });
       setModules(modules);
-    })
+    });
     return () => {
       ignoreResult = true;
     };
-    }, []);
+  }, []);
   return (
     <Box>
       <Autocomplete
+        disabled={isTeacher && !isAdmin}
         fullWidth
         options={modules ?? []}
         value={formState.modul}
@@ -40,11 +47,7 @@ export function ModulDropdown() {
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label=""
-            placeholder=""
-          />
+          <TextField {...params} label="" placeholder="" />
         )}
       />
     </Box>

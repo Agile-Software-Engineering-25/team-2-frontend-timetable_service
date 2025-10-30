@@ -9,8 +9,8 @@ import { FormProvider } from '@/contexts/FormContext.tsx';
 import { getEvent } from '@/api/createEvent.ts';
 
 //Konstanten für Ansicht-Steuerung
-const isAdmin = true;
-const isTeacher = false;
+const isAdmin = false;
+const isTeacher = true;
 
 export interface Event {
   id?: string;
@@ -28,15 +28,17 @@ export interface Event {
   kommentar: string;
 }
 
-
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-  getEvent().then ((result) => {
+  getEvent().then((result) => {
     setEvents(result);
     console.log(events);
-  })
+  });
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<{ start: Date; end: Date } | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<{
+    start: Date;
+    end: Date;
+  } | null>(null);
 
   const handleSelectEvent = (event: Event) => {
     setSelectedEvent(event);
@@ -47,14 +49,20 @@ const Timetable: React.FC = () => {
   };
   const srStatus = selectedEvent
     ? `Ausgewählt: ${selectedEvent.modulName} in ${selectedEvent.raumName}, ` +
-    `${selectedEvent.start.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} bis ` +
-    `${selectedEvent.end.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`
+      `${selectedEvent.start.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} bis ` +
+      `${selectedEvent.end.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`
     : '';
 
-
   return (
-    <div className="timetable-container" role="main" aria-labelledby="timetable-heading">
-      <h1 id="timetable-heading" style={{ position: 'absolute', left: '-9999px' }}>
+    <div
+      className="timetable-container"
+      role="main"
+      aria-labelledby="timetable-heading"
+    >
+      <h1
+        id="timetable-heading"
+        style={{ position: 'absolute', left: '-9999px' }}
+      >
         Stundenplan
       </h1>
       <div aria-live="polite" style={{ position: 'absolute', left: '-9999px' }}>
@@ -74,18 +82,22 @@ const Timetable: React.FC = () => {
         </div>
       </FormProvider>
       <div className="timetable-calendar-container">
-        <div className="timetable-calendar-wrapper"
-             id="big-calendar-grid"
-             aria-label="Kalenderansicht"
-             role="region"
+        <div
+          className="timetable-calendar-wrapper"
+          id="big-calendar-grid"
+          aria-label="Kalenderansicht"
+          role="region"
         >
-          <BigCalendar 
-            events={events} 
+          <BigCalendar
+            events={events}
             onSelectEvent={handleSelectEvent}
             onSelectSlot={handleSelectSlot}
           />
         </div>
-        <div className="language-selector-container" aria-label="Sprache wählen">
+        <div
+          className="language-selector-container"
+          aria-label="Sprache wählen"
+        >
           <LanguageSelectorComponent />
         </div>
       </div>

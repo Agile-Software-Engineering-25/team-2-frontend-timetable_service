@@ -13,27 +13,40 @@ export const DOZENTEN: string[] = [
 ];
 
 export interface Lecturer {
-  name: string,
-  id: string,
+  name: string;
+  id: string;
 }
 
-export function DozentDropdown() {
+export function DozentDropdown({
+  isTeacher,
+  isAdmin,
+}: {
+  isTeacher: boolean;
+  isAdmin: boolean;
+}) {
   const { formState, updateField } = useFormContext();
   const [lecturer, setLecturer] = useState<Lecturer[] | null>(null);
   useEffect(() => {
     let ignoreResult = false;
     getLecturers().then((result) => {
       if (ignoreResult) return;
-      const lecturers = result.map((doz: { title?: string; firstName: string; lastName: string; id: string}) => {
-        let fullName = '';
-        if (doz.title) {
-          fullName = doz.title + ' ';
+      const lecturers = result.map(
+        (doz: {
+          title?: string;
+          firstName: string;
+          lastName: string;
+          id: string;
+        }) => {
+          let fullName = '';
+          if (doz.title) {
+            fullName = doz.title + ' ';
+          }
+          fullName += doz.firstName + ' ' + doz.lastName;
+          return { name: fullName.trim(), id: doz.id };
         }
-        fullName += doz.firstName + ' ' + doz.lastName;
-        return {name: fullName.trim(), id: doz.id};
-      });
+      );
       setLecturer(lecturers);
-    })
+    });
     return () => {
       ignoreResult = true;
     };
@@ -41,6 +54,7 @@ export function DozentDropdown() {
   return (
     <Box>
       <Autocomplete
+        disabled={isTeacher && !isAdmin}
         fullWidth
         options={lecturer ?? []}
         value={formState.dozent}
@@ -50,11 +64,7 @@ export function DozentDropdown() {
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label=""
-            placeholder=""
-          />
+          <TextField {...params} label="" placeholder="" />
         )}
       />
     </Box>
