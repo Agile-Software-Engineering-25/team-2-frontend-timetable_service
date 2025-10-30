@@ -22,7 +22,7 @@ export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete, 
         onClick={onAdd}
         startIcon={<CalendarMonth />}
         sx={{
-          bgcolor: "#0A2E65",
+          bgcolor: "#002E6D",
           color: "white",
           "&:hover": { bgcolor: "#072241" },
           fontWeight: 600,
