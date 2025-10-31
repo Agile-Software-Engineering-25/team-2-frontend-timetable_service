@@ -1,5 +1,4 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
-import { getMockEvents } from '@/api/eventMock.tsx';
 
 export async function createEvent(event: Event) {
   const body = convertToApiBody(event);
@@ -72,8 +71,6 @@ export function convertToApiBody(event: Event) {
 }
 
 export async function getEvent() {
-  return getMockEvents();
-
   const response = await fetch(
     'https://sau-portal.de/ase-2/api/timetable/v1/events/',
     {
