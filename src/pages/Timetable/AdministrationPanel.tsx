@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Typography, Divider } from '@mui/material';
 import CalendarMini from './CalendarMini';
 import AdministrationForm from './AdministrationForm';
@@ -10,8 +10,10 @@ import { de } from 'date-fns/locale';
 import { colors } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '@/contexts/FormContext.tsx';
-import { editEvent, createEvent, deleteEvent } from '@/api/createEvent.ts';
+import { createEvent, deleteEvent } from '@/api/createEvent.ts';
 import DisplayNextEvents from '@components/visualComponents/displayNextEvents.tsx';
+import { NotificationServiceClient } from '@components/services/NotificationServiceClient.ts';
+import { EventNotificationService } from '@components/services/EventNotificationService.ts';
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -48,6 +50,19 @@ export default function AdministrationPanel({
   const starttime = t('pages.administrationpanel.startzeit');
   const endtime = t('pages.administrationpanel.endzeit');
 
+  const notificationService = useMemo(() => {
+    const baseURL = import.meta.env.VITE_NOTIFICATION_SERVICE_URL!;
+    const client = new NotificationServiceClient(baseURL);
+    return new EventNotificationService(client);
+  }, []);
+
+  function getParticipants() {
+    return {
+      users: [],
+      groups: formState.studienGruppe ? [String(formState.studienGruppe)] : [],
+    };
+  }
+
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
     if (selectedEvent) {
@@ -73,7 +88,7 @@ export default function AdministrationPanel({
       const idx = events.findIndex((ev) => ev === selectedEvent);
       setCurrentEventIndex(idx >= 0 ? idx : null);
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, events]);
 
   // Wenn ein Zeitslot durch Drag ausgewählt wurde, Start- und Endzeit aktualisieren
   useEffect(() => {
@@ -114,7 +129,7 @@ export default function AdministrationPanel({
     }
   }, [selectedDate, events]);*/
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!selectedDate || !startTime || !endTime) return;
 
     // Aktuelle Werte ausgeben
@@ -154,13 +169,21 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id || '',
       kommentar,
     };
-    createEvent(newEvent).then((res: any) => {
+    try {
+      const res: any = await createEvent(newEvent);
       setEvents([...events, res]);
-      console.log(res);
-    });
+
+      await notificationService.notifyEventCreation(
+        newEvent.title,
+        getParticipants()
+      );
+    } catch (e: any) {
+      console.error(e);
+      alert(`Fehler beim Anlegen/Benachrichtigen: ${e?.message || e}`);
+    }
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (currentEventIndex === null || !selectedDate || !startTime || !endTime)
       return;
 
@@ -184,25 +207,53 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id || '',
       kommentar,
     };
-    editEvent(updatedEvents[currentEventIndex]).then((res: any) => {
-      updatedEvents[currentEventIndex] = res;
+    try {
       setEvents(updatedEvents);
 
-      console.log(res);
-    });
-
-    console.log(updatedEvents[currentEventIndex]);
+      const eventTitle = updatedEvents[currentEventIndex].title;
+      const recipients = getParticipants();
+      if (isTeacher && !isAdmin) {
+        await notificationService.notifyEventComment(
+          eventTitle,
+          kommentar || 'Neuer Kommentar',
+          recipients
+        );
+      } else if (isAdmin) {
+        await notificationService.notifyEventUpdate(
+          eventTitle,
+          'Veranstaltung aktualisiert',
+          recipients
+        );
+      }
+    } catch (e: any) {
+      console.error(e);
+      alert(`Fehler beim Aktualisieren/Benachrichtigen: ${e?.message || e}`);
+    }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (currentEventIndex === null) return;
+
+    const eventToDelete = events[currentEventIndex];
+    const eventTitle = eventToDelete.title;
+    const recipients = getParticipants();
+
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
-    setEvents(filteredEvents);
-    deleteEvent(events[currentEventIndex]).then(() => {
+    try {
+      await deleteEvent(eventToDelete);
       console.log('Event gelöscht');
-    });
-    setEventExists(false);
-    setCurrentEventIndex(null);
+      setEvents(filteredEvents);
+      setEventExists(false);
+      setCurrentEventIndex(null);
+
+      await notificationService.notifyEventCancellation(eventTitle, recipients);
+    } catch (e: unknown) {
+      const errorMessage =
+        e && typeof e === 'object' && 'message' in e
+          ? (e as { message: string }).message
+          : String(e);
+      alert(`Fehler beim Löschen/Benachrichtigen: ${errorMessage}`);
+    }
   };
 
   return (

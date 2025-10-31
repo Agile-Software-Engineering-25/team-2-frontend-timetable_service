@@ -45,6 +45,16 @@ export default defineConfig(({ command }) => ({
   server: {
     proxy: {
       '/api': 'http://localhost:3000', // alle /api-Requests → Backend
+      '/notification-service': {
+        target: 'https://sau-portal.de',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/realms': {
+        target: 'https://keycloak.sau-portal.de',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 }));
