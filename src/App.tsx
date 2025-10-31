@@ -1,14 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
-import { createCustomJoyTheme, createCustomMuiTheme } from "@agile-software/shared-components";
+import { createCustomJoyTheme} from "@agile-software/shared-components";
 import { THEME_ID as MATERIAL_THEME_ID, ThemeProvider } from "@mui/material";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy";
 import "./i18n";
 import { Provider } from "react-redux";
 import store from "@stores/index.ts";
 import "./global.css";
+import customMuiTheme from "./pages/Timetable/CustomMuiTheme";
 
-const muiTheme = createCustomMuiTheme();
+const muiTheme = customMuiTheme;
 const joyTheme = createCustomJoyTheme();
 
 type AppProps = {
