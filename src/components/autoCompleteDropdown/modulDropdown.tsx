@@ -5,8 +5,6 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getModules } from '@/api/getModules.ts';
 
-export const MODULE: string[] = ['Agile'];
-
 export interface Module {
   name: string;
   id: string;
@@ -37,6 +35,7 @@ export function ModulDropdown({
   return (
     <Box>
       <Autocomplete
+        sx={{ backgroundColor: '#fff' }}
         disabled={isTeacher && !isAdmin}
         fullWidth
         options={modules ?? []}

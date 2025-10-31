@@ -18,17 +18,14 @@ export function VeranstaltungstypDropdown() {
   return (
     <Box>
       <Autocomplete
+        sx={{ backgroundColor: '#fff' }}
         fullWidth
         options={TYPEN}
         value={formState.veranstaltungstyp}
         onChange={(_, value) => updateField('veranstaltungstyp', value)}
         autoHighlight
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label=""
-            placeholder=""
-          />
+          <TextField {...params} label="" placeholder="" />
         )}
       />
     </Box>

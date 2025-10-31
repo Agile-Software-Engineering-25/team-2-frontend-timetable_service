@@ -30,6 +30,7 @@ export default function StudienGruppeDropdown({
   return (
     <Box>
       <Autocomplete
+        sx={{ backgroundColor: '#fff' }}
         disabled={isTeacher && !isAdmin}
         fullWidth
         options={studyGroups ?? []}

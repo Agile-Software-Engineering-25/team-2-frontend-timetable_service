@@ -45,6 +45,7 @@ export function RaumDropdown({
   return (
     <Box>
       <Autocomplete
+        sx={{ backgroundColor: '#fff' }}
         disabled={isTeacher && !isAdmin}
         fullWidth
         options={room ?? []}

@@ -8,10 +8,15 @@ export default function CustomToolbar(props: any) {
 
   return (
     <Box
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        mb: 1,
+      }}
       role="group"
       aria-label="Kalender-Navigation"
-      color={"#002E6D"}
+      color={'#002E6D'}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Button
@@ -21,26 +26,28 @@ export default function CustomToolbar(props: any) {
           aria-label="Vorheriger Zeitraum"
           title="Vorheriger Zeitraum"
           sx={{
-            color: "#002E6D",
+            color: '#002E6D',
             boxShadow: 'none',
             outline: 'none',
             fontWeight: 400,
             fontSize: '1.5rem',
             minWidth: 'auto',
-            '&:focus-visible': { outline: '3px solid #FFBF47', outlineOffset: 2 }
+            '&:focus-visible': {
+              outline: '3px solid #FFBF47',
+              outlineOffset: 2,
+            },
           }}
         >
           &lt;
-          </Button>
-          <Typography
-              id="calendar-period-label"
-              aria-live="polite"
-              component="h3"
-              sx={{ ml: 1, fontWeight: 700, fontSize: '1.15rem'
-            }}
-          >
+        </Button>
+        <Typography
+          id="calendar-period-label"
+          aria-live="polite"
+          component="h3"
+          sx={{ ml: 1, fontWeight: 700, fontSize: '1.15rem' }}
+        >
           {label}
-          </Typography>
+        </Typography>
         <Button
           variant="text"
           size="small"
@@ -53,8 +60,11 @@ export default function CustomToolbar(props: any) {
             fontWeight: 400,
             fontSize: '1.5rem',
             minWidth: 'auto',
-            '&:focus-visible': { outline: '3px solid #FFBF47', outlineOffset: 2 }
-        }}
+            '&:focus-visible': {
+              outline: '3px solid #FFBF47',
+              outlineOffset: 2,
+            },
+          }}
         >
           &gt;
         </Button>
@@ -66,27 +76,31 @@ export default function CustomToolbar(props: any) {
         role="group"
         aria-label="Ansicht wählen"
       >
-        {views && views.map((name: string) => (
-          <Button
-            key={name}
-            onClick={() => onView(name)}
-            color={view === name ? 'primary' : 'inherit'}
-            aria-pressed={view === name}
-            sx={{
-              fontWeight: view === name ? 700 : 500,
-              textTransform: 'none',
-              color: view === name ? '#fff' : '#078BB9', 
-              backgroundColor: view === name ? '#078BB9' : '#fff', 
-              border: '1px solid #078BB9',
-              '&:hover': {
-              backgroundColor: view === name ? '#06779E' : '#f0faff', 
-              },
-              '&:focus-visible': { outline: '3px solid #FFBF47', outlineOffset: 2 }
-            }}
-          >
-            {name.charAt(0).toUpperCase() + name.slice(1)}
-          </Button>
-        ))}
+        {views &&
+          views.map((name: string) => (
+            <Button
+              key={name}
+              onClick={() => onView(name)}
+              color={view === name ? 'primary' : 'inherit'}
+              aria-pressed={view === name}
+              sx={{
+                fontWeight: view === name ? 700 : 500,
+                textTransform: 'none',
+                color: view === name ? '#fff' : '#078BB9',
+                backgroundColor: view === name ? '#078BB9' : '#fff',
+                border: '1px solid #078BB9',
+                '&:hover': {
+                  backgroundColor: view === name ? '#06779E' : '#f0faff',
+                },
+                '&:focus-visible': {
+                  outline: '3px solid #FFBF47',
+                  outlineOffset: 2,
+                },
+              }}
+            >
+              {name.charAt(0).toUpperCase() + name.slice(1)}
+            </Button>
+          ))}
       </ButtonGroup>
     </Box>
   );
