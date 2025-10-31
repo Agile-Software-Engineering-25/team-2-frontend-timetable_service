@@ -24,9 +24,10 @@ interface Props {
 }
 
 const selectSx = {
-  bgcolor: 'transparent',
+  backgroundColor: '#fff',
+  borderColor: '#078BB9',
   borderRadius: 1.5,
-  height: 44,
+  height: '100%',
   px: 1.5,
   fontWeight: 600,
   color: '#004080',
@@ -44,7 +45,14 @@ export default function AdministrationForm({
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 2,
+        itemsAlign: 'stretch',
+      }}
+    >
       {/* Studiengruppe */}
       {(isAdmin || isTeacher) && (
         <Box>
@@ -117,6 +125,7 @@ export default function AdministrationForm({
                       background: TYP_COLORS[typOpt] || '#1976d2',
                       marginRight: 8,
                       verticalAlign: 'middle',
+                      padding: 0,
                     }}
                   />
                   {typOpt}

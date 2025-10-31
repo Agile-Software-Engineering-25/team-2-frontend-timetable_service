@@ -37,6 +37,7 @@ export function ModulDropdown({
   return (
     <Box>
       <Autocomplete
+        sx={{ backgroundColor: '#fff' }}
         disabled={isTeacher && !isAdmin}
         fullWidth
         options={modules ?? []}

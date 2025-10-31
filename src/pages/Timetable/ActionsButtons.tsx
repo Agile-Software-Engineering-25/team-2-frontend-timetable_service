@@ -1,5 +1,5 @@
-import { Button, Stack } from "@mui/material";
-import { CalendarMonth, Edit, Close } from "@mui/icons-material";
+import { Button, Stack } from '@mui/material';
+import { CalendarMonth, Edit, Close } from '@mui/icons-material';
 //import { ValidateInputButton } from '@components/autoCompleteDropdown/validateInputButton.tsx';
 
 interface Props {
@@ -11,79 +11,86 @@ interface Props {
   isAdmin: boolean;
 }
 
-export default function ActionButtons({ eventExists, onAdd, onUpdate, onDelete, isTeacher, isAdmin }: Props) {
+export default function ActionButtons({
+  eventExists,
+  onAdd,
+  onUpdate,
+  onDelete,
+  isTeacher,
+  isAdmin,
+}: Props) {
   return (
     <Stack spacing={1}>
       {/*//<ValidateInputButton/>*/}
-      {isAdmin &&
-      <Button
-        variant="contained"
-        fullWidth
-        onClick={onAdd}
-        startIcon={<CalendarMonth />}
-        sx={{
-          bgcolor: "#002E6D",
-          color: "white",
-          "&:hover": { bgcolor: "#072241" },
-          fontWeight: 600,
-          py: 1.4,
-          borderRadius: 1.5,
-        }}
-        aria-label="Neue Veranstaltung hinzufügen"
-      >
-        VERANSTALTUNG HINZUFÜGEN
-      </Button>
-      }
-
-      {/* Nebeneinander */}
-      <Stack direction="row" spacing={1}>
-        {(isTeacher || isAdmin) &&
+      {isAdmin && (
         <Button
           variant="contained"
           fullWidth
-          onClick={onUpdate}
-          startIcon={<Edit />}
-          disabled={!eventExists}
+          onClick={onAdd}
+          startIcon={<CalendarMonth />}
           sx={{
+            bgcolor: '#002E6D',
+            color: 'white',
+            '&:hover': { bgcolor: '#072241' },
             fontWeight: 600,
-            bgcolor: eventExists ? "#ffffff" : "#f0f2f4",
-            color: eventExists ? "#0A2E65" : "#8b9096",
-            border: "1px solid #0A2E65",
-            "&:focus-visible": { outline: "3px solid #FFBF47" }
+            py: 1.4,
+            borderRadius: 1.5,
           }}
-          aria-label={
-            eventExists
-              ? "Veranstaltung aktualisieren"
-              : "Aktualisieren deaktiviert, keine Veranstaltung vorhanden"
-          }
+          aria-label="Neue Veranstaltung hinzufügen"
         >
-          Aktualisieren
-        </Button>}
+          VERANSTALTUNG HINZUFÜGEN
+        </Button>
+      )}
 
-        {isAdmin &&
-        <Button
-          variant="outlined"
-          fullWidth
-          onClick={onDelete}
-          startIcon={<Close />}
-          disabled={!eventExists}
-          sx={{
-            fontWeight: 600,
-            color: eventExists ? "#0A2E65" : "#8b9096",
-            borderColor: "#0A2E65",
-            "&:focus-visible": { outline: "3px solid #FFBF47" }
-          }}
-          aria-label={
-            eventExists
-              ? "Veranstaltung löschen"
-              : "Löschen deaktiviert, keine Veranstaltung vorhanden"
-          }
-        >
-          Löschen
-        </Button>}
+      {/* Nebeneinander */}
+      <Stack direction="row" spacing={1}>
+        {(isTeacher || isAdmin) && (
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={onUpdate}
+            startIcon={<Edit />}
+            disabled={!eventExists}
+            sx={{
+              fontWeight: 600,
+              bgcolor: eventExists ? '#ffffff' : '#f0f2f4',
+              color: eventExists ? '#0A2E65' : '#8b9096',
+              border: '1px solid #0A2E65',
+              '&:focus-visible': { outline: '3px solid #FFBF47' },
+            }}
+            aria-label={
+              eventExists
+                ? 'Veranstaltung aktualisieren'
+                : 'Aktualisieren deaktiviert, keine Veranstaltung vorhanden'
+            }
+          >
+            Aktualisieren
+          </Button>
+        )}
+
+        {isAdmin && (
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={onDelete}
+            startIcon={<Close />}
+            disabled={!eventExists}
+            sx={{
+              fontWeight: 600,
+              color: eventExists ? '#0A2E65' : '#8b9096',
+              borderColor: '#0A2E65',
+              '&:focus-visible': { outline: '3px solid #FFBF47' },
+            }}
+            aria-label={
+              eventExists
+                ? 'Veranstaltung löschen'
+                : 'Löschen deaktiviert, keine Veranstaltung vorhanden'
+            }
+          >
+            Löschen
+          </Button>
+        )}
       </Stack>
     </Stack>
   );
 }
-
-
