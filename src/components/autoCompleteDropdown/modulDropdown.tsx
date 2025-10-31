@@ -5,8 +5,6 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getModules } from '@/api/getModules.ts';
 
-export const MODULE: string[] = ['Agile'];
-
 export interface Module {
   name: string;
   id: string;
