@@ -1,5 +1,5 @@
 import { TokenService } from "./getToken";
-const tokenService = new TokenService('https://sau-portal.de/');
+const tokenService = new TokenService();
 async function getToken() {
   return tokenService.getToken();
 }

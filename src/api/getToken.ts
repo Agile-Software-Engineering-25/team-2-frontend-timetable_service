@@ -6,7 +6,7 @@ export class TokenService {
     private token: string | undefined;
     private tokenExpiry: number | undefined;
 
-    constructor(private readonly baseURL: string) { }
+    constructor() { }
 
     private async fetchToken(): Promise<string> {
         if (this.token && this.tokenExpiry && Date.now() < this.tokenExpiry) {
