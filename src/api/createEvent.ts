@@ -1,6 +1,9 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
-import { getToken } from './getToken';
-
+import { TokenService } from "./getToken";
+const tokenService = new TokenService('https://sau-portal.de/');
+async function getToken() {
+  return tokenService.getToken();
+}
 export async function createEvent(event: Event) {
   const body = convertToApiBody(event);
 
@@ -10,7 +13,7 @@ export async function createEvent(event: Event) {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`,
+        "Authorization": `Bearer ${await getToken()}`,
       },
       body: JSON.stringify(body),
     }
@@ -34,7 +37,7 @@ export async function editEvent(event: Event) {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`,
+        "Authorization": `Bearer ${await getToken()}`,
       },
       body: JSON.stringify(body),
     }
@@ -56,7 +59,7 @@ export async function deleteEvent(event: Event) {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`,
+        "Authorization": `Bearer ${await getToken()}`,
       }
     }
   );
@@ -90,7 +93,7 @@ export async function getEvent() {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`,
+        "Authorization": `Bearer ${await getToken()}`,
       }
     }
   );

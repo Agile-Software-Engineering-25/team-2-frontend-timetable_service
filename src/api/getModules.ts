@@ -1,10 +1,13 @@
-import { getToken } from "./getToken";
-
+import { TokenService } from "./getToken";
+const tokenService = new TokenService('https://sau-portal.de/');
+async function getToken() {
+  return tokenService.getToken();
+}
 export async function getModules() {
   return fetch('https://sau-portal.de/api/masterdata/studies/modules/', {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${getToken()}`,
+      "Authorization": `Bearer ${await getToken()}`,
     }
   })
     .then((response) => response.json())
