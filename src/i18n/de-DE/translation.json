@@ -24,6 +24,11 @@
       "typ": "Typ",
       "dozent": "Dozent/-in",
       "kommentar": "Kommentar"
+    },
+    "timetable": {
+      "addEvent": "Veranstaltung Hinzufügen",
+      "updateEvent": "Veranstaltung Aktualisieren",
+      "deleteEvent": "Veranstaltung Löschen"
     }
   }
 }

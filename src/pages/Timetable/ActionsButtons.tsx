@@ -1,6 +1,6 @@
 import { Button, Stack } from '@mui/material';
 import { CalendarMonth, Edit, Close } from '@mui/icons-material';
-//import { ValidateInputButton } from '@components/autoCompleteDropdown/validateInputButton.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   eventExists: boolean;
@@ -19,9 +19,11 @@ export default function ActionButtons({
   isTeacher,
   isAdmin,
 }: Props) {
+  //Übersetzung
+  const { t } = useTranslation();
+
   return (
     <Stack spacing={1}>
-      {/*//<ValidateInputButton/>*/}
       {isAdmin && (
         <Button
           variant="contained"
@@ -38,7 +40,7 @@ export default function ActionButtons({
           }}
           aria-label="Neue Veranstaltung hinzufügen"
         >
-          VERANSTALTUNG HINZUFÜGEN
+          {t('pages.timetable.addEvent')}
         </Button>
       )}
 
@@ -64,7 +66,7 @@ export default function ActionButtons({
                 : 'Aktualisieren deaktiviert, keine Veranstaltung vorhanden'
             }
           >
-            Aktualisieren
+            {t('pages.timetable.updateEvent')}
           </Button>
         )}
 
@@ -87,7 +89,7 @@ export default function ActionButtons({
                 : 'Löschen deaktiviert, keine Veranstaltung vorhanden'
             }
           >
-            Löschen
+            {t('pages.timetable.deleteEvent')}
           </Button>
         )}
       </Stack>

@@ -24,6 +24,11 @@
       "typ": "Type",
       "dozent": "Teacher",
       "kommentar": "Comment"
+    },
+    "timetable": {
+      "addEvent": "Create Event",
+      "updateEvent": "Update Event",
+      "deleteEvent": "Delete Event"
     }
   }
 }
