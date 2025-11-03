@@ -24,6 +24,12 @@ interface FormState {
   veranstaltungstyp: string | null;
   /** Ausgewählter Raum (z.B. "R101") */
   raum: Room | null;
+  /** Startzeit der Veranstaltung */
+  startTime: Date | null;
+  /** Endzeit der Veranstaltung */
+  endTime: Date | null;
+  /** Kommentar zur Veranstaltung */
+  kommentar: string | null;
 }
 
 /**
@@ -111,6 +117,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     dozent: null,
     veranstaltungstyp: null,
     raum: null,
+    startTime: null,
+    endTime: null,
+    kommentar: null,
   });
 
   /**
@@ -138,8 +147,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   /**
    * Validiert das gesamte Formular und gibt den Validierungsstatus zurück
    *
-   * Überprüft alle erforderlichen Felder (studienGruppe, modul, dozent, veranstaltungstyp)
-   * und erstellt eine Liste der fehlenden Felder.
+   * Überprüft alle erforderlichen Felder (studienGruppe, modul, dozent, veranstaltungstyp, raum, startTime, endTime)
+   * und erstellt eine Liste der fehlenden Felder. Kommentar ist optional.
    *
    * @returns Objekt mit isValid (boolean) und missingFields (string[])
    *
@@ -161,8 +170,11 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     if (!formState.studienGruppe) missingFields.push('Studiengruppe');
     if (!formState.modul) missingFields.push('Modul');
     if (!formState.dozent) missingFields.push('Dozent');
-    //if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
+    if (!formState.veranstaltungstyp) missingFields.push('Veranstaltungstyp');
     if (!formState.raum) missingFields.push('Raum');
+    if (!formState.startTime) missingFields.push('Startzeit');
+    if (!formState.endTime) missingFields.push('Endzeit');
+    // Kommentar ist optional und wird nicht validiert
 
     return {
       isValid: missingFields.length === 0,

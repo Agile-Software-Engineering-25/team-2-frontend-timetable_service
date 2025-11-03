@@ -13,6 +13,7 @@ import TYP_COLORS from './typColors';
 import { RaumDropdown } from '@components/autoCompleteDropdown/raumDropdown';
 import { useTranslation } from 'react-i18next';
 import { ModulDropdown } from '@components/autoCompleteDropdown/modulDropdown';
+import { useFormContext } from '@/contexts/FormContext.tsx';
 
 interface Props {
   typ: string;
@@ -43,6 +44,7 @@ export default function AdministrationForm({
   isTeacher,
 }: Props) {
   const { t } = useTranslation();
+  const { updateField } = useFormContext();
 
   return (
     <Box
@@ -109,7 +111,10 @@ export default function AdministrationForm({
               disabled={isTeacher && !isAdmin}
               id="select-typ"
               value={typ}
-              onChange={(e) => setTyp(e.target.value)}
+              onChange={(e) => {
+                setTyp(e.target.value);
+                updateField('veranstaltungstyp', e.target.value);
+              }}
               sx={selectSx}
             >
               {TYPEN.map((typOpt) => (
@@ -161,7 +166,10 @@ export default function AdministrationForm({
             id="input-kommentar"
             aria-describedby="hint-kommentar"
             value={kommentar}
-            onChange={(e) => setKommentar(e.target.value)}
+            onChange={(e) => {
+              setKommentar(e.target.value);
+              updateField('kommentar', e.target.value || null);
+            }}
             fullWidth
             multiline
             rows={2}

@@ -1,5 +1,5 @@
 export async function getLecturers() {
-  return fetch(
+  /*  return fetch(
     'https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer'
   )
     .then((response) => response.json())
@@ -9,9 +9,8 @@ export async function getLecturers() {
     .catch((error) => {
       console.error('Error fetching lecturers:', error);
     });
-}
+}*/
 
-/*
   return [
     {
       id: 'f5534e30-bbe0-429d-810a-92ba7b667521',
@@ -97,4 +96,3 @@ export async function getLecturers() {
     },
   ];
 }
-*/
