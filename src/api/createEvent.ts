@@ -72,7 +72,7 @@ export function convertToApiBody(event: Event) {
 
 export async function getEvent() {
   const response = await fetch(
-    'https://sau-portal.de/api/timetable/v1/events/',
+    'https://sau-portal.de/api/timetable/v1/schedule/',
     {
       method: 'GET',
     }
