@@ -1,12 +1,19 @@
+import { getToken } from "./getToken";
+
 export async function getLecturers() {
-  /*return fetch('https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer')
+  return fetch('https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer', {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`,
+    }
+  })
     .then((response) => response.json())
     .then((data) => {
       return data;
     })
     .catch((error) => {
       console.error('Error fetching lecturers:', error);
-    });*/
+    });
 
   return [
     {

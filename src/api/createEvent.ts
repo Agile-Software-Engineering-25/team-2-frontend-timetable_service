@@ -1,4 +1,5 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
+import { getToken } from './getToken';
 
 export async function createEvent(event: Event) {
   const body = convertToApiBody(event);
@@ -7,6 +8,10 @@ export async function createEvent(event: Event) {
     'https://sau-portal.de/api/timetable/v1/event/',
     {
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      },
       body: JSON.stringify(body),
     }
   );
@@ -27,6 +32,10 @@ export async function editEvent(event: Event) {
     'https://sau-portal.de/api/timetable/v1/event/',
     {
       method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      },
       body: JSON.stringify(body),
     }
   );
@@ -45,6 +54,10 @@ export async function deleteEvent(event: Event) {
     `https://sau-portal.de/api/timetable/v1/event/${event.id}`,
     {
       method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      }
     }
   );
   if (!response.ok) {
@@ -75,6 +88,10 @@ export async function getEvent() {
     'https://sau-portal.de/api/timetable/v1/schedule/',
     {
       method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      }
     }
   );
   const responseData = await response.json();

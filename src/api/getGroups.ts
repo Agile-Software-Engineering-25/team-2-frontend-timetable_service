@@ -1,5 +1,12 @@
+import { getToken } from "./getToken";
+
 export async function getGroups() {
-  /*return fetch('https://sau-portal.de/team-11-api/api/v1/group?withDetails=false')
+  return fetch('https://sau-portal.de/team-11-api/api/v1/group?withDetails=false', {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`,
+    }
+  })
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -7,7 +14,8 @@ export async function getGroups() {
     .catch((error) => {
       console.error('Error fetching study groups:', error);
       return [];
-    });}*/
+    });
+
 
   return {
     group_count: 5,
