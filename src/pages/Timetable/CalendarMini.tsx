@@ -1,9 +1,10 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { de } from 'date-fns/locale';
+import { de, enUS } from 'date-fns/locale';
 import { Box } from '@mui/material';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   date: Date | null;
@@ -11,8 +12,17 @@ type Props = {
 };
 
 export default function CalendarMini({ date, onChange }: Props) {
+  const { i18n } = useTranslation();
+
+  // Dynamische Locale basierend auf aktueller Sprache
+  const currentLocale =
+    i18n.language === 'de' || i18n.language === 'de-DE' ? de : enUS;
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
+    <LocalizationProvider
+      dateAdapter={AdapterDateFns}
+      adapterLocale={currentLocale}
+    >
       <Box
         sx={{
           bgcolor: '#eff4f9ff',
@@ -68,7 +78,7 @@ export default function CalendarMini({ date, onChange }: Props) {
           views={['day']}
           showDaysOutsideCurrentMonth
           dayOfWeekFormatter={(date) =>
-            format(date, 'EE', { locale: de }).toUpperCase()
+            format(date, 'EE', { locale: currentLocale }).toUpperCase()
           }
         />
       </Box>
