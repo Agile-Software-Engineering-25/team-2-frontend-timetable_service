@@ -4,7 +4,7 @@ export async function createEvent(event: Event) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
-    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
+    'https://sau-portal.de/api/timetable/v1/event/',
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -24,7 +24,7 @@ export async function editEvent(event: Event) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
-    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
+    'https://sau-portal.de/api/timetable/v1/event/',
     {
       method: 'PUT',
       body: JSON.stringify(body),
@@ -42,7 +42,7 @@ export async function editEvent(event: Event) {
 }
 export async function deleteEvent(event: Event) {
   const response = await fetch(
-    `https://sau-portal.de/ase-2/api/timetable/v1/events/${event.id}`,
+    `https://sau-portal.de/api/timetable/v1/event/${event.id}`,
     {
       method: 'DELETE',
     }
@@ -72,7 +72,7 @@ export function convertToApiBody(event: Event) {
 
 export async function getEvent() {
   const response = await fetch(
-    'https://sau-portal.de/ase-2/api/timetable/v1/events/',
+    'https://sau-portal.de/api/timetable/v1/events/',
     {
       method: 'GET',
     }
