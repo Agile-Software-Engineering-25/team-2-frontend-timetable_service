@@ -13,7 +13,7 @@ export class TokenService {
             return this.token;
         }
 
-        const res = await fetch('/realms/sau/protocol/openid-connect/token', {
+        const res = await fetch('https://keycloak.sau-portal.de/realms/sau/protocol/openid-connect/token', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
