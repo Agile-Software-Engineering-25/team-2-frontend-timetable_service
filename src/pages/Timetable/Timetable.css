@@ -225,7 +225,7 @@
     font-size: 0.7rem;
     min-height: 500px; /* Auch auf kleinen Bildschirmen Höhe garantieren */
   }
-
+  
   .rbc-month-view {
     min-height: 450px; /* Monatsansicht auf kleinen Bildschirmen */
   }

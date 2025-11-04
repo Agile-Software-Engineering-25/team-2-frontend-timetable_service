@@ -5,13 +5,6 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getLecturers } from '@/api/getLecturers.ts';
 
-export const DOZENTEN: string[] = [
-  'Volk, Florian',
-  'Grebner, Olaf',
-  'Bach, Oliver',
-  // ... hier die restlichen Dozenten eintragen
-];
-
 export interface Lecturer {
   name: string;
   id: string;

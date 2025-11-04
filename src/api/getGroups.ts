@@ -1,5 +1,5 @@
 export async function getGroups() {
-  /*  return fetch(
+  return fetch(
     'https://sau-portal.de/team-11-api/api/v1/group?withDetails=false'
   )
     .then((response) => response.json())
@@ -10,8 +10,9 @@ export async function getGroups() {
       console.error('Error fetching study groups:', error);
       return [];
     });
-}*/
+}
 
+/*
   return {
     group_count: 5,
     groups: [
@@ -978,3 +979,4 @@ export async function getGroups() {
     ],
   };
 }
+*/
