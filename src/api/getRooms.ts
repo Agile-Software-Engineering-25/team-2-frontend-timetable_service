@@ -1,5 +1,15 @@
+import { TokenService } from "./getToken";
+const tokenService = new TokenService();
+async function getToken() {
+  return tokenService.getToken();
+}
 export async function getRooms() {
-  return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms')
+  return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms', {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${await getToken()}`,
+    }
+  })
     .then((response) => response.json())
     .then((data) => {
       return data;

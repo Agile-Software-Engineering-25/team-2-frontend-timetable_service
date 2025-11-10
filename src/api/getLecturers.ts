@@ -1,7 +1,15 @@
+import { TokenService } from "./getToken";
+const tokenService = new TokenService();
+async function getToken() {
+  return tokenService.getToken();
+}
 export async function getLecturers() {
-  return fetch(
-    'https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer'
-  )
+  return fetch('https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer', {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${await getToken()}`,
+    }
+  })
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -9,7 +17,6 @@ export async function getLecturers() {
     .catch((error) => {
       console.error('Error fetching lecturers:', error);
     });
-}
 
 /*  return [
     {
