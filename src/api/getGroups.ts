@@ -20,6 +20,7 @@ export async function getGroups() {
     });
 
 
+/*
   return {
     group_count: 5,
     groups: [
@@ -986,3 +987,4 @@ export async function getGroups() {
     ],
   };
 }
+*/

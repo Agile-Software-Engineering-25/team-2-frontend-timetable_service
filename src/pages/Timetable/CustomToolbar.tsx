@@ -1,7 +1,34 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
+import { de, enUS } from 'date-fns/locale';
 
 export default function CustomToolbar(props: any) {
-  const { label, views, view, onNavigate, onView } = props;
+  const { label, views, view, onNavigate, onView, date } = props;
+  const { i18n } = useTranslation();
+
+  // Dynamische Locale basierend auf aktueller Sprache
+  const currentLocale =
+    i18n.language === 'de' || i18n.language === 'de-DE' ? de : enUS;
+  const formattedLabel = date
+    ? format(date, 'MMMM yyyy', { locale: currentLocale })
+    : label;
+
+  // Übersetzungen für die View-Buttons
+  const viewTranslations: Record<string, Record<string, string>> = {
+    month: { de: 'Monat', en: 'Month' },
+    week: { de: 'Woche', en: 'Week' },
+    day: { de: 'Tag', en: 'Day' },
+  };
+
+  const getViewLabel = (viewName: string) => {
+    const lang =
+      i18n.language === 'de' || i18n.language === 'de-DE' ? 'de' : 'en';
+    return (
+      viewTranslations[viewName]?.[lang] ||
+      viewName.charAt(0).toUpperCase() + viewName.slice(1)
+    );
+  };
 
   const goToBack = () => onNavigate('PREV');
   const goToNext = () => onNavigate('NEXT');
@@ -46,7 +73,7 @@ export default function CustomToolbar(props: any) {
           component="h3"
           sx={{ ml: 1, fontWeight: 700, fontSize: '1.15rem' }}
         >
-          {label}
+          {formattedLabel}
         </Typography>
         <Button
           variant="text"
@@ -98,7 +125,7 @@ export default function CustomToolbar(props: any) {
                 },
               }}
             >
-              {name.charAt(0).toUpperCase() + name.slice(1)}
+              {getViewLabel(name)}
             </Button>
           ))}
       </ButtonGroup>

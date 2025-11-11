@@ -1,17 +1,16 @@
-// src/pages/Timetable/BigCalendar.tsx
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { de } from 'date-fns/locale';
+import { de, enUS } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Event } from './Timetable';
 import type { View } from 'react-big-calendar';
 import type { EventWrapperProps } from 'react-big-calendar';
 import TYP_COLORS from './typColors';
 import CustomToolbar from './CustomToolbar';
 
-const locales = { de };
+const locales = { de, en: enUS };
 
 const localizer = dateFnsLocalizer({
   format,
@@ -34,8 +33,30 @@ export default function BigCalendar({
   onSelectEvent,
   onSelectSlot,
 }: BigCalendarProps) {
+  const { i18n } = useTranslation();
   const [view, setView] = useState<View>('month' as View);
   const [date, setDate] = useState<Date>(new Date());
+
+  // Dynamische Sprach-Messages basierend auf der aktuellen Sprache
+  const messages =
+    i18n.language === 'de' || i18n.language === 'de-DE'
+      ? {
+          month: 'Monat',
+          week: 'Woche',
+          day: 'Tag',
+          today: 'Heute',
+          previous: 'Zurück',
+          next: 'Weiter',
+        }
+      : {
+          month: 'Month',
+          week: 'Week',
+          day: 'Day',
+          today: 'Today',
+          previous: 'Back',
+          next: 'Next',
+        };
+
   const eventPropGetter = (event: Event) => {
     const color = TYP_COLORS[event.typ] || '#1976d2';
     return {
@@ -65,12 +86,12 @@ export default function BigCalendar({
         overflow: 'hidden',
       }}
     >
-      <h2
+      {/*      <h2
         id="calendar-heading"
         style={{ position: 'absolute', left: '-9999px' }}
       >
         Kalenderansicht – Stundenplan
-      </h2>
+      </h2>*/}
       <Calendar
         localizer={localizer}
         events={events}
@@ -115,15 +136,10 @@ export default function BigCalendar({
         onView={(nextView) => {
           setView(nextView);
         }}
-        // culture="de"
-        messages={{
-          month: 'Monat',
-          week: 'Woche',
-          day: 'Tag',
-          today: 'Heute',
-          previous: 'Zurück',
-          next: 'Weiter',
-        }}
+        culture={
+          i18n.language === 'de' || i18n.language === 'de-DE' ? 'de' : 'en'
+        }
+        messages={messages}
         onSelectEvent={onSelectEvent}
         eventPropGetter={eventPropGetter}
       />

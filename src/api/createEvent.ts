@@ -4,6 +4,7 @@ const tokenService = new TokenService();
 async function getToken() {
   return tokenService.getToken();
 }
+
 export async function createEvent(event: Event) {
   const body = convertToApiBody(event);
 

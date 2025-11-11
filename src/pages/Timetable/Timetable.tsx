@@ -1,6 +1,4 @@
-// src/pages/Timetable/Timetable.tsx
 import React, { useState } from 'react';
-
 import AdministrationPanel from './AdministrationPanel';
 import BigCalendar from './BigCalendar';
 import './Timetable.css';

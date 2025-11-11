@@ -1,6 +1,6 @@
 import { Button, Stack } from '@mui/material';
 import { CalendarMonth, Edit, Close } from '@mui/icons-material';
-//import { ValidateInputButton } from '@components/autoCompleteDropdown/validateInputButton.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   eventExists: boolean;
@@ -9,6 +9,7 @@ interface Props {
   onDelete: () => void;
   isTeacher: boolean;
   isAdmin: boolean;
+  isFormValid: boolean;
 }
 
 export default function ActionButtons({
@@ -18,27 +19,39 @@ export default function ActionButtons({
   onDelete,
   isTeacher,
   isAdmin,
+  isFormValid,
 }: Props) {
+  //Übersetzung
+  const { t } = useTranslation();
+
   return (
     <Stack spacing={1}>
-      {/*//<ValidateInputButton/>*/}
       {isAdmin && (
         <Button
           variant="contained"
           fullWidth
           onClick={onAdd}
+          disabled={!isFormValid}
           startIcon={<CalendarMonth />}
           sx={{
-            bgcolor: '#002E6D',
-            color: 'white',
-            '&:hover': { bgcolor: '#072241' },
+            bgcolor: isFormValid ? '#002E6D' : '#f0f2f4',
+            color: isFormValid ? 'white' : '#8b9096',
+            '&:hover': { bgcolor: isFormValid ? '#072241' : '#f0f2f4' },
             fontWeight: 600,
             py: 1.4,
             borderRadius: 1.5,
+            '&.Mui-disabled': {
+              bgcolor: '#f0f2f4',
+              color: '#8b9096',
+            },
           }}
-          aria-label="Neue Veranstaltung hinzufügen"
+          aria-label={
+            isFormValid
+              ? 'Neue Veranstaltung hinzufügen'
+              : 'Hinzufügen deaktiviert, bitte alle Felder ausfüllen'
+          }
         >
-          VERANSTALTUNG HINZUFÜGEN
+          {t('pages.timetable.addEvent')}
         </Button>
       )}
 
@@ -64,7 +77,7 @@ export default function ActionButtons({
                 : 'Aktualisieren deaktiviert, keine Veranstaltung vorhanden'
             }
           >
-            Aktualisieren
+            {t('pages.timetable.updateEvent')}
           </Button>
         )}
 
@@ -87,7 +100,7 @@ export default function ActionButtons({
                 : 'Löschen deaktiviert, keine Veranstaltung vorhanden'
             }
           >
-            Löschen
+            {t('pages.timetable.deleteEvent')}
           </Button>
         )}
       </Stack>

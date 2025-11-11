@@ -42,7 +42,7 @@ export default function AdministrationPanel({
   const [currentEventIndex, setCurrentEventIndex] = useState<number | null>(
     null
   );
-  const { validateForm, formState } = useFormContext();
+  const { validateForm, formState, updateField } = useFormContext();
   //Übersetzungen
   const { t } = useTranslation();
   const starttime = t('pages.administrationpanel.startzeit');
@@ -70,6 +70,10 @@ export default function AdministrationPanel({
         name: selectedEvent.dozentNamen,
         id: selectedEvent.dozentId,
       };
+      updateField('veranstaltungstyp', selectedEvent.typ || null);
+      updateField('startTime', selectedEvent.start);
+      updateField('endTime', selectedEvent.end);
+      updateField('kommentar', selectedEvent.kommentar || null);
       const idx = events.findIndex((ev) => ev === selectedEvent);
       setCurrentEventIndex(idx >= 0 ? idx : null);
     }
@@ -81,60 +85,21 @@ export default function AdministrationPanel({
       setStartTime(selectedTimeSlot.start);
       setEndTime(selectedTimeSlot.end);
       setSelectedDate(selectedTimeSlot.start);
+      updateField('startTime', selectedTimeSlot.start);
+      updateField('endTime', selectedTimeSlot.end);
     }
   }, [selectedTimeSlot]);
-
-  /*  useEffect(() => {
-    if (!selectedDate) {
-      setEventExists(false);
-      setCurrentEventIndex(null);
-      return;
-    }
-
-    const index = events.findIndex(
-      (ev) => ev.start.toDateString() === selectedDate.toDateString()
-    );
-
-    if (index >= 0) {
-      setEventExists(true);
-      setCurrentEventIndex(index);
-
-      const ev = events[index];
-      // Start- und Endzeit setzen
-      setStartTime(ev.start);
-      setEndTime(ev.end);
-      // Modul aus Titel extrahieren (optional)
-    } else {
-      setEventExists(false);
-      setCurrentEventIndex(null);
-      // Formular leeren
-      setKommentar('');
-      // Zeiten nicht zurücksetzen, wenn sie durch einen Zeitslot-Drag gesetzt wurden
-      // Die Zeiten bleiben erhalten, wenn der Benutzer einen Zeitslot ausgewählt hat
-    }
-  }, [selectedDate, events]);*/
 
   const handleAdd = () => {
     if (!selectedDate || !startTime || !endTime) return;
 
-    // Aktuelle Werte ausgeben
-    console.log('Studiengruppe:', formState.studienGruppe);
-    console.log('Modul:', formState.modul);
-    console.log('Dozent:', formState.dozent);
-    console.log('Veranstaltungstyp:', formState.veranstaltungstyp);
-    console.log('Raum:', formState.raum);
-
     const validation = validateForm();
 
-    if (validation.isValid) {
-      // alert('Alle Felder sind ausgefüllt! Die Veranstaltung kann gebucht werden.');
-      // Hier können Sie weitere Aktionen ausführen, z.B. API-Call
-    } else {
-      alert(
-        `Bitte füllen Sie folgende Felder aus: ${validation.missingFields.join(', ')}`
-      );
+    if (!validation.isValid) {
+      // Button sollte disabled sein, aber zur Sicherheit
+      return;
     }
-    console.log(selectedDate, startTime, endTime);
+
     const start = new Date(selectedDate);
     start.setHours(startTime.getHours(), startTime.getMinutes());
     const end = new Date(selectedDate);
@@ -351,15 +316,18 @@ export default function AdministrationPanel({
                 disabled={isTeacher && !isAdmin}
                 label={starttime}
                 value={startTime}
-                onChange={setStartTime}
+                onChange={(newValue) => {
+                  setStartTime(newValue);
+                  updateField('startTime', newValue);
+                }}
                 slotProps={{
                   textField: {
                     fullWidth: true,
                     sx: {
-                      bgcolor: '#fff', // weißer Hintergrund
+                      bgcolor: '#fff',
                       borderRadius: 1.5,
                       '& .MuiOutlinedInput-root.Mui-focused fieldset': {
-                        borderColor: '#FFBF47', // sichtbarer Fokusrahmen
+                        borderColor: '#FFBF47',
                         borderWidth: 2,
                       },
                     },
@@ -372,15 +340,18 @@ export default function AdministrationPanel({
                 disabled={isTeacher && !isAdmin}
                 label={endtime}
                 value={endTime}
-                onChange={setEndTime}
+                onChange={(newValue) => {
+                  setEndTime(newValue);
+                  updateField('endTime', newValue);
+                }}
                 slotProps={{
                   textField: {
                     fullWidth: true,
                     sx: {
-                      bgcolor: '#fff', // weißer Hintergrund
+                      bgcolor: '#fff',
                       borderRadius: 1.5,
                       '& .MuiOutlinedInput-root.Mui-focused fieldset': {
-                        borderColor: '#FFBF47', // sichtbarer Fokusrahmen
+                        borderColor: '#FFBF47',
                         borderWidth: 2,
                       },
                     },
@@ -440,6 +411,7 @@ export default function AdministrationPanel({
           onDelete={handleDelete}
           isTeacher={isTeacher}
           isAdmin={isAdmin}
+          isFormValid={validateForm().isValid}
         />
       </Box>
       <Box>
