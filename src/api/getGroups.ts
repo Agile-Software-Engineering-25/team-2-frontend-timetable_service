@@ -1,15 +1,18 @@
-import { TokenService } from "./getToken";
+import { TokenService } from './getToken';
 const tokenService = new TokenService();
 async function getToken() {
   return tokenService.getToken();
 }
 export async function getGroups() {
-  return fetch('https://sau-portal.de/team-11-api/api/v1/group?withDetails=false', {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${await getToken()}`,
+  return fetch(
+    'https://sau-portal.de/team-11-api/api/v1/group?withDetails=false',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await getToken()}`,
+      },
     }
-  })
+  )
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -18,7 +21,7 @@ export async function getGroups() {
       console.error('Error fetching study groups:', error);
       return [];
     });
-
+}
 
 /*
   return {
