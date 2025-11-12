@@ -1,19 +1,21 @@
-import { getToken } from "./getToken";
+import useAxiosInstance from '@hooks/useAxiosInstance';
 
-export async function getRooms() {
-  return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error('Error fetching lecturers:', error);
-    });
+export async function getLecturers() {
+  const axios = useAxiosInstance();
+
+  try {
+
+    const response = await axios.post('/ase-1/room-mgmt/rooms')
+
+    const responseData = await response.data;
+
+    return responseData;
+  } catch (error: any) {
+    alert(
+      'Error fetching rooms:' + error.message
+    );
+  }
+
 }
 
 /*return {

@@ -1,19 +1,21 @@
-import { getToken } from "./getToken";
+import useAxiosInstance from '@hooks/useAxiosInstance';
 
-export async function getModules() {
-  return fetch('https://sau-portal.de/api/masterdata/studies/modules/', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error('Error fetching lecturers:', error);
-    });
+export async function getLecturers() {
+  const axios = useAxiosInstance();
+
+  try {
+
+    const response = await axios.post('/api/masterdata/studies/modules/')
+
+    const responseData = await response.data;
+
+    return responseData;
+  } catch (error: any) {
+    alert(
+      'Error fetching modules:' + error.message
+    );
+  }
+
 }
 
 /*return [

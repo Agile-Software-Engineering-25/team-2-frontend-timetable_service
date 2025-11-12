@@ -1,22 +1,21 @@
-import { getToken } from "./getToken";
+import useAxiosInstance from '@hooks/useAxiosInstance';
 
 export async function getLecturers() {
-  return fetch(
-    'https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error('Error fetching lecturers:', error);
-    });
+  const axios = useAxiosInstance();
+
+  try {
+
+    const response = await axios.post('/team-11-api/api/v1/users?withDetails=true&userType=lecturer')
+
+    const responseData = await response.data;
+
+    return responseData;
+  } catch (error: any) {
+    alert(
+      'Error fetching lecturers:' + error.message
+    );
+  }
+
 }
 
 /*  return [

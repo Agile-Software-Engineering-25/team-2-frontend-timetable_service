@@ -3,8 +3,9 @@ import type { Event } from '@pages/Timetable/Timetable.tsx';
 import useAxiosInstance from '@hooks/useAxiosInstance';
 
 export async function createEvent(event: Event) {
-  const axios = useAxiosInstance();
   const body = convertToApiBody(event);
+  const axios = useAxiosInstance();
+
   try {
 
     const response = await axios.post('/api/timetable/v1/event/', body)
