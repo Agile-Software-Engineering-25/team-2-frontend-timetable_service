@@ -1,12 +1,10 @@
-import { getToken } from "./getToken";
-
-export async function getGroups() {
+export async function getGroups(token: string) {
   return fetch(
     'https://sau-portal.de/team-11-api/api/v1/group?withDetails=false',
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   )

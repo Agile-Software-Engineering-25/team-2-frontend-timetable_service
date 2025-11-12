@@ -13,6 +13,7 @@ import { CssVarsProvider as JoyCssVarsProvider, GlobalStyles } from '@mui/joy';
 import './i18n';
 import { Provider } from 'react-redux';
 import store from '@stores/index.ts';
+import { AuthProvider } from '@/context/AuthContext.tsx';
 //import GlobalControls from '@components/GlobalControls/GlobalControls';
 
 const joyTheme = createCustomJoyTheme();
@@ -28,39 +29,41 @@ type AppProps = {
 function App(props: AppProps) {
   const { basename } = props;
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
-        <JoyCssVarsProvider
-          theme={joyTheme}
-          defaultMode="system"
-          modeStorageKey="joy-mode"
-          colorSchemeStorageKey="joy-color-scheme"
-        >
-          <CssBaseline />
-          <GlobalStyles
-            styles={(theme) => ({
-              // Ensure html and body have proper background
-              html: {
-                backgroundColor: theme.vars.palette.background.body,
-                minHeight: '100%',
-              },
-              body: {
-                backgroundColor: theme.vars.palette.background.body,
-                minHeight: '100vh',
-                margin: 0,
-                padding: 0,
-              },
-            })}
-          />
-          <BrowserRouter basename={basename ?? '/'}>
-            <RoutingComponent />
-            {/*
+    <AuthProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
+          <JoyCssVarsProvider
+            theme={joyTheme}
+            defaultMode="system"
+            modeStorageKey="joy-mode"
+            colorSchemeStorageKey="joy-color-scheme"
+          >
+            <CssBaseline />
+            <GlobalStyles
+              styles={(theme) => ({
+                // Ensure html and body have proper background
+                html: {
+                  backgroundColor: theme.vars.palette.background.body,
+                  minHeight: '100%',
+                },
+                body: {
+                  backgroundColor: theme.vars.palette.background.body,
+                  minHeight: '100vh',
+                  margin: 0,
+                  padding: 0,
+                },
+              })}
+            />
+            <BrowserRouter basename={basename ?? '/'}>
+              <RoutingComponent />
+              {/*
             <GlobalControls />
 */}
-          </BrowserRouter>
-        </JoyCssVarsProvider>
-      </ThemeProvider>
-    </Provider>
+            </BrowserRouter>
+          </JoyCssVarsProvider>
+        </ThemeProvider>
+      </Provider>
+    </AuthProvider>
   );
 }
 

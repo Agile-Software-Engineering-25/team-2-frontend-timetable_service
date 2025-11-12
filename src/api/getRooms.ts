@@ -1,10 +1,8 @@
-import { getToken } from "./getToken";
-
-export async function getRooms() {
+export async function getRooms(token: string) {
   return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
   })
     .then((response) => response.json())

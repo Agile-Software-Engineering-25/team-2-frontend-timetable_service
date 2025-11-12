@@ -1,12 +1,10 @@
-import { getToken } from "./getToken";
-
-export async function getLecturers() {
+export async function getLecturers(token: string) {
   return fetch(
     'https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer',
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   )

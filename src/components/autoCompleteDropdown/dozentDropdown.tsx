@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getLecturers } from '@/api/getLecturers.ts';
+import useUser from '@/hooks/useUser.ts';
 
 export interface Lecturer {
   name: string;
@@ -19,9 +20,12 @@ export function DozentDropdown({
 }) {
   const { formState, updateField } = useFormContext();
   const [lecturer, setLecturer] = useState<Lecturer[] | null>(null);
+  const user = useUser();
+  const token = user.getAccessToken() || '';
+
   useEffect(() => {
     let ignoreResult = false;
-    getLecturers().then((result) => {
+    getLecturers(token).then((result) => {
       if (ignoreResult) return;
       const lecturers = result.map(
         (doz: {
@@ -43,7 +47,7 @@ export function DozentDropdown({
     return () => {
       ignoreResult = true;
     };
-  }, []);
+  }, [token]);
   return (
     <Box>
       <Autocomplete

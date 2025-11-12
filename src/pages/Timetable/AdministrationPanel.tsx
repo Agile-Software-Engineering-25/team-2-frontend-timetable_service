@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormContext } from '@/contexts/FormContext.tsx';
 import { editEvent, createEvent, deleteEvent } from '@/api/createEvent.ts';
 import DisplayNextEvents from '@components/visualComponents/displayNextEvents.tsx';
+import useAxiosInstance from '@/hooks/useAxiosInstance.ts';
 
 interface AdministrationPanelProps {
   events: Event[];
@@ -31,6 +32,7 @@ export default function AdministrationPanel({
   isTeacher,
   isAdmin,
 }: AdministrationPanelProps) {
+  const axiosInstance = useAxiosInstance();
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(
@@ -119,7 +121,7 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id || '',
       kommentar,
     };
-    createEvent(newEvent).then((res: any) => {
+    createEvent(newEvent, axiosInstance).then((res: any) => {
       setEvents([...events, res]);
       console.log(res);
     });
@@ -149,12 +151,14 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id || '',
       kommentar,
     };
-    editEvent(updatedEvents[currentEventIndex]).then((res: any) => {
-      updatedEvents[currentEventIndex] = res;
-      setEvents(updatedEvents);
+    editEvent(updatedEvents[currentEventIndex], axiosInstance).then(
+      (res: any) => {
+        updatedEvents[currentEventIndex] = res;
+        setEvents(updatedEvents);
 
-      console.log(res);
-    });
+        console.log(res);
+      }
+    );
 
     console.log(updatedEvents[currentEventIndex]);
   };
@@ -163,7 +167,7 @@ export default function AdministrationPanel({
     if (currentEventIndex === null) return;
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
     setEvents(filteredEvents);
-    deleteEvent(events[currentEventIndex]).then(() => {
+    deleteEvent(events[currentEventIndex], axiosInstance).then(() => {
       console.log('Event gelöscht');
     });
     setEventExists(false);

@@ -1,10 +1,8 @@
-import { getToken } from "./getToken";
-
-export async function getModules() {
+export async function getModules(token: string) {
   return fetch('https://sau-portal.de/api/masterdata/studies/modules/', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
   })
     .then((response) => response.json())
