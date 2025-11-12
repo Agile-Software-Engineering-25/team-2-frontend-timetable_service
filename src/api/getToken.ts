@@ -1,13 +1,20 @@
 import useUser from '@hooks/useUser.ts';
 
 export class TokenService {
-  private async fetchToken(): Promise<string> {
+  
+  private fetchToken():string  {
     const user = useUser();
-    const token = user.getAccessToken();
-    return token;
+    const token:string| undefined = user.getAccessToken() ;
+    if(!token){
+      console.error("No user token found")
+      return ""
+    }else{
+      return token
+    }
+    
   }
 
-  public async getToken(): Promise<string> {
+  public getToken(): string  {
     return this.fetchToken();
   }
 }

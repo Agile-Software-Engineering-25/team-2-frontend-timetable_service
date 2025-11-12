@@ -9,7 +9,7 @@ export async function getLecturers() {
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${await getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     }
   )

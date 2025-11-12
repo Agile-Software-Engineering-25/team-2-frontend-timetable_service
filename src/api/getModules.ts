@@ -7,7 +7,7 @@ export async function getModules() {
   return fetch('https://sau-portal.de/api/masterdata/studies/modules/', {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${await getToken()}`,
+      "Authorization": `Bearer ${getToken()}`,
     }
   })
     .then((response) => response.json())

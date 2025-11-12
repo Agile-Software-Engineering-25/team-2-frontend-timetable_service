@@ -9,7 +9,7 @@ export async function getGroups() {
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${await getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     }
   )

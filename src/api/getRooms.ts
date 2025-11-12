@@ -7,7 +7,7 @@ export async function getRooms() {
   return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms', {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${await getToken()}`,
+      "Authorization": `Bearer ${getToken()}`,
     }
   })
     .then((response) => response.json())
