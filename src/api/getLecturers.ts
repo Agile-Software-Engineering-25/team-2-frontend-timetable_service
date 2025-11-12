@@ -1,8 +1,5 @@
-import { TokenService } from './getToken';
-const tokenService = new TokenService();
-async function getToken() {
-  return tokenService.getToken();
-}
+import { getToken } from "./getToken";
+
 export async function getLecturers() {
   return fetch(
     'https://sau-portal.de/team-11-api/api/v1/users?withDetails=true&userType=lecturer',
