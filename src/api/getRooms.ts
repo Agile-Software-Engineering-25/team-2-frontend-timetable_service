@@ -1,6 +1,6 @@
 import useAxiosInstance from '@hooks/useAxiosInstance';
 
-export async function getLecturers() {
+export async function getRooms() {
   const axios = useAxiosInstance();
 
   try {
