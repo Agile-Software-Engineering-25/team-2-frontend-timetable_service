@@ -51,6 +51,7 @@ const Timetable: React.FC = () => {
   } | null>(null);
 
   const handleSelectEvent = (event: Event) => {
+    console.log(event)
     setSelectedEvent(event);
   };
 

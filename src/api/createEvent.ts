@@ -127,7 +127,7 @@ function convertToEvent(responseData: ApiResponse[]): Event[] {
     id: response.id,
     title: response.title,
     start: new Date(response.time),
-    end: new Date(response.time),
+    end: new Date(response.endTime),
     studiengruppenName: response.studyGroup,
     modulName: response.module,
     raumName: response.room_name,
