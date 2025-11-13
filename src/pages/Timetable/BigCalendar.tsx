@@ -82,10 +82,9 @@ export default function BigCalendar({
         backgroundColor: bg_color,
         borderLeftStyle:'solid' as const,
         borderLeftColor: color,
-        borderLeftWidth: 4,
+        borderLeftWidth: 6,
         borderRadius: 6,
         color: '#fff',
-        border: 'none',
         fontWeight: 600,
       },
     };
