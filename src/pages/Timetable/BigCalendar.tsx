@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import type { Event } from './Timetable';
 import type { View } from 'react-big-calendar';
 import type { EventWrapperProps } from 'react-big-calendar';
-import TYP_COLORS from './typColors';
+import TYP_COLORS, { TYP_COLORS_BG } from './typColors';
 import CustomToolbar from './CustomToolbar';
 
 const locales = { de, en: enUS };
@@ -31,11 +31,11 @@ function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
 
-      <p style={{textWrap:'wrap', marginBottom:'5px'}}>{event.title}</p>
+      <p style={{fontSize:'medium', textWrap:'wrap', marginBottom:'5px'}}>{event.title}</p>
       <p style={{fontSize:'smaller', marginBottom:'5px'}}>{event.raumName}</p>
       {
         event.kommentar && (
-          <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
+          <div style={{ fontSize: 'smaller', opacity: 0.8 }}>
             {event.kommentar}
           </div>
         )
@@ -76,9 +76,10 @@ export default function BigCalendar({
 
   const eventPropGetter = (event: Event) => {
     const color = TYP_COLORS[event.typ] || '#1976d2';
+    const bg_color = TYP_COLORS_BG[event.typ] || '#1976d2';
     return {
       style: {
-        backgroundColor: color,
+        backgroundColor: bg_color,
         borderLeftStyle:'solid',
         borderLeftColor: color,
         borderLeftWidth: '4px',
