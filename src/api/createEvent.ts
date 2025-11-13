@@ -108,14 +108,14 @@ export async function getEvent(token: string): Promise<Event[]> {
 }
 interface ApiResponse {
   id: string,
-  endTime: Date
+  endTime: string
   lecturer_id: string
   lecturer_name: string
   module: string
   room_id: string
   room_name: string
   studyGroup: string
-  time: Date
+  time: string
   title: string
   type: string
   createdAt: Date | string | null,
@@ -125,8 +125,8 @@ function convertToEvent(responseData: ApiResponse[]): Event[] {
   return responseData.map((response: ApiResponse) => ({
     id: response.id,
     title: response.title,
-    start: response.time,
-    end: response.endTime,
+    start: new Date(response.time),
+    end: new Date(response.time),
     studiengruppenName: response.studyGroup,
     modulName: response.module,
     raumName: response.room_name,
