@@ -1,14 +1,9 @@
-import { TokenService } from "./getToken";
-const tokenService = new TokenService();
-async function getToken() {
-  return tokenService.getToken();
-}
-export async function getModules() {
+export async function getModules(token: string) {
   return fetch('https://sau-portal.de/api/masterdata/studies/modules/', {
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${await getToken()}`,
-    }
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then((response) => response.json())
     .then((data) => {
@@ -18,49 +13,3 @@ export async function getModules() {
       console.error('Error fetching lecturers:', error);
     });
 }
-
-/*return [
-    {
-      "id": 10,
-      "template": {
-        "name": "Test_Name",
-        "id": 0,
-        "course_templates": [
-          {
-            "name": "string",
-            "code": "string",
-            "elective": true,
-            "planned_semester": 0,
-            "id": 0
-          }
-        ]
-      },
-      "courses": [
-        {
-          "semester": 0,
-          "exam_type": "string",
-          "credit_points": 0,
-          "total_units": 0,
-          "template_id": 0,
-          "id": 0,
-          "template": {
-            "name": "string",
-            "code": "string",
-            "elective": true,
-            "planned_semester": 0,
-            "id": 0
-          },
-          "students": [
-            {
-              "external_id": "string"
-            }
-          ],
-          "teachers": [
-            {
-              "external_id": "string"
-            }
-          ]
-        }
-      ]
-    }
-  ]}*/

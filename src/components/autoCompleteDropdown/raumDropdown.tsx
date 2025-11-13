@@ -4,16 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getRooms } from '@/api/getRooms.ts';
-
-export const RAEUME: string[] = [
-  'A101',
-  'B835 / 1.34',
-  'B202',
-  // Wer hat sich gedacht "Für alles mache ich Komponenten außer für dieses eine spezifische Dropdown"??
-  // Echt keinen bock mehr das ich sowas fixxen darf....
-
-  // Hoffe das passt so
-];
+import useUser from '@/hooks/useUser.ts';
 
 export interface Room {
   name: string;
@@ -29,9 +20,12 @@ export function RaumDropdown({
 }) {
   const { formState, updateField } = useFormContext();
   const [room, setRoom] = useState<Room[] | null>(null);
+  const user = useUser();
+  const token = user.getAccessToken() || '';
+
   useEffect(() => {
     let ignoreResult = false;
-    getRooms().then((result) => {
+    getRooms(token).then((result) => {
       if (ignoreResult) return;
       const rooms = result.rooms.map((rooms: any) => {
         return { name: rooms.name, id: rooms.id };
@@ -41,7 +35,7 @@ export function RaumDropdown({
     return () => {
       ignoreResult = true;
     };
-  }, []);
+  }, [token]);
   return (
     <Box>
       <Autocomplete

@@ -1,11 +1,6 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
-import { TokenService } from "./getToken";
-const tokenService = new TokenService();
-async function getToken() {
-  return tokenService.getToken();
-}
 
-export async function createEvent(event: Event) {
+export async function createEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
@@ -13,8 +8,8 @@ export async function createEvent(event: Event) {
     {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${await getToken()}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }
@@ -29,7 +24,7 @@ export async function createEvent(event: Event) {
     return responseData;
   }
 }
-export async function editEvent(event: Event) {
+export async function editEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
@@ -37,8 +32,8 @@ export async function editEvent(event: Event) {
     {
       method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${await getToken()}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }
@@ -53,15 +48,15 @@ export async function editEvent(event: Event) {
     return responseData;
   }
 }
-export async function deleteEvent(event: Event) {
+export async function deleteEvent(event: Event, token: string) {
   const response = await fetch(
     `https://sau-portal.de/api/timetable/v1/event/${event.id}`,
     {
       method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${await getToken()}`,
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   if (!response.ok) {
@@ -87,15 +82,15 @@ export function convertToApiBody(event: Event) {
   };
 }
 
-export async function getEvent() {
+export async function getEvent(token: string) {
   const response = await fetch(
     'https://sau-portal.de/api/timetable/v1/schedule/',
     {
       method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${await getToken()}`,
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   const responseData = await response.json();

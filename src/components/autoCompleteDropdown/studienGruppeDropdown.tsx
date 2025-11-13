@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getGroups } from '@/api/getGroups.ts';
+import useUser from '@/hooks/useUser.ts';
 
 export default function StudienGruppeDropdown({
   isTeacher,
@@ -14,9 +15,12 @@ export default function StudienGruppeDropdown({
 }) {
   const { formState, updateField } = useFormContext();
   const [studyGroups, setStudyGroups] = useState<string[] | null>(null);
+  const user = useUser();
+  const token = user.getAccessToken() || '';
+
   useEffect(() => {
     let ignoreResult = false;
-    getGroups().then((result) => {
+    getGroups(token).then((result) => {
       if (ignoreResult) return;
       const groups = result.groups.map((group: any) => {
         return group.name;
@@ -26,7 +30,7 @@ export default function StudienGruppeDropdown({
     return () => {
       ignoreResult = true;
     };
-  }, []);
+  }, [token]);
   return (
     <Box>
       <Autocomplete

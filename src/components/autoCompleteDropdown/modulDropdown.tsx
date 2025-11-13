@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getModules } from '@/api/getModules.ts';
+import useUser from '@/hooks/useUser.ts';
 
 export interface Module {
   name: string;
@@ -19,9 +20,12 @@ export function ModulDropdown({
 }) {
   const { formState, updateField } = useFormContext();
   const [modules, setModules] = useState<Module[] | null>(null);
+  const user = useUser();
+  const token = user.getAccessToken() || '';
+
   useEffect(() => {
     let ignoreResult = false;
-    getModules().then((result) => {
+    getModules(token).then((result) => {
       if (ignoreResult) return;
       const modules = result.map((module: any) => {
         return { name: module.template.name, id: module.id };
@@ -31,7 +35,7 @@ export function ModulDropdown({
     return () => {
       ignoreResult = true;
     };
-  }, []);
+  }, [token]);
   return (
     <Box>
       <Autocomplete

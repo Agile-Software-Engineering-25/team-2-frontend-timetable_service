@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router';
 import Timetable from '@/pages/Timetable/Timetable';
+import { Route, Routes } from 'react-router';
 
 const RoutingComponent = () => {
   return (
