@@ -80,9 +80,9 @@ export default function BigCalendar({
     return {
       style: {
         backgroundColor: bg_color,
-        borderLeftStyle:'solid',
+        borderLeftStyle:'solid' as const,
         borderLeftColor: color,
-        borderLeftWidth: '4px',
+        borderLeftWidth: 4,
         borderRadius: 6,
         color: '#fff',
         border: 'none',
