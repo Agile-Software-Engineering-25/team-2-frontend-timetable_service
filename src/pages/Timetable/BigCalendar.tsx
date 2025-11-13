@@ -31,7 +31,7 @@ function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
 
-      <h6><strong>{event.title}</strong></h6>
+      <p>{event.title}</p>
       {
         event.kommentar && (
           <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
@@ -39,8 +39,8 @@ function CustomEvent({ event }: { event: Event }) {
           </div>
         )
       }
-      <p>{event.raumName}</p>
-      <p>{event.studiengruppenName}</p>
+      <p style={{fontSize:'smaller'}}>{event.raumName}</p>
+      <p style={{fontSize:'smaller'}}>{event.studiengruppenName}</p>
     </div>
   );
 }
