@@ -22,7 +22,8 @@ export default function StudienGruppeDropdown({
 
     const fetchGroups = async () => {
       console.log("Token: " + user.getAccessToken())
-      const token = user.getAccessToken() || "";
+      console.log(user)
+      const token = user.getAccessToken() ;
       const result = await getGroups(token);
 
       if (!ignoreResult) {
