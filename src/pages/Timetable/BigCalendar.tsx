@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import type { Event } from './Timetable';
 import type { View } from 'react-big-calendar';
 import type { EventWrapperProps } from 'react-big-calendar';
-import  {TYP_COLORS, TYP_COLORS_BG } from './typColors';
+import { TYP_COLORS, TYP_COLORS_BG } from './typColors';
 import CustomToolbar from './CustomToolbar';
 
 const locales = { de, en: enUS };
@@ -31,8 +31,11 @@ function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
 
-      <p style={{fontSize:'medium', textWrap:'wrap', marginBottom:'5px'}}>{event.title}</p>
-      <p style={{fontSize:'smaller', marginBottom:'5px'}}>{event.raumName}</p>
+      <p style={{
+        fontSize: 'medium', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
+        WebkitBoxOrient: 'vertical',
+      }}>{event.title}</p>
+      <p style={{ fontSize: 'smaller', marginBottom: '5px' }}>{event.raumName}</p>
       {
         event.kommentar && (
           <div style={{ fontSize: 'smaller', opacity: 0.8 }}>
@@ -40,7 +43,7 @@ function CustomEvent({ event }: { event: Event }) {
           </div>
         )
       }
-      <p style={{fontSize:'smaller',marginTop:'15px'}}>{event.studiengruppenName}</p>
+      <p style={{ fontSize: 'smaller', marginTop: '15px' }}>{event.studiengruppenName}</p>
     </div>
   );
 }
@@ -80,13 +83,13 @@ export default function BigCalendar({
     return {
       style: {
         backgroundColor: bg_color,
-        borderLeftStyle:'solid' as const,
+        borderLeftStyle: 'solid' as const,
         borderLeftColor: color,
         borderLeftWidth: 6,
         borderRadius: 6,
         color: '#fff',
         fontWeight: 600,
-        paddingLeft:0
+        paddingLeft: 3
       },
     };
   };
