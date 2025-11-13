@@ -27,7 +27,7 @@ export function RaumDropdown({
     let ignoreResult = false;
     getRooms(token).then((result) => {
       if (ignoreResult) return;
-      const rooms = result.rooms.map((rooms: any) => {
+      const rooms = result.rooms.map((rooms: { name: string; id: string }) => {
         return { name: rooms.name, id: rooms.id };
       });
       setRoom(rooms);
