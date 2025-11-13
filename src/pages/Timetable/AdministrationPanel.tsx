@@ -155,7 +155,6 @@ export default function AdministrationPanel({
       updatedEvents[currentEventIndex] = res;
       setEvents(updatedEvents);
 
-      console.log(res);
     });
 
     console.log(updatedEvents[currentEventIndex]);

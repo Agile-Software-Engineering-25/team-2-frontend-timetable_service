@@ -21,7 +21,8 @@ export async function createEvent(event: Event, token: string) {
       `Veranstaltung konnte nicht erstellt werden: ${responseData.message}`
     );
   } else {
-    return convertToEvent(responseData);
+    const newEvent = convertToEvent([responseData]);
+    return newEvent[0]
 
   }
 }
@@ -46,7 +47,8 @@ export async function editEvent(event: Event, token: string) {
       `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
     );
   } else {
-    return convertToEvent(responseData);
+    const newEvent = convertToEvent([responseData]);
+    return newEvent[0]
   }
 }
 export async function deleteEvent(event: Event, token: string) {
