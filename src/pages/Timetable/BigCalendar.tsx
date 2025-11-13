@@ -27,6 +27,29 @@ interface BigCalendarProps {
   onSelectEvent?: (event: Event) => void;
   onSelectSlot?: (slotInfo: { start: Date; end: Date }) => void;
 }
+function CustomEvent({ event }: { event: Event }) {
+  return (
+    <div>
+      <p>
+        {event.start.toLocaleTimeString('de-DE', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })} - {event.end.toLocaleTimeString('de-DE', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}</p><br></br>
+      <strong>{event.title}</strong>
+      {
+        event.kommentar && (
+          <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
+            {event.kommentar}<br></br>
+          </div>
+        )
+      }
+      <span>{event.raumName}</span><br></br>
+      <span>{event.studiengruppenName}</span></div>
+  );
+}
 
 export default function BigCalendar({
   events,
@@ -105,7 +128,7 @@ export default function BigCalendar({
         onSelectSlot={onSelectSlot}
         components={{
           toolbar: CustomToolbar,
-          eventWrapper: ({ event }: AccessibleEventWrapperProps) => (
+          eventWrapper: ({ event, children }: AccessibleEventWrapperProps) => (
             <div
               tabIndex={0}
               role="button"
@@ -124,24 +147,10 @@ export default function BigCalendar({
               }}
               style={{ outline: 'none' }}
             >
-
-              <span>{event.start.toLocaleTimeString('de-DE', {
-                hour: '2-digit',
-                minute: '2-digit',
-              })} - {event.end.toLocaleTimeString('de-DE', {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}</span>
-              <strong>{event.title}</strong>
-              {event.kommentar && (
-                <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
-                  {event.kommentar}
-                </div>
-              )}
-              <span>{event.raumName}</span>
-              <span>{event.studiengruppenName}</span>
+              {children}
             </div>
           ),
+          event: CustomEvent
         }}
         view={view}
         date={date}
@@ -158,6 +167,6 @@ export default function BigCalendar({
         onSelectEvent={onSelectEvent}
         eventPropGetter={eventPropGetter}
       />
-    </div >
+    </div>
   );
 }
