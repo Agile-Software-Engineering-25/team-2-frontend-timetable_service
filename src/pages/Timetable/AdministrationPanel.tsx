@@ -135,20 +135,23 @@ export default function AdministrationPanel({
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const updatedEvents = [...events];
-    updatedEvents[currentEventIndex] = {
+    const toUpdate = updatedEvents[currentEventIndex]
+    const event:Event =  {
+      id: toUpdate.id,
       title: `${formState.modul} (${formState.studienGruppe})`,
       start,
       end,
-      studiengruppenName: formState.studienGruppe || '',
-      modulName: formState.modul || '',
-      raumName: formState.raum?.name || '',
-      raumId: formState.raum?.id || '',
+      studiengruppenName: formState.studienGruppe! ,
+      modulName: formState.modul!,
+      raumName: formState.raum?.name!,
+      raumId: formState.raum?.id!,
       typ,
-      dozentNamen: formState.dozent?.name || '',
-      dozentId: formState.dozent?.id || '',
-      kommentar,
+      dozentNamen: formState.dozent?.name!,
+      dozentId: formState.dozent?.id!,
+      kommentar: kommentar || toUpdate.kommentar,
     };
-    editEvent(updatedEvents[currentEventIndex], token).then((res: any) => {
+    console.log(event)
+    editEvent(event, token).then((res: any) => {
       updatedEvents[currentEventIndex] = res;
       setEvents(updatedEvents);
 
