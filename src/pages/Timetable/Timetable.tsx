@@ -5,7 +5,7 @@ import './Timetable.css';
 import LanguageSelectorComponent from '../../components/LanguageSelectorComponent/LanguageSelectorComponent';
 import { FormProvider } from '@/contexts/FormContext.tsx';
 import { getEvent } from '@/api/createEvent.ts';
-import useAxiosInstance from '@/hooks/useAxiosInstance.ts';
+import useUser from '@/hooks/useUser';
 
 //Konstanten für Ansicht-Steuerung
 const isAdmin = true;
@@ -29,14 +29,14 @@ export interface Event {
 
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-  const axiosInstance = useAxiosInstance();
-
+  const user = useUser()
+  const token = user.getAccessToken()
   useEffect(() => {
-    getEvent(axiosInstance).then((result) => {
+    getEvent(token).then((result) => {
       setEvents(result);
       console.log(result);
     });
-  }, [axiosInstance]);
+  });
 
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<{
@@ -53,8 +53,8 @@ const Timetable: React.FC = () => {
   };
   const srStatus = selectedEvent
     ? `Ausgewählt: ${selectedEvent.modulName} in ${selectedEvent.raumName}, ` +
-      `${selectedEvent.start.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} bis ` +
-      `${selectedEvent.end.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`
+    `${selectedEvent.start.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} bis ` +
+    `${selectedEvent.end.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`
     : '';
 
   return (

@@ -1,39 +1,70 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
-import type { AxiosInstance } from 'axios';
 
-export async function createEvent(event: Event, axiosInstance: AxiosInstance) {
+
+export async function createEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
-  try {
-    const response = await axiosInstance.post('/api/timetable/v1/event/', body);
 
-    const responseData = await response.data;
+  const response = await fetch(
+    'https://sau-portal.de/api/timetable/v1/event/',
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  const responseData = await response.json();
 
-    return responseData;
-  } catch (error: any) {
-    alert(`Veranstaltung konnte nicht erstellt werden: ${error.message}`);
-  }
-}
-export async function editEvent(event: Event, axiosInstance: AxiosInstance) {
-  const body = convertToApiBody(event);
-  try {
-    const response = await axiosInstance.put('/api/timetable/v1/event/', body);
-
-    const responseData = await response.data;
-
-    return responseData;
-  } catch (error: any) {
-    alert(`Veranstaltung konnte nicht bearbeitet werden: ${error.message}`);
-  }
-}
-export async function deleteEvent(event: Event, axiosInstance: AxiosInstance) {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/timetable/v1/event/${event.id}`
+  if (!response.ok) {
+    alert(
+      `Veranstaltung konnte nicht erstellt werden: ${responseData.message}`
     );
+  } else {
+    return responseData;
+  }
+}
+export async function editEvent(event: Event, token: string) {
+  const body = convertToApiBody(event);
 
-    if (response.status != 204) throw new Error(response.data);
-  } catch (error: any) {
-    alert(`Veranstaltung konnte nicht gelöscht werden: ${error.message}`);
+  const response = await fetch(
+    'https://sau-portal.de/api/timetable/v1/event/',
+    {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
+  } else {
+    return responseData;
+  }
+}
+export async function deleteEvent(event: Event, token: string) {
+  const response = await fetch(
+    `https://sau-portal.de/api/timetable/v1/event/${event.id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      }
+    }
+  );
+  if (!response.ok) {
+    const responseData = await response.json();
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
   }
 }
 export function convertToApiBody(event: Event) {
@@ -52,14 +83,24 @@ export function convertToApiBody(event: Event) {
   };
 }
 
-export async function getEvent(axiosInstance: AxiosInstance) {
-  try {
-    const response = await axiosInstance.get('/api/timetable/v1/schedule/');
+export async function getEvent(token: string) {
+  const response = await fetch(
+    'https://sau-portal.de/api/timetable/v1/schedule/',
+    {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      }
+    }
+  );
+  const responseData = await response.json();
 
-    const responseData = await response.data;
-
+  if (!response.ok) {
+    alert(
+      `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
+    );
+  } else {
     return responseData;
-  } catch (error: any) {
-    alert(`Veranstaltung konnte nicht geladen werden: ${error.message}`);
   }
 }
