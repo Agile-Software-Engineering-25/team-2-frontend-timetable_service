@@ -15,22 +15,27 @@ export default function StudienGruppeDropdown({
 }) {
   const { formState, updateField } = useFormContext();
   const [studyGroups, setStudyGroups] = useState<string[] | null>(null);
-  const user = useUser();
-  const token = user.getAccessToken() || '';
+  const user = useUser(); // <-- Hook nur hier aufrufen!
 
   useEffect(() => {
     let ignoreResult = false;
-    getGroups(token).then((result) => {
-      if (ignoreResult) return;
-      const groups = result.groups.map((group: any) => {
-        return group.name;
-      });
-      setStudyGroups(groups);
-    });
+
+    const fetchGroups = async () => {
+      const token = user.getAccessToken() || "";
+      const result = await getGroups(token);
+
+      if (!ignoreResult) {
+        const groups = result.groups.map((group: any) => group.name);
+        setStudyGroups(groups);
+      }
+    };
+
+    fetchGroups();
+
     return () => {
       ignoreResult = true;
     };
-  }, [token]);
+  }, [user]);
   return (
     <Box>
       <Autocomplete
