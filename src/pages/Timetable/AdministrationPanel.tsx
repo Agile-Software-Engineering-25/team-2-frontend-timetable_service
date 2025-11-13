@@ -54,7 +54,6 @@ export default function AdministrationPanel({
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
     if (selectedEvent) {
-      console.log(selectedEvent)
       setSelectedDate(selectedEvent.start);
       setStartTime(selectedEvent.start);
       setEndTime(selectedEvent.end);
@@ -121,7 +120,6 @@ export default function AdministrationPanel({
     };
     createEvent(newEvent, token).then((res: any) => {
       setEvents([...events, res]);
-      console.log(res);
     });
   };
 
@@ -150,14 +148,12 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id!,
       kommentar: kommentar || toUpdate.kommentar,
     };
-    console.log(event)
     editEvent(event, token).then((res: any) => {
       updatedEvents[currentEventIndex] = res;
       setEvents(updatedEvents);
 
     });
 
-    console.log(updatedEvents[currentEventIndex]);
   };
 
   const handleDelete = () => {
@@ -165,7 +161,6 @@ export default function AdministrationPanel({
     const filteredEvents = events.filter((_, i) => i !== currentEventIndex);
     setEvents(filteredEvents);
     deleteEvent(events[currentEventIndex], token).then(() => {
-      console.log('Event gelöscht');
     });
     setEventExists(false);
     setCurrentEventIndex(null);

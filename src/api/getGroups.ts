@@ -1,5 +1,4 @@
 export async function getGroups(token: string) {
-  console.log(token)
   return fetch(
     'https://sau-portal.de/team-11-api/api/v1/group?withDetails=false',
     {

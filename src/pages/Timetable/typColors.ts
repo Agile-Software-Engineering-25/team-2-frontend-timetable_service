@@ -7,11 +7,11 @@ export const TYP_COLORS: Record<string, string> = {
   Sonstiges: '#C3A588',
 };
 export const TYP_COLORS_BG: Record<string, string> = {
-  Kurs: '#80d5f4c2',
+  Kurs: '#80d5f460',
   'E-Learning': '#8096b6c2',
   Klausureinsicht: '#fbc12dad',
-  Dekansprechstunde: '#87ac88b2',
-  Prüfung: '#d58da1a4',
-  Sonstiges: '#c3a588be',
+  Dekansprechstunde: '#87ac888f',
+  Prüfung: '#d58da188',
+  Sonstiges: '#c3a58894',
 };
 export default TYP_COLORS;

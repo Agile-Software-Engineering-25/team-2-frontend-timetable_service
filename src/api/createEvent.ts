@@ -105,7 +105,6 @@ export async function getEvent(token: string): Promise<Event[]> {
     return []
   } else {
     const events = convertToEvent(responseData);
-    console.log(events)
     return events
   }
 }

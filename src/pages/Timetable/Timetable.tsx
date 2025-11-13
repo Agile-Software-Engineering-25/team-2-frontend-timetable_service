@@ -35,7 +35,6 @@ const Timetable: React.FC = () => {
     getEvent(token).then((result) => {
       if (ignoreResult) return;
       setEvents(result);
-      console.log(result);
     });
     return () => {
       ignoreResult = true;
@@ -51,7 +50,6 @@ const Timetable: React.FC = () => {
   } | null>(null);
 
   const handleSelectEvent = (event: Event) => {
-    console.log(event)
     setSelectedEvent(event);
   };
 
