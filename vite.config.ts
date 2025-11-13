@@ -9,7 +9,7 @@ const BASE_URL_DEPLOYMENT = `http://localhost:${PORT}/`;
 
 const ENTRY_POINT = "src/singleSpa.tsx";
 
-const NPM_EXTERNALS: string[] = ["react", "react-dom"];
+const NPM_EXTERNALS: string[] = [];
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
