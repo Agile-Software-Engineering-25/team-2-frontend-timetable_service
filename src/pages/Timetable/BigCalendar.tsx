@@ -36,6 +36,11 @@ function CustomEvent({ event }: { event: Event }) {
         fontSize: '15px', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
         WebkitBoxOrient: 'vertical', overflow: 'hidden',
       }}>{event.title}</p>
+      <p style={{
+        display: '-webkit-box',
+        fontSize: '15px', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
+        WebkitBoxOrient: 'vertical', overflow: 'hidden',
+      }}>{event.dozentNamen}</p>
       <p style={{ fontSize: 'smaller', marginBottom: '5px' }}>{event.raumName}</p>
       {
         event.kommentar && (
