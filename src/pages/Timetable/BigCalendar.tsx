@@ -30,14 +30,7 @@ interface BigCalendarProps {
 function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
-      <p>
-        {event.start.toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })} - {event.end.toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })}</p><br></br>
+     
       <strong>{event.title}</strong>
       {
         event.kommentar && (
@@ -46,8 +39,8 @@ function CustomEvent({ event }: { event: Event }) {
           </div>
         )
       }
-      <span>{event.raumName}</span><br></br>
-      <span>{event.studiengruppenName}</span></div>
+      <p>{event.raumName}</p><br></br>
+      <p>{event.studiengruppenName}</p></div>
   );
 }
 
