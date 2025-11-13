@@ -1,17 +1,17 @@
 export const TYP_COLORS: Record<string, string> = {
-  Kurs: '#80D5F4',
-  'E-Learning': '#8096B6',
+  Kurs: '#134affff',
+  'E-Learning': '#6e8ad6ff',
   Klausureinsicht: '#fbc02d',
-  Dekansprechstunde: '#87AC88',
+  Dekansprechstunde: '#3fc260ff',
   Prüfung: '#D58DA2',
   Sonstiges: '#C3A588',
 };
 export const TYP_COLORS_BG: Record<string, string> = {
-  Kurs: '#80d5f460',
-  'E-Learning': '#8096b6c2',
-  Klausureinsicht: '#fbc12dad',
-  Dekansprechstunde: '#87ac886e',
-  Prüfung: '#d58da188',
-  Sonstiges: '#c3a58894',
+  Kurs: '#80d5f40e',
+  'E-Learning': '#8096b675',
+  Klausureinsicht: '#fbc12d71',
+  Dekansprechstunde: '#87ac883f',
+  Prüfung: '#d58da13a',
+  Sonstiges: '#c3a58862',
 };
 export default TYP_COLORS;

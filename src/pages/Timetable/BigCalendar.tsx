@@ -85,7 +85,7 @@ export default function BigCalendar({
 
   const eventPropGetter = (event: Event) => {
     const color = TYP_COLORS[event.typ] || '#1976d2';
-    const bg_color = TYP_COLORS_BG[event.typ] || '#1976d275';
+    const bg_color = TYP_COLORS_BG[event.typ] || '#1976d23b';
     return {
       style: {
         backgroundColor: bg_color,
