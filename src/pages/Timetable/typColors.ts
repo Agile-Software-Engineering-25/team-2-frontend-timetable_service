@@ -10,7 +10,7 @@ export const TYP_COLORS_BG: Record<string, string> = {
   Kurs: '#80d5f460',
   'E-Learning': '#8096b6c2',
   Klausureinsicht: '#fbc12dad',
-  Dekansprechstunde: '#87ac888f',
+  Dekansprechstunde: '#87ac886e',
   Prüfung: '#d58da188',
   Sonstiges: '#c3a58894',
 };
