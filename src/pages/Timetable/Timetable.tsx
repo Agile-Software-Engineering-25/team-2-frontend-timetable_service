@@ -34,6 +34,7 @@ const Timetable: React.FC = () => {
   useEffect(() => {
     let ignoreResult = false;
     getEvent(token).then((result) => {
+      if (ignoreResult) return;
       setEvents(result);
       console.log(result);
     });
