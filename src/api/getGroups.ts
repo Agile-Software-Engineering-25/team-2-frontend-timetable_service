@@ -17,4 +17,3 @@ export async function getGroups(token: string) {
       return [];
     });
 }
-

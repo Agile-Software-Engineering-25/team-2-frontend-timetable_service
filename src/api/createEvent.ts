@@ -1,6 +1,5 @@
 import type { Event } from '@pages/Timetable/Timetable.tsx';
 
-
 export async function createEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
 
@@ -9,8 +8,8 @@ export async function createEvent(event: Event, token: string) {
     {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }
@@ -33,8 +32,8 @@ export async function editEvent(event: Event, token: string) {
     {
       method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }
@@ -55,9 +54,9 @@ export async function deleteEvent(event: Event, token: string) {
     {
       method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   if (!response.ok) {
@@ -89,9 +88,9 @@ export async function getEvent(token: string) {
     {
       method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   const responseData = await response.json();

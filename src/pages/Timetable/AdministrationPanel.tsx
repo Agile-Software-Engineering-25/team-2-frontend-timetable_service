@@ -32,8 +32,8 @@ export default function AdministrationPanel({
   isTeacher,
   isAdmin,
 }: AdministrationPanelProps) {
-  const user = useUser()
-  const token = user.getAccessToken()
+  const user = useUser();
+  const token = user.getAccessToken();
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(
@@ -152,14 +152,12 @@ export default function AdministrationPanel({
       dozentId: formState.dozent?.id || '',
       kommentar,
     };
-    editEvent(updatedEvents[currentEventIndex], token).then(
-      (res: any) => {
-        updatedEvents[currentEventIndex] = res;
-        setEvents(updatedEvents);
+    editEvent(updatedEvents[currentEventIndex], token).then((res: any) => {
+      updatedEvents[currentEventIndex] = res;
+      setEvents(updatedEvents);
 
-        console.log(res);
-      }
-    );
+      console.log(res);
+    });
 
     console.log(updatedEvents[currentEventIndex]);
   };

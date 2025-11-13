@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Card } from '@agile-software/shared-components/dist'
+import { Card } from '@agile-software/shared-components/dist';
 import { Button } from '@mui/material';
 import { Box, Typography, Textarea } from '@mui/joy';
 
