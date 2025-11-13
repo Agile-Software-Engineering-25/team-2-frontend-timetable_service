@@ -32,8 +32,8 @@ function CustomEvent({ event }: { event: Event }) {
     <div>
 
       <p style={{
-        fontSize: 'medium', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
-        WebkitBoxOrient: 'vertical',
+        fontSize: '15px', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
+        WebkitBoxOrient: 'vertical', overflow: 'hidden',
       }}>{event.title}</p>
       <p style={{ fontSize: 'smaller', marginBottom: '5px' }}>{event.raumName}</p>
       {
@@ -85,6 +85,7 @@ export default function BigCalendar({
         backgroundColor: bg_color,
         borderLeftStyle: 'solid' as const,
         borderLeftColor: color,
+        borderWidth: 0,
         borderLeftWidth: 6,
         borderRadius: 6,
         color: '#fff',
