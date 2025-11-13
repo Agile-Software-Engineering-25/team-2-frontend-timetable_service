@@ -28,7 +28,7 @@ export async function editEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
-    'https://sau-portal.de/api/timetable/v1/event/',
+    'https://sau-portal.de/api/timetable/v1/event/'+ event.id,
     {
       method: 'PUT',
       headers: {

@@ -54,6 +54,7 @@ export default function AdministrationPanel({
   // Prüfen, ob für das ausgewählte Datum schon ein Event für diese Studiengruppe oder Dozent existiert
   useEffect(() => {
     if (selectedEvent) {
+      console.log(selectedEvent)
       setSelectedDate(selectedEvent.start);
       setStartTime(selectedEvent.start);
       setEndTime(selectedEvent.end);
