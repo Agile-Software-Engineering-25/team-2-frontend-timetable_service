@@ -1,5 +1,5 @@
 export const TYP_COLORS: Record<string, string> = {
-  Kurs: '#134affff',
+  Kurs: '#1379ffff',
   'E-Learning': '#6e8ad6ff',
   Klausureinsicht: '#fbc02d',
   Dekansprechstunde: '#3fc260ff',
