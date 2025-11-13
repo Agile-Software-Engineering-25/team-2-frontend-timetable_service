@@ -31,7 +31,8 @@ function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
 
-      <p>{event.title}</p>
+      <p style={{textWrap:'wrap', marginBottom:'5px'}}>{event.title}</p>
+      <p style={{fontSize:'smaller', marginBottom:'5px'}}>{event.raumName}</p>
       {
         event.kommentar && (
           <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
@@ -39,8 +40,7 @@ function CustomEvent({ event }: { event: Event }) {
           </div>
         )
       }
-      <p style={{fontSize:'smaller'}}>{event.raumName}</p>
-      <p style={{fontSize:'smaller'}}>{event.studiengruppenName}</p>
+      <p style={{fontSize:'smaller',marginTop:'15px'}}>{event.studiengruppenName}</p>
     </div>
   );
 }
