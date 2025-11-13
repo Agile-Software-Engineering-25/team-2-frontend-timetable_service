@@ -79,6 +79,9 @@ export default function BigCalendar({
     return {
       style: {
         backgroundColor: color,
+        borderLeftStyle:'solid',
+        borderLeftColor: color,
+        borderLeftWidth: '4px',
         borderRadius: 6,
         color: '#fff',
         border: 'none',
