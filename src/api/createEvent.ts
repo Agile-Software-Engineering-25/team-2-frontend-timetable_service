@@ -21,14 +21,15 @@ export async function createEvent(event: Event, token: string) {
       `Veranstaltung konnte nicht erstellt werden: ${responseData.message}`
     );
   } else {
-    return responseData;
+    return convertToEvent(responseData);
+
   }
 }
 export async function editEvent(event: Event, token: string) {
   const body = convertToApiBody(event);
 
   const response = await fetch(
-    'https://sau-portal.de/api/timetable/v1/event/'+ event.id,
+    'https://sau-portal.de/api/timetable/v1/event/' + event.id,
     {
       method: 'PUT',
       headers: {
@@ -45,7 +46,7 @@ export async function editEvent(event: Event, token: string) {
       `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
     );
   } else {
-    return responseData;
+    return convertToEvent(responseData);
   }
 }
 export async function deleteEvent(event: Event, token: string) {
