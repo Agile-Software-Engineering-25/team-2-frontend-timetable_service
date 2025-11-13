@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import type { Event } from './Timetable';
 import type { View } from 'react-big-calendar';
 import type { EventWrapperProps } from 'react-big-calendar';
-import TYP_COLORS, { TYP_COLORS_BG } from './typColors';
+import  {TYP_COLORS, TYP_COLORS_BG } from './typColors';
 import CustomToolbar from './CustomToolbar';
 
 const locales = { de, en: enUS };
