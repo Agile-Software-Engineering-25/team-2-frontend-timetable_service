@@ -29,7 +29,6 @@ type AppProps = {
 function App(props: AppProps) {
   const { basename } = props;
   return (
-    <AuthProvider>
       <Provider store={store}>
         <ThemeProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
           <JoyCssVarsProvider
@@ -63,7 +62,6 @@ function App(props: AppProps) {
           </JoyCssVarsProvider>
         </ThemeProvider>
       </Provider>
-    </AuthProvider>
   );
 }
 
