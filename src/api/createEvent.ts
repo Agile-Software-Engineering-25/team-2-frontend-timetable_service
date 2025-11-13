@@ -100,6 +100,23 @@ export async function getEvent(token: string) {
       `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
     );
   } else {
-    return responseData;
+
+    return convertToEvent(responseData);
   }
+}
+function convertToEvent(responseData: any): Event[] {
+  return responseData.map((response: any) => ({
+    id: response.id,
+    title: response.title,
+    start: response.time,
+    end: response.endTime,
+    studiengruppenName: response.studyGroup,
+    modulName: response.module,
+    raumName: response.room_name,
+    raumId: response.room_id,
+    typ: response.type,
+    dozentNamen: response.lecturer_name,
+    dozentId: response.lecturer_id,
+    kommentar: response.comment
+  }))
 }

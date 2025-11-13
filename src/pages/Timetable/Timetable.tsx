@@ -17,7 +17,6 @@ export interface Event {
   start: Date;
   end: Date;
   studiengruppenName: string;
-  modulId: string;
   modulName: string;
   raumName: string;
   raumId: string;
