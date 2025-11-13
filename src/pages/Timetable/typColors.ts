@@ -7,7 +7,7 @@ export const TYP_COLORS: Record<string, string> = {
   Sonstiges: '#C3A588',
 };
 export const TYP_COLORS_BG: Record<string, string> = {
-  Kurs: '#80d5f40e',
+  Kurs: '#80d5f43b',
   'E-Learning': '#8096b675',
   Klausureinsicht: '#fbc12d71',
   Dekansprechstunde: '#87ac883f',
