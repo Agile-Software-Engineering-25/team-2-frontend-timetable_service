@@ -8,7 +8,7 @@ export const TYP_COLORS: Record<string, string> = {
 };
 export const TYP_COLORS_BG: Record<string, string> = {
   Kurs: '#80d5f43b',
-  'E-Learning': '#8096b675',
+  'E-Learning': '#79abf575',
   Klausureinsicht: '#fbc12d71',
   Dekansprechstunde: '#87ac883f',
   Prüfung: '#d58da13a',
