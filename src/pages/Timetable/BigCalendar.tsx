@@ -41,21 +41,21 @@ export default function BigCalendar({
   const messages =
     i18n.language === 'de' || i18n.language === 'de-DE'
       ? {
-          month: 'Monat',
-          week: 'Woche',
-          day: 'Tag',
-          today: 'Heute',
-          previous: 'Zurück',
-          next: 'Weiter',
-        }
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        today: 'Heute',
+        previous: 'Zurück',
+        next: 'Weiter',
+      }
       : {
-          month: 'Month',
-          week: 'Week',
-          day: 'Day',
-          today: 'Today',
-          previous: 'Back',
-          next: 'Next',
-        };
+        month: 'Month',
+        week: 'Week',
+        day: 'Day',
+        today: 'Today',
+        previous: 'Back',
+        next: 'Next',
+      };
 
   const eventPropGetter = (event: Event) => {
     const color = TYP_COLORS[event.typ] || '#1976d2';
@@ -105,7 +105,7 @@ export default function BigCalendar({
         onSelectSlot={onSelectSlot}
         components={{
           toolbar: CustomToolbar,
-          eventWrapper: ({ event, children }: AccessibleEventWrapperProps) => (
+          eventWrapper: ({ event }: AccessibleEventWrapperProps) => (
             <div
               tabIndex={0}
               role="button"
@@ -124,7 +124,22 @@ export default function BigCalendar({
               }}
               style={{ outline: 'none' }}
             >
-              {children}
+
+              <span>{event.start.toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })} - {event.end.toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}</span>
+              <strong>{event.title}</strong>
+              {event.kommentar && (
+                <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
+                  {event.kommentar}
+                </div>
+              )}
+              <span>{event.raumName}</span>
+              <span>{event.studiengruppenName}</span>
             </div>
           ),
         }}
@@ -143,6 +158,6 @@ export default function BigCalendar({
         onSelectEvent={onSelectEvent}
         eventPropGetter={eventPropGetter}
       />
-    </div>
+    </div >
   );
 }
