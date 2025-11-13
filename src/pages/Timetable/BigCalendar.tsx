@@ -32,6 +32,7 @@ function CustomEvent({ event }: { event: Event }) {
     <div>
 
       <p style={{
+        display: '-webkit-box',
         fontSize: '15px', textWrap: 'wrap', marginBottom: '5px', marginTop: '5px', WebkitLineClamp: 2,    // <--- Anzahl der Zeilen
         WebkitBoxOrient: 'vertical', overflow: 'hidden',
       }}>{event.title}</p>
