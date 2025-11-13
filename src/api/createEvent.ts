@@ -82,7 +82,7 @@ export function convertToApiBody(event: Event) {
   };
 }
 
-export async function getEvent(token: string) {
+export async function getEvent(token: string): Promise<Event[]> {
   const response = await fetch(
     'https://sau-portal.de/api/timetable/v1/schedule/',
     {
@@ -99,13 +99,30 @@ export async function getEvent(token: string) {
     alert(
       `Veranstaltung konnte nicht bearbeitet werden: ${responseData.message}`
     );
+    return []
   } else {
-
-    return convertToEvent(responseData);
+    const events = convertToEvent(responseData);
+    console.log(events)
+    return events
   }
 }
-function convertToEvent(responseData: any): Event[] {
-  return responseData.map((response: any) => ({
+interface ApiResponse {
+  id: string,
+  endTime: Date
+  lecturer_id: string
+  lecturer_name: string
+  module: string
+  room_id: string
+  room_name: string
+  studyGroup: string
+  time: Date
+  title: string
+  type: string
+  createdAt: Date | string | null,
+  comment?: string
+}
+function convertToEvent(responseData: ApiResponse[]): Event[] {
+  return responseData.map((response: ApiResponse) => ({
     id: response.id,
     title: response.title,
     start: response.time,
@@ -117,6 +134,6 @@ function convertToEvent(responseData: any): Event[] {
     typ: response.type,
     dozentNamen: response.lecturer_name,
     dozentId: response.lecturer_id,
-    kommentar: response.comment
+    kommentar: response.comment ?? ""
   }))
 }

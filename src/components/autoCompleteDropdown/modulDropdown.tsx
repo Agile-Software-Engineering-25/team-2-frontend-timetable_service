@@ -19,7 +19,7 @@ export function ModulDropdown({
   isAdmin: boolean;
 }) {
   const { formState, updateField } = useFormContext();
-  const [modules, setModules] = useState<Module[] | null>(null);
+  const [modules, setModules] = useState<string[] | null>(null);
   const user = useUser();
   const token = user.getAccessToken() || '';
 
@@ -28,7 +28,7 @@ export function ModulDropdown({
     getModules(token).then((result) => {
       if (ignoreResult) return;
       const modules = result.map((module: any) => {
-        return { name: module.template.name, id: module.id };
+        return module.template.name ;
       });
       setModules(modules);
     });
@@ -45,8 +45,6 @@ export function ModulDropdown({
         options={modules ?? []}
         value={formState.modul}
         onChange={(_, value) => updateField('modul', value)}
-        getOptionLabel={(option) => option.name}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
         // Live-Filter beim Tippen (Standard), fallunabhängig
         autoHighlight
         renderInput={(params) => (

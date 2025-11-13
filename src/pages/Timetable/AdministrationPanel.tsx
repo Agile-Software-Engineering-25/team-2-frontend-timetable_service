@@ -60,10 +60,7 @@ export default function AdministrationPanel({
       setTyp(selectedEvent.typ || '');
       setKommentar(selectedEvent.kommentar || '');
       setEventExists(true);
-      formState.modul = {
-        name: selectedEvent.modulName,
-        id: selectedEvent.modulId,
-      };
+      formState.modul = selectedEvent.modulName;
       formState.studienGruppe = selectedEvent.studiengruppenName;
       formState.raum = {
         name: selectedEvent.raumName,
@@ -109,12 +106,11 @@ export default function AdministrationPanel({
     end.setHours(endTime.getHours(), endTime.getMinutes());
 
     const newEvent: Event = {
-      title: `${formState.modul?.name} (${formState.studienGruppe})`,
+      title: `${formState.modul} (${formState.studienGruppe})`,
       start,
       end,
       studiengruppenName: formState.studienGruppe || '',
-      modulName: formState.modul?.name || '',
-      modulId: formState.modul?.id || '',
+      modulName: formState.modul || '',
       raumName: formState.raum?.name || '',
       raumId: formState.raum?.id || '',
       typ,
@@ -139,12 +135,11 @@ export default function AdministrationPanel({
 
     const updatedEvents = [...events];
     updatedEvents[currentEventIndex] = {
-      title: `${formState.modul?.name} (${formState.studienGruppe})`,
+      title: `${formState.modul} (${formState.studienGruppe})`,
       start,
       end,
       studiengruppenName: formState.studienGruppe || '',
-      modulName: formState.modul?.name || '',
-      modulId: formState.modul?.id || '',
+      modulName: formState.modul || '',
       raumName: formState.raum?.name || '',
       raumId: formState.raum?.id || '',
       typ,

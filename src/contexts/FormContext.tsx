@@ -1,5 +1,4 @@
 import type { Lecturer } from '@components/autoCompleteDropdown/dozentDropdown.tsx';
-import type { Module } from '@components/autoCompleteDropdown/modulDropdown.tsx';
 import type { Room } from '@components/autoCompleteDropdown/raumDropdown.tsx';
 import type { AutocompleteValue } from '@mui/material';
 import React, {
@@ -17,7 +16,7 @@ interface FormState {
   /** Ausgewählte Studiengruppe (z.B. "BIN-T-23-F1") */
   studienGruppe: string | null;
   /** Ausgewähltes Modul (z.B. "Agile Software Engineering") */
-  modul: Module | null;
+  modul: string | null;
   /** Ausgewählter Dozent (z.B. "Folk, Florian") */
   dozent: Lecturer | null;
   /** Ausgewählter Veranstaltungstyp (z.B. "Kurs", "Prüfung") */
