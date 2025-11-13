@@ -30,17 +30,18 @@ interface BigCalendarProps {
 function CustomEvent({ event }: { event: Event }) {
   return (
     <div>
-     
-      <strong>{event.title}</strong>
+
+      <h6><strong>{event.title}</strong></h6>
       {
         event.kommentar && (
           <div style={{ fontSize: '0.8em', opacity: 0.8 }}>
-            {event.kommentar}<br></br>
+            {event.kommentar}
           </div>
         )
       }
-      <p>{event.raumName}</p><br></br>
-      <p>{event.studiengruppenName}</p></div>
+      <p>{event.raumName}</p>
+      <p>{event.studiengruppenName}</p>
+    </div>
   );
 }
 
