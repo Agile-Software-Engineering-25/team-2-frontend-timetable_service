@@ -6,10 +6,11 @@ import LanguageSelectorComponent from '../../components/LanguageSelectorComponen
 import { FormProvider } from '@/contexts/FormContext.tsx';
 import { getEvent } from '@/api/createEvent.ts';
 import useUser from '@/hooks/useUser';
+import { jwtDecode } from 'jwt-decode';
 
 //Konstanten für Ansicht-Steuerung
-const isAdmin = true;
-const isTeacher = true;
+let isAdmin = false;
+let isTeacher = false;
 
 export interface Event {
   id?: string;
@@ -25,11 +26,29 @@ export interface Event {
   dozentId: string;
   kommentar: string;
 }
-
+type DecodedToken = {
+  // Allow unknown extra fields without using `any`
+  [key: string]: unknown;
+};
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const user = useUser();
   const token = user.getAccessToken();
+  const decoded = jwtDecode<DecodedToken>(token);
+  const roles: string[] | undefined = decoded?.groups as Array<string> ?? [];
+
+  if (roles.includes("student")) {
+    isAdmin = false;
+    isTeacher = false
+  }
+  else if (roles.includes("sau-admin")) {
+    isAdmin = true;
+    isTeacher = false
+  } else {
+    isTeacher = true;
+    isAdmin = false;
+  }
+
   useEffect(() => {
     let ignoreResult = false;
     getEvent(token).then((result) => {
