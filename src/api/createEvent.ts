@@ -85,9 +85,9 @@ export function convertToApiBody(event: Event) {
   };
 }
 
-export async function getEvent(token: string, personal: boolean): Promise<Event[]> {
+export async function getEvent(token: string, personal: boolean, userId: string): Promise<Event[]> {
   const response = await fetch(
-    'https://sau-portal.de/api/timetable/v1/schedule' + (personal ? "/personal" : ""),
+    'https://sau-portal.de/api/timetable/v1/schedule' + (personal ? `/personal/${userId}` : ""),
     {
       method: 'GET',
       headers: {
