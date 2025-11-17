@@ -27,8 +27,7 @@ export async function getRooms(token: string) {
     });
 }
 export async function getRoomBooking(token: string, roomData: RoomData) {
-
-  return fetch('https://api.provadis.com/v1/rooms/inquiry', {
+  return fetch('https://sau-portal.de/ase-1/room-mgmt/rooms/inquiry', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
