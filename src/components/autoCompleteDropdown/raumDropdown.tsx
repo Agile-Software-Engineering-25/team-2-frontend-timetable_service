@@ -31,13 +31,15 @@ export function RaumDropdown({
       groupId: formState.studienGruppe ?? "",
       characteristics: []
     }
-    getRoomBooking(token, roomBody).then((result) => {
-      if (ignoreResult) return;
-      const rooms = result.rooms.map((rooms: { name: string; id: string }) => {
-        return { name: rooms.name, id: rooms.id };
+    if (roomBody.groupId != "") {
+      getRoomBooking(token, roomBody).then((result) => {
+        if (ignoreResult) return;
+        const rooms = result.rooms.map((rooms: { name: string; id: string }) => {
+          return { name: rooms.name, id: rooms.id };
+        });
+        setRoom(rooms);
       });
-      setRoom(rooms);
-    });
+    }
     return () => {
       ignoreResult = true;
     };
