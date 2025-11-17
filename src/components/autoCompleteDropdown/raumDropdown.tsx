@@ -5,6 +5,7 @@ import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
 import { getRoomBooking, type RoomData } from '@/api/getRooms.ts';
 import useUser from '@/hooks/useUser.ts';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Room {
   name: string;
@@ -28,7 +29,7 @@ export function RaumDropdown({
     const roomBody: RoomData = {
       startTime: formState.startTime ?? new Date().toISOString(),
       endTime: formState.endTime ?? new Date().toISOString(),
-      groupId: formState.studienGruppe ?? "",
+      groupId: uuidv4(),
       characteristics: []
     }
     if (roomBody.groupId != "") {
