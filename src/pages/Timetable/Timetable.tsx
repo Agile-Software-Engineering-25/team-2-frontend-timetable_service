@@ -51,7 +51,7 @@ const Timetable: React.FC = () => {
 
   useEffect(() => {
     let ignoreResult = false;
-    getEvent(token).then((result) => {
+    getEvent(token, isAdmin == false).then((result) => {
       if (ignoreResult) return;
       setEvents(result);
     });
