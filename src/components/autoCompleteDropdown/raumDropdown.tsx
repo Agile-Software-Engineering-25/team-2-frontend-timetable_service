@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from '../../contexts/FormContext.tsx';
 import { useEffect, useState } from 'react';
-import { getRooms } from '@/api/getRooms.ts';
+import { getRoomBooking, type RoomData } from '@/api/getRooms.ts';
 import useUser from '@/hooks/useUser.ts';
 
 export interface Room {
@@ -25,7 +25,13 @@ export function RaumDropdown({
 
   useEffect(() => {
     let ignoreResult = false;
-    getRooms(token).then((result) => {
+    const roomBody: RoomData = {
+      startTime: formState.startTime ?? new Date().toISOString(),
+      endTime: formState.endTime ?? new Date().toISOString(),
+      groupId: formState.studienGruppe ?? "",
+      characteristics: []
+    }
+    getRoomBooking(token, roomBody).then((result) => {
       if (ignoreResult) return;
       const rooms = result.rooms.map((rooms: { name: string; id: string }) => {
         return { name: rooms.name, id: rooms.id };
@@ -35,7 +41,7 @@ export function RaumDropdown({
     return () => {
       ignoreResult = true;
     };
-  }, [token]);
+  }, [token, formState]);
   return (
     <Box>
       <Autocomplete
