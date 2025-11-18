@@ -36,7 +36,7 @@ const Timetable: React.FC = () => {
   const token = user.getAccessToken();
   const decoded = jwtDecode<DecodedToken>(token);
   const roles: string[] | undefined = decoded?.groups as Array<string> ?? [];
-
+  console.log(roles)
   if (roles.includes("student")) {
     isAdmin = false;
     isTeacher = false
