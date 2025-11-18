@@ -41,7 +41,7 @@ const Timetable: React.FC = () => {
     isAdmin = false;
     isTeacher = false
   }
-  else if (roles.includes("sau-admin")) {
+  else if (roles.includes("sau-admin") || roles.includes("university-administrative-staff")) {
     isAdmin = true;
     isTeacher = false
   } else {

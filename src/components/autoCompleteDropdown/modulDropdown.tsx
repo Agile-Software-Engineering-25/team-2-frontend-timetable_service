@@ -28,7 +28,7 @@ export function ModulDropdown({
     getModules(token).then((result) => {
       if (ignoreResult) return;
       const modules = result.map((module: any) => {
-        return module.template.name ;
+        return module.template.name;
       });
       setModules(modules);
     });
