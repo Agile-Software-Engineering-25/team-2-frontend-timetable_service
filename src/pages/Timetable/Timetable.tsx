@@ -60,7 +60,7 @@ const Timetable: React.FC = () => {
       ignoreResult = true;
     };
 
-  }, [token]);
+  }, [token, events]);
 
 
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
