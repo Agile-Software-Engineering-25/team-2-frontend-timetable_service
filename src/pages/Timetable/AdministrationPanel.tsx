@@ -119,6 +119,7 @@ export default function AdministrationPanel({
       kommentar,
     };
     createEvent(newEvent, token).then((res: any) => {
+      console.log(res)
       setEvents([...events, res]);
     });
   };
@@ -134,12 +135,12 @@ export default function AdministrationPanel({
 
     const updatedEvents = [...events];
     const toUpdate = updatedEvents[currentEventIndex]
-    const event:Event =  {
+    const event: Event = {
       id: toUpdate.id,
       title: `${formState.modul} (${formState.studienGruppe})`,
       start,
       end,
-      studiengruppenName: formState.studienGruppe! ,
+      studiengruppenName: formState.studienGruppe!,
       modulName: formState.modul!,
       raumName: formState.raum?.name!,
       raumId: formState.raum?.id!,
